@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -6,6 +5,7 @@ import WizardNav from '@/components/wizard/WizardNav';
 import FormSection from '@/components/wizard/FormSection';
 import FormField from '@/components/wizard/FormField';
 import WizardActions from '@/components/wizard/WizardActions';
+import SectionNav from '@/components/wizard/SectionNav';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { Download } from 'lucide-react';
@@ -15,6 +15,32 @@ const WIZARD_STEPS = [
   { name: 'Paso 1 - Información General' },
   { name: 'Paso 2 - Caracterización y Ajustes' },
   { name: 'Paso 3 - Acta de Acuerdo' },
+];
+
+// Define sections within each step
+const STEP_SECTIONS = [
+  // Step 1 sections
+  [
+    { id: 'encabezado', title: 'Encabezado del formulario' },
+    { id: 'identificacion', title: 'Identificación del estudiante' },
+    { id: 'info_general', title: 'Información general del estudiante' },
+    { id: 'salud', title: 'Entorno Salud' },
+    { id: 'hogar', title: 'Entorno Hogar' },
+    { id: 'educativo', title: 'Entorno Educativo' },
+  ],
+  // Step 2 sections
+  [
+    { id: 'docentes', title: 'Docentes responsables del PIAR' },
+    { id: 'caracteristicas', title: 'Características del Estudiante' },
+    { id: 'ajustes', title: 'Ajustes razonables' },
+    { id: 'recomendaciones', title: 'Recomendaciones institucionales' },
+  ],
+  // Step 3 sections
+  [
+    { id: 'participantes', title: 'Participantes' },
+    { id: 'compromisos', title: 'Compromisos' },
+    { id: 'firmas', title: 'Firmas' },
+  ],
 ];
 
 // Options for select fields
@@ -59,6 +85,7 @@ const TRANSPORTE_OPTIONS = [
 const PiarForm = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
+  const [currentSection, setCurrentSection] = useState(0);
   const [loading, setLoading] = useState(false);
   
   // Initialize all form fields with empty values
@@ -171,6 +198,7 @@ const PiarForm = () => {
   const handleNext = () => {
     if (currentStep < WIZARD_STEPS.length) {
       setCurrentStep(currentStep + 1);
+      setCurrentSection(0); // Reset section index when changing steps
       window.scrollTo(0, 0);
     } else {
       // Handle final submission
@@ -182,6 +210,32 @@ const PiarForm = () => {
   const handlePrevious = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
+      setCurrentSection(0); // Reset section index when changing steps
+      window.scrollTo(0, 0);
+    }
+  };
+  
+  const handleNextSection = () => {
+    const totalSections = STEP_SECTIONS[currentStep - 1].length;
+    if (currentSection < totalSections - 1) {
+      setCurrentSection(currentSection + 1);
+      window.scrollTo(0, 0);
+    } else if (currentStep < WIZARD_STEPS.length) {
+      // Move to next step if we're at the last section
+      setCurrentStep(currentStep + 1);
+      setCurrentSection(0);
+      window.scrollTo(0, 0);
+    }
+  };
+  
+  const handlePrevSection = () => {
+    if (currentSection > 0) {
+      setCurrentSection(currentSection - 1);
+      window.scrollTo(0, 0);
+    } else if (currentStep > 1) {
+      // Move to previous step if we're at the first section
+      setCurrentStep(currentStep - 1);
+      setCurrentSection(STEP_SECTIONS[currentStep - 2].length - 1); // Go to last section of previous step
       window.scrollTo(0, 0);
     }
   };
@@ -191,613 +245,639 @@ const PiarForm = () => {
     // In a real implementation this would connect to PDF generation
   };
 
-  // This renders step 1 content
-  const renderStep1 = () => (
-    <>
-      <FormSection title="Encabezado del formulario" required>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField
-            id="fecha_diligenciamiento"
-            label="Fecha de Diligenciamiento"
-            type="date"
-            required
-            value={formData.fecha_diligenciamiento}
-            onChange={(value) => handleInputChange("fecha_diligenciamiento", value)}
-          />
-          
-          <FormField
-            id="lugar_diligenciamiento"
-            label="Lugar de Diligenciamiento"
-            required
-            value={formData.lugar_diligenciamiento}
-            onChange={(value) => handleInputChange("lugar_diligenciamiento", value)}
-          />
-          
-          <FormField
-            id="nombre_persona_diligencia"
-            label="Nombre de quien Diligencia"
-            required
-            value={formData.nombre_persona_diligencia}
-            onChange={(value) => handleInputChange("nombre_persona_diligencia", value)}
-          />
-          
-          <FormField
-            id="rol_en_ie"
-            label="Rol en la IE"
-            required
-            value={formData.rol_en_ie}
-            onChange={(value) => handleInputChange("rol_en_ie", value)}
-          />
-          
-          <FormField
-            id="institucion_educativa"
-            label="Institución Educativa"
-            required
-            value={formData.institucion_educativa}
-            onChange={(value) => handleInputChange("institucion_educativa", value)}
-          />
-          
-          <FormField
-            id="sede"
-            label="Sede"
-            required
-            value={formData.sede}
-            onChange={(value) => handleInputChange("sede", value)}
-          />
-          
-          <FormField
-            id="jornada"
-            label="Jornada"
-            required
-            value={formData.jornada}
-            onChange={(value) => handleInputChange("jornada", value)}
-          />
-        </div>
-      </FormSection>
-      
-      <FormSection title="Identificación del estudiante" required>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField
-            id="nombre_estudiante"
-            label="Nombre del Estudiante"
-            required
-            value={formData.nombre_estudiante}
-            onChange={(value) => handleInputChange("nombre_estudiante", value)}
-          />
-          
-          <FormField
-            id="documento_identificacion"
-            label="Documento de Identificación"
-            required
-            value={formData.documento_identificacion}
-            onChange={(value) => handleInputChange("documento_identificacion", value)}
-          />
-          
-          <FormField
-            id="edad"
-            label="Edad"
-            type="number"
-            required
-            value={formData.edad}
-            onChange={(value) => handleInputChange("edad", value)}
-          />
-          
-          <FormField
-            id="grado"
-            label="Grado"
-            required
-            value={formData.grado}
-            onChange={(value) => handleInputChange("grado", value)}
-          />
-        </div>
-      </FormSection>
+  // Render the current section based on currentStep and currentSection
+  const renderCurrentSection = () => {
+    const stepIndex = currentStep - 1;
+    const sections = STEP_SECTIONS[stepIndex];
+    const section = sections[currentSection];
 
-      <FormSection title="Información general del estudiante" required>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField
-            id="nombres_apellidos"
-            label="Nombres y Apellidos"
-            required
-            value={formData.nombres_apellidos}
-            onChange={(value) => handleInputChange("nombres_apellidos", value)}
-          />
-          
-          <FormField
-            id="lugar_nacimiento"
-            label="Lugar de Nacimiento"
-            required
-            value={formData.lugar_nacimiento}
-            onChange={(value) => handleInputChange("lugar_nacimiento", value)}
-          />
-          
-          <FormField
-            id="fecha_nacimiento"
-            label="Fecha de Nacimiento"
-            type="date"
-            required
-            value={formData.fecha_nacimiento}
-            onChange={(value) => handleInputChange("fecha_nacimiento", value)}
-          />
-          
-          <FormField
-            id="tipo_documento"
-            label="Tipo de Documento"
-            type="select"
-            required
-            value={formData.tipo_documento}
-            onChange={(value) => handleInputChange("tipo_documento", value)}
-            options={TIPO_DOCUMENTO_OPTIONS}
-          />
-          
-          <FormField
-            id="numero_identificacion"
-            label="Número de Identificación"
-            required
-            value={formData.numero_identificacion}
-            onChange={(value) => handleInputChange("numero_identificacion", value)}
-          />
-          
-          <FormField
-            id="departamento"
-            label="Departamento"
-            required
-            value={formData.departamento}
-            onChange={(value) => handleInputChange("departamento", value)}
-          />
-          
-          <FormField
-            id="municipio"
-            label="Municipio"
-            required
-            value={formData.municipio}
-            onChange={(value) => handleInputChange("municipio", value)}
-          />
-          
-          <FormField
-            id="direccion"
-            label="Dirección"
-            required
-            value={formData.direccion}
-            onChange={(value) => handleInputChange("direccion", value)}
-          />
-          
-          <FormField
-            id="telefono"
-            label="Teléfono"
-            required
-            value={formData.telefono}
-            onChange={(value) => handleInputChange("telefono", value)}
-          />
-          
-          <FormField
-            id="centro_proteccion"
-            label="¿Está bajo protección de centro especializado?"
-            type="select"
-            required
-            value={formData.centro_proteccion}
-            onChange={(value) => handleInputChange("centro_proteccion", value)}
-            options={SI_NO_OPTIONS}
-          />
-          
-          <FormField
-            id="grado_aspira"
-            label="Grado al que Aspira"
-            required
-            value={formData.grado_aspira}
-            onChange={(value) => handleInputChange("grado_aspira", value)}
-          />
-        </div>
-      </FormSection>
-
-      <FormSection title="Entorno Salud" required>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField
-            id="afiliado_salud"
-            label="¿Afiliado a Salud?"
-            type="select"
-            required
-            value={formData.afiliado_salud}
-            onChange={(value) => handleInputChange("afiliado_salud", value)}
-            options={SI_NO_OPTIONS}
-          />
-          
-          <FormField
-            id="regimen"
-            label="Régimen"
-            type="select"
-            required
-            value={formData.regimen}
-            onChange={(value) => handleInputChange("regimen", value)}
-            options={REGIMEN_OPTIONS}
-          />
-          
-          <FormField
-            id="atendido_salud"
-            label="¿Ha sido atendido por el sistema de salud?"
-            type="select"
-            required
-            value={formData.atendido_salud}
-            onChange={(value) => handleInputChange("atendido_salud", value)}
-            options={SI_NO_OPTIONS}
-          />
-          
-          <FormField
-            id="tiene_diagnostico"
-            label="¿Cuenta con diagnóstico médico?"
-            type="select"
-            required
-            value={formData.tiene_diagnostico}
-            onChange={(value) => handleInputChange("tiene_diagnostico", value)}
-            options={SI_NO_OPTIONS}
-          />
-          
-          <FormField
-            id="recibe_tratamiento"
-            label="¿Recibe tratamiento médico?"
-            type="select"
-            required
-            value={formData.recibe_tratamiento}
-            onChange={(value) => handleInputChange("recibe_tratamiento", value)}
-            options={SI_NO_OPTIONS}
-          />
-        </div>
-      </FormSection>
-
-      <FormSection title="Entorno Hogar" required>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField
-            id="nombre_cuidador"
-            label="Nombre del Cuidador"
-            required
-            value={formData.nombre_cuidador}
-            onChange={(value) => handleInputChange("nombre_cuidador", value)}
-          />
-          
-          <FormField
-            id="parentesco"
-            label="Parentesco"
-            required
-            value={formData.parentesco}
-            onChange={(value) => handleInputChange("parentesco", value)}
-          />
-          
-          <FormField
-            id="nivel_educativo_cuidador"
-            label="Nivel Educativo del Cuidador"
-            type="select"
-            required
-            value={formData.nivel_educativo_cuidador}
-            onChange={(value) => handleInputChange("nivel_educativo_cuidador", value)}
-            options={NIVEL_EDUCATIVO_OPTIONS}
-          />
-          
-          <FormField
-            id="telefono_cuidador"
-            label="Teléfono del Cuidador"
-            required
-            value={formData.telefono_cuidador}
-            onChange={(value) => handleInputChange("telefono_cuidador", value)}
-          />
-          
-          <FormField
-            id="bajo_proteccion"
-            label="¿Bajo Protección?"
-            type="select"
-            required
-            value={formData.bajo_proteccion}
-            onChange={(value) => handleInputChange("bajo_proteccion", value)}
-            options={SI_NO_OPTIONS}
-          />
-          
-          <FormField
-            id="recibe_subsidio"
-            label="¿Recibe Subsidio?"
-            type="select"
-            required
-            value={formData.recibe_subsidio}
-            onChange={(value) => handleInputChange("recibe_subsidio", value)}
-            options={SI_NO_OPTIONS}
-          />
-        </div>
-      </FormSection>
-
-      <FormSection title="Entorno Educativo" required>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField
-            id="vinculado_otra_ie"
-            label="¿Ha estado vinculado a otra IE?"
-            type="select"
-            required
-            value={formData.vinculado_otra_ie}
-            onChange={(value) => handleInputChange("vinculado_otra_ie", value)}
-            options={SI_NO_OPTIONS}
-          />
-          
-          <FormField
-            id="ultimo_grado"
-            label="Último Grado Cursado"
-            required
-            value={formData.ultimo_grado}
-            onChange={(value) => handleInputChange("ultimo_grado", value)}
-          />
-          
-          <FormField
-            id="aprobo"
-            label="¿Aprobó?"
-            type="select"
-            required
-            value={formData.aprobo}
-            onChange={(value) => handleInputChange("aprobo", value)}
-            options={SI_NO_OPTIONS}
-          />
-          
-          <FormField
-            id="medio_transporte"
-            label="Medio de Transporte"
-            type="select"
-            required
-            value={formData.medio_transporte}
-            onChange={(value) => handleInputChange("medio_transporte", value)}
-            options={TRANSPORTE_OPTIONS}
-          />
-          
-          <FormField
-            id="tiempo_desplazamiento"
-            label="Tiempo de Desplazamiento (minutos)"
-            type="number"
-            required
-            value={formData.tiempo_desplazamiento}
-            onChange={(value) => handleInputChange("tiempo_desplazamiento", value)}
-          />
-        </div>
-      </FormSection>
-    </>
-  );
-  
-  const renderStep2 = () => (
-    <>
-      <FormSection title="Docentes responsables del PIAR" required>
-        <div className="grid grid-cols-1 gap-6">
-          <FormField
-            id="docentes_nombres_cargos"
-            label="Nombres y Cargos de los Docentes Responsables"
-            type="textarea"
-            required
-            value={formData.docentes_nombres_cargos}
-            onChange={(value) => handleInputChange("docentes_nombres_cargos", value)}
-          />
-        </div>
-      </FormSection>
-      
-      <FormSection title="Características del Estudiante" required>
-        <div className="grid grid-cols-1 gap-6">
-          <FormField
-            id="descripcion_general"
-            label="Descripción General del Estudiante"
-            type="textarea"
-            required
-            value={formData.descripcion_general}
-            onChange={(value) => handleInputChange("descripcion_general", value)}
-          />
-          
-          <FormField
-            id="descripcion_apoyos"
-            label="Descripción de Apoyos Requeridos"
-            type="textarea"
-            required
-            value={formData.descripcion_apoyos}
-            onChange={(value) => handleInputChange("descripcion_apoyos", value)}
-          />
-          
-          <FormField
-            id="habilidades_competencias"
-            label="Habilidades y Competencias"
-            type="textarea"
-            required
-            value={formData.habilidades_competencias}
-            onChange={(value) => handleInputChange("habilidades_competencias", value)}
-          />
-        </div>
-      </FormSection>
-      
-      <FormSection title="Ajustes razonables" required>
-        <div className="grid grid-cols-1 gap-6">
-          <FormField
-            id="objetivos_propositos"
-            label="Objetivos/Propósitos"
-            type="textarea"
-            required
-            value={formData.objetivos_propositos}
-            onChange={(value) => handleInputChange("objetivos_propositos", value)}
-          />
-          
-          <FormField
-            id="barreras_evidenciadas"
-            label="Barreras Evidenciadas"
-            type="textarea"
-            required
-            value={formData.barreras_evidenciadas}
-            onChange={(value) => handleInputChange("barreras_evidenciadas", value)}
-          />
-          
-          <FormField
-            id="ajustes_estrategias"
-            label="Ajustes y Estrategias"
-            type="textarea"
-            required
-            value={formData.ajustes_estrategias}
-            onChange={(value) => handleInputChange("ajustes_estrategias", value)}
-          />
-          
-          <FormField
-            id="evaluacion_ajustes"
-            label="Evaluación de Ajustes"
-            type="textarea"
-            required
-            value={formData.evaluacion_ajustes}
-            onChange={(value) => handleInputChange("evaluacion_ajustes", value)}
-          />
-        </div>
-      </FormSection>
-      
-      <FormSection title="Recomendaciones institucionales" required>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField
-            id="acciones"
-            label="Acciones"
-            type="textarea"
-            required
-            value={formData.acciones}
-            onChange={(value) => handleInputChange("acciones", value)}
-          />
-          
-          <FormField
-            id="estrategias"
-            label="Estrategias"
-            type="textarea"
-            required
-            value={formData.estrategias}
-            onChange={(value) => handleInputChange("estrategias", value)}
-          />
-          
-          <FormField
-            id="nombre_firma"
-            label="Nombre y Firma"
-            required
-            value={formData.nombre_firma}
-            onChange={(value) => handleInputChange("nombre_firma", value)}
-          />
-          
-          <FormField
-            id="area"
-            label="Área"
-            required
-            value={formData.area}
-            onChange={(value) => handleInputChange("area", value)}
-          />
-        </div>
-      </FormSection>
-    </>
-  );
-  
-  const renderStep3 = () => (
-    <>
-      <FormSection title="Participantes" required>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField
-            id="nombres_directivos_docentes"
-            label="Nombres Directivos/Docentes"
-            type="textarea"
-            required
-            value={formData.nombres_directivos_docentes}
-            onChange={(value) => handleInputChange("nombres_directivos_docentes", value)}
-          />
-          
-          <FormField
-            id="nombres_familia"
-            label="Nombres de Familiares"
-            type="textarea"
-            required
-            value={formData.nombres_familia}
-            onChange={(value) => handleInputChange("nombres_familia", value)}
-          />
-          
-          <FormField
-            id="parentesco_participantes"
-            label="Parentesco"
-            required
-            value={formData.parentesco_participantes}
-            onChange={(value) => handleInputChange("parentesco_participantes", value)}
-          />
-        </div>
-      </FormSection>
-      
-      <FormSection title="Compromisos" required>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField
-            id="compromisos_aula"
-            label="Compromisos en el Aula"
-            type="textarea"
-            required
-            value={formData.compromisos_aula}
-            onChange={(value) => handleInputChange("compromisos_aula", value)}
-            className="md:col-span-2"
-          />
-          
-          <FormField
-            id="nombre_actividad"
-            label="Nombre de la Actividad"
-            required
-            value={formData.nombre_actividad}
-            onChange={(value) => handleInputChange("nombre_actividad", value)}
-          />
-          
-          <FormField
-            id="descripcion_actividad"
-            label="Descripción de la Actividad"
-            type="textarea"
-            required
-            value={formData.descripcion_actividad}
-            onChange={(value) => handleInputChange("descripcion_actividad", value)}
-          />
-          
-          <FormField
-            id="frecuencia_actividad"
-            label="Frecuencia de la Actividad"
-            required
-            value={formData.frecuencia_actividad}
-            onChange={(value) => handleInputChange("frecuencia_actividad", value)}
-          />
-        </div>
-      </FormSection>
-      
-      <FormSection title="Firmas" required>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField
-            id="firma_estudiante"
-            label="Firma del Estudiante"
-            required
-            value={formData.firma_estudiante}
-            onChange={(value) => handleInputChange("firma_estudiante", value)}
-          />
-          
-          <FormField
-            id="firma_acudiente"
-            label="Firma del Acudiente"
-            required
-            value={formData.firma_acudiente}
-            onChange={(value) => handleInputChange("firma_acudiente", value)}
-          />
-          
-          <FormField
-            id="firma_docente"
-            label="Firma del Docente"
-            required
-            value={formData.firma_docente}
-            onChange={(value) => handleInputChange("firma_docente", value)}
-          />
-          
-          <FormField
-            id="firma_directivo"
-            label="Firma del Directivo"
-            required
-            value={formData.firma_directivo}
-            onChange={(value) => handleInputChange("firma_directivo", value)}
-          />
-        </div>
-      </FormSection>
-    </>
-  );
-
-  // Render current step content
-  const renderStepContent = () => {
-    switch (currentStep) {
-      case 1:
-        return renderStep1();
-      case 2:
-        return renderStep2();
-      case 3:
-        return renderStep3();
+    switch (stepIndex) {
+      case 0: // Step 1
+        switch (section.id) {
+          case 'encabezado':
+            return (
+              <FormSection title={section.title}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormField
+                    id="fecha_diligenciamiento"
+                    label="Fecha de Diligenciamiento"
+                    type="date"
+                    required
+                    value={formData.fecha_diligenciamiento}
+                    onChange={(value) => handleInputChange("fecha_diligenciamiento", value)}
+                  />
+                  
+                  <FormField
+                    id="lugar_diligenciamiento"
+                    label="Lugar de Diligenciamiento"
+                    required
+                    value={formData.lugar_diligenciamiento}
+                    onChange={(value) => handleInputChange("lugar_diligenciamiento", value)}
+                  />
+                  
+                  <FormField
+                    id="nombre_persona_diligencia"
+                    label="Nombre de quien Diligencia"
+                    required
+                    value={formData.nombre_persona_diligencia}
+                    onChange={(value) => handleInputChange("nombre_persona_diligencia", value)}
+                  />
+                  
+                  <FormField
+                    id="rol_en_ie"
+                    label="Rol en la IE"
+                    required
+                    value={formData.rol_en_ie}
+                    onChange={(value) => handleInputChange("rol_en_ie", value)}
+                  />
+                  
+                  <FormField
+                    id="institucion_educativa"
+                    label="Institución Educativa"
+                    required
+                    value={formData.institucion_educativa}
+                    onChange={(value) => handleInputChange("institucion_educativa", value)}
+                  />
+                  
+                  <FormField
+                    id="sede"
+                    label="Sede"
+                    required
+                    value={formData.sede}
+                    onChange={(value) => handleInputChange("sede", value)}
+                  />
+                  
+                  <FormField
+                    id="jornada"
+                    label="Jornada"
+                    required
+                    value={formData.jornada}
+                    onChange={(value) => handleInputChange("jornada", value)}
+                  />
+                </div>
+              </FormSection>
+            );
+          case 'identificacion':
+            return (
+              <FormSection title={section.title}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormField
+                    id="nombre_estudiante"
+                    label="Nombre del Estudiante"
+                    required
+                    value={formData.nombre_estudiante}
+                    onChange={(value) => handleInputChange("nombre_estudiante", value)}
+                  />
+                  
+                  <FormField
+                    id="documento_identificacion"
+                    label="Documento de Identificación"
+                    required
+                    value={formData.documento_identificacion}
+                    onChange={(value) => handleInputChange("documento_identificacion", value)}
+                  />
+                  
+                  <FormField
+                    id="edad"
+                    label="Edad"
+                    type="number"
+                    required
+                    value={formData.edad}
+                    onChange={(value) => handleInputChange("edad", value)}
+                  />
+                  
+                  <FormField
+                    id="grado"
+                    label="Grado"
+                    required
+                    value={formData.grado}
+                    onChange={(value) => handleInputChange("grado", value)}
+                  />
+                </div>
+              </FormSection>
+            );
+          case 'info_general':
+            return (
+              <FormSection title={section.title}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormField
+                    id="nombres_apellidos"
+                    label="Nombres y Apellidos"
+                    required
+                    value={formData.nombres_apellidos}
+                    onChange={(value) => handleInputChange("nombres_apellidos", value)}
+                  />
+                  
+                  <FormField
+                    id="lugar_nacimiento"
+                    label="Lugar de Nacimiento"
+                    required
+                    value={formData.lugar_nacimiento}
+                    onChange={(value) => handleInputChange("lugar_nacimiento", value)}
+                  />
+                  
+                  <FormField
+                    id="fecha_nacimiento"
+                    label="Fecha de Nacimiento"
+                    type="date"
+                    required
+                    value={formData.fecha_nacimiento}
+                    onChange={(value) => handleInputChange("fecha_nacimiento", value)}
+                  />
+                  
+                  <FormField
+                    id="tipo_documento"
+                    label="Tipo de Documento"
+                    type="select"
+                    required
+                    value={formData.tipo_documento}
+                    onChange={(value) => handleInputChange("tipo_documento", value)}
+                    options={TIPO_DOCUMENTO_OPTIONS}
+                  />
+                  
+                  <FormField
+                    id="numero_identificacion"
+                    label="Número de Identificación"
+                    required
+                    value={formData.numero_identificacion}
+                    onChange={(value) => handleInputChange("numero_identificacion", value)}
+                  />
+                  
+                  <FormField
+                    id="departamento"
+                    label="Departamento"
+                    required
+                    value={formData.departamento}
+                    onChange={(value) => handleInputChange("departamento", value)}
+                  />
+                  
+                  <FormField
+                    id="municipio"
+                    label="Municipio"
+                    required
+                    value={formData.municipio}
+                    onChange={(value) => handleInputChange("municipio", value)}
+                  />
+                  
+                  <FormField
+                    id="direccion"
+                    label="Dirección"
+                    required
+                    value={formData.direccion}
+                    onChange={(value) => handleInputChange("direccion", value)}
+                  />
+                  
+                  <FormField
+                    id="telefono"
+                    label="Teléfono"
+                    required
+                    value={formData.telefono}
+                    onChange={(value) => handleInputChange("telefono", value)}
+                  />
+                  
+                  <FormField
+                    id="centro_proteccion"
+                    label="¿Está bajo protección de centro especializado?"
+                    type="select"
+                    required
+                    value={formData.centro_proteccion}
+                    onChange={(value) => handleInputChange("centro_proteccion", value)}
+                    options={SI_NO_OPTIONS}
+                  />
+                  
+                  <FormField
+                    id="grado_aspira"
+                    label="Grado al que Aspira"
+                    required
+                    value={formData.grado_aspira}
+                    onChange={(value) => handleInputChange("grado_aspira", value)}
+                  />
+                </div>
+              </FormSection>
+            );
+          case 'salud':
+            return (
+              <FormSection title={section.title}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormField
+                    id="afiliado_salud"
+                    label="¿Afiliado a Salud?"
+                    type="select"
+                    required
+                    value={formData.afiliado_salud}
+                    onChange={(value) => handleInputChange("afiliado_salud", value)}
+                    options={SI_NO_OPTIONS}
+                  />
+                  
+                  <FormField
+                    id="regimen"
+                    label="Régimen"
+                    type="select"
+                    required
+                    value={formData.regimen}
+                    onChange={(value) => handleInputChange("regimen", value)}
+                    options={REGIMEN_OPTIONS}
+                  />
+                  
+                  <FormField
+                    id="atendido_salud"
+                    label="¿Ha sido atendido por el sistema de salud?"
+                    type="select"
+                    required
+                    value={formData.atendido_salud}
+                    onChange={(value) => handleInputChange("atendido_salud", value)}
+                    options={SI_NO_OPTIONS}
+                  />
+                  
+                  <FormField
+                    id="tiene_diagnostico"
+                    label="¿Cuenta con diagnóstico médico?"
+                    type="select"
+                    required
+                    value={formData.tiene_diagnostico}
+                    onChange={(value) => handleInputChange("tiene_diagnostico", value)}
+                    options={SI_NO_OPTIONS}
+                  />
+                  
+                  <FormField
+                    id="recibe_tratamiento"
+                    label="¿Recibe tratamiento médico?"
+                    type="select"
+                    required
+                    value={formData.recibe_tratamiento}
+                    onChange={(value) => handleInputChange("recibe_tratamiento", value)}
+                    options={SI_NO_OPTIONS}
+                  />
+                </div>
+              </FormSection>
+            );
+          case 'hogar':
+            return (
+              <FormSection title={section.title}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormField
+                    id="nombre_cuidador"
+                    label="Nombre del Cuidador"
+                    required
+                    value={formData.nombre_cuidador}
+                    onChange={(value) => handleInputChange("nombre_cuidador", value)}
+                  />
+                  
+                  <FormField
+                    id="parentesco"
+                    label="Parentesco"
+                    required
+                    value={formData.parentesco}
+                    onChange={(value) => handleInputChange("parentesco", value)}
+                  />
+                  
+                  <FormField
+                    id="nivel_educativo_cuidador"
+                    label="Nivel Educativo del Cuidador"
+                    type="select"
+                    required
+                    value={formData.nivel_educativo_cuidador}
+                    onChange={(value) => handleInputChange("nivel_educativo_cuidador", value)}
+                    options={NIVEL_EDUCATIVO_OPTIONS}
+                  />
+                  
+                  <FormField
+                    id="telefono_cuidador"
+                    label="Teléfono del Cuidador"
+                    required
+                    value={formData.telefono_cuidador}
+                    onChange={(value) => handleInputChange("telefono_cuidador", value)}
+                  />
+                  
+                  <FormField
+                    id="bajo_proteccion"
+                    label="¿Bajo Protección?"
+                    type="select"
+                    required
+                    value={formData.bajo_proteccion}
+                    onChange={(value) => handleInputChange("bajo_proteccion", value)}
+                    options={SI_NO_OPTIONS}
+                  />
+                  
+                  <FormField
+                    id="recibe_subsidio"
+                    label="¿Recibe Subsidio?"
+                    type="select"
+                    required
+                    value={formData.recibe_subsidio}
+                    onChange={(value) => handleInputChange("recibe_subsidio", value)}
+                    options={SI_NO_OPTIONS}
+                  />
+                </div>
+              </FormSection>
+            );
+          case 'educativo':
+            return (
+              <FormSection title={section.title}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormField
+                    id="vinculado_otra_ie"
+                    label="¿Ha estado vinculado a otra IE?"
+                    type="select"
+                    required
+                    value={formData.vinculado_otra_ie}
+                    onChange={(value) => handleInputChange("vinculado_otra_ie", value)}
+                    options={SI_NO_OPTIONS}
+                  />
+                  
+                  <FormField
+                    id="ultimo_grado"
+                    label="Último Grado Cursado"
+                    required
+                    value={formData.ultimo_grado}
+                    onChange={(value) => handleInputChange("ultimo_grado", value)}
+                  />
+                  
+                  <FormField
+                    id="aprobo"
+                    label="¿Aprobó?"
+                    type="select"
+                    required
+                    value={formData.aprobo}
+                    onChange={(value) => handleInputChange("aprobo", value)}
+                    options={SI_NO_OPTIONS}
+                  />
+                  
+                  <FormField
+                    id="medio_transporte"
+                    label="Medio de Transporte"
+                    type="select"
+                    required
+                    value={formData.medio_transporte}
+                    onChange={(value) => handleInputChange("medio_transporte", value)}
+                    options={TRANSPORTE_OPTIONS}
+                  />
+                  
+                  <FormField
+                    id="tiempo_desplazamiento"
+                    label="Tiempo de Desplazamiento (minutos)"
+                    type="number"
+                    required
+                    value={formData.tiempo_desplazamiento}
+                    onChange={(value) => handleInputChange("tiempo_desplazamiento", value)}
+                  />
+                </div>
+              </FormSection>
+            );
+          default:
+            return null;
+        }
+      case 1: // Step 2
+        switch (section.id) {
+          case 'docentes':
+            return (
+              <FormSection title={section.title}>
+                <div className="grid grid-cols-1 gap-6">
+                  <FormField
+                    id="docentes_nombres_cargos"
+                    label="Nombres y Cargos de los Docentes Responsables"
+                    type="textarea"
+                    required
+                    value={formData.docentes_nombres_cargos}
+                    onChange={(value) => handleInputChange("docentes_nombres_cargos", value)}
+                  />
+                </div>
+              </FormSection>
+            );
+          case 'caracteristicas':
+            return (
+              <FormSection title={section.title}>
+                <div className="grid grid-cols-1 gap-6">
+                  <FormField
+                    id="descripcion_general"
+                    label="Descripción General del Estudiante"
+                    type="textarea"
+                    required
+                    value={formData.descripcion_general}
+                    onChange={(value) => handleInputChange("descripcion_general", value)}
+                  />
+                  
+                  <FormField
+                    id="descripcion_apoyos"
+                    label="Descripción de Apoyos Requeridos"
+                    type="textarea"
+                    required
+                    value={formData.descripcion_apoyos}
+                    onChange={(value) => handleInputChange("descripcion_apoyos", value)}
+                  />
+                  
+                  <FormField
+                    id="habilidades_competencias"
+                    label="Habilidades y Competencias"
+                    type="textarea"
+                    required
+                    value={formData.habilidades_competencias}
+                    onChange={(value) => handleInputChange("habilidades_competencias", value)}
+                  />
+                </div>
+              </FormSection>
+            );
+          case 'ajustes':
+            return (
+              <FormSection title={section.title}>
+                <div className="grid grid-cols-1 gap-6">
+                  <FormField
+                    id="objetivos_propositos"
+                    label="Objetivos/Propósitos"
+                    type="textarea"
+                    required
+                    value={formData.objetivos_propositos}
+                    onChange={(value) => handleInputChange("objetivos_propositos", value)}
+                  />
+                  
+                  <FormField
+                    id="barreras_evidenciadas"
+                    label="Barreras Evidenciadas"
+                    type="textarea"
+                    required
+                    value={formData.barreras_evidenciadas}
+                    onChange={(value) => handleInputChange("barreras_evidenciadas", value)}
+                  />
+                  
+                  <FormField
+                    id="ajustes_estrategias"
+                    label="Ajustes y Estrategias"
+                    type="textarea"
+                    required
+                    value={formData.ajustes_estrategias}
+                    onChange={(value) => handleInputChange("ajustes_estrategias", value)}
+                  />
+                  
+                  <FormField
+                    id="evaluacion_ajustes"
+                    label="Evaluación de Ajustes"
+                    type="textarea"
+                    required
+                    value={formData.evaluacion_ajustes}
+                    onChange={(value) => handleInputChange("evaluacion_ajustes", value)}
+                  />
+                </div>
+              </FormSection>
+            );
+          case 'recomendaciones':
+            return (
+              <FormSection title={section.title}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormField
+                    id="acciones"
+                    label="Acciones"
+                    type="textarea"
+                    required
+                    value={formData.acciones}
+                    onChange={(value) => handleInputChange("acciones", value)}
+                  />
+                  
+                  <FormField
+                    id="estrategias"
+                    label="Estrategias"
+                    type="textarea"
+                    required
+                    value={formData.estrategias}
+                    onChange={(value) => handleInputChange("estrategias", value)}
+                  />
+                  
+                  <FormField
+                    id="nombre_firma"
+                    label="Nombre y Firma"
+                    required
+                    value={formData.nombre_firma}
+                    onChange={(value) => handleInputChange("nombre_firma", value)}
+                  />
+                  
+                  <FormField
+                    id="area"
+                    label="Área"
+                    required
+                    value={formData.area}
+                    onChange={(value) => handleInputChange("area", value)}
+                  />
+                </div>
+              </FormSection>
+            );
+          default:
+            return null;
+        }
+      case 2: // Step 3
+        switch (section.id) {
+          case 'participantes':
+            return (
+              <FormSection title={section.title}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormField
+                    id="nombres_directivos_docentes"
+                    label="Nombres Directivos/Docentes"
+                    type="textarea"
+                    required
+                    value={formData.nombres_directivos_docentes}
+                    onChange={(value) => handleInputChange("nombres_directivos_docentes", value)}
+                  />
+                  
+                  <FormField
+                    id="nombres_familia"
+                    label="Nombres de Familiares"
+                    type="textarea"
+                    required
+                    value={formData.nombres_familia}
+                    onChange={(value) => handleInputChange("nombres_familia", value)}
+                  />
+                  
+                  <FormField
+                    id="parentesco_participantes"
+                    label="Parentesco"
+                    required
+                    value={formData.parentesco_participantes}
+                    onChange={(value) => handleInputChange("parentesco_participantes", value)}
+                  />
+                </div>
+              </FormSection>
+            );
+          case 'compromisos':
+            return (
+              <FormSection title={section.title}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormField
+                    id="compromisos_aula"
+                    label="Compromisos en el Aula"
+                    type="textarea"
+                    required
+                    value={formData.compromisos_aula}
+                    onChange={(value) => handleInputChange("compromisos_aula", value)}
+                    className="md:col-span-2"
+                  />
+                  
+                  <FormField
+                    id="nombre_actividad"
+                    label="Nombre de la Actividad"
+                    required
+                    value={formData.nombre_actividad}
+                    onChange={(value) => handleInputChange("nombre_actividad", value)}
+                  />
+                  
+                  <FormField
+                    id="descripcion_actividad"
+                    label="Descripción de la Actividad"
+                    type="textarea"
+                    required
+                    value={formData.descripcion_actividad}
+                    onChange={(value) => handleInputChange("descripcion_actividad", value)}
+                  />
+                  
+                  <FormField
+                    id="frecuencia_actividad"
+                    label="Frecuencia de la Actividad"
+                    required
+                    value={formData.frecuencia_actividad}
+                    onChange={(value) => handleInputChange("frecuencia_actividad", value)}
+                  />
+                </div>
+              </FormSection>
+            );
+          case 'firmas':
+            return (
+              <FormSection title={section.title}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormField
+                    id="firma_estudiante"
+                    label="Firma del Estudiante"
+                    required
+                    value={formData.firma_estudiante}
+                    onChange={(value) => handleInputChange("firma_estudiante", value)}
+                  />
+                  
+                  <FormField
+                    id="firma_acudiente"
+                    label="Firma del Acudiente"
+                    required
+                    value={formData.firma_acudiente}
+                    onChange={(value) => handleInputChange("firma_acudiente", value)}
+                  />
+                  
+                  <FormField
+                    id="firma_docente"
+                    label="Firma del Docente"
+                    required
+                    value={formData.firma_docente}
+                    onChange={(value) => handleInputChange("firma_docente", value)}
+                  />
+                  
+                  <FormField
+                    id="firma_directivo"
+                    label="Firma del Directivo"
+                    required
+                    value={formData.firma_directivo}
+                    onChange={(value) => handleInputChange("firma_directivo", value)}
+                  />
+                </div>
+              </FormSection>
+            );
+          default:
+            return null;
+        }
       default:
         return null;
     }
@@ -825,7 +905,16 @@ const PiarForm = () => {
             steps={WIZARD_STEPS} 
           />
           
-          {renderStepContent()}
+          {renderCurrentSection()}
+          
+          <SectionNav
+            currentSection={currentSection}
+            totalSections={STEP_SECTIONS[currentStep - 1].length}
+            onNextSection={handleNextSection}
+            onPrevSection={handlePrevSection}
+            showPrev={!(currentStep === 1 && currentSection === 0)}
+            showNext={!(currentStep === WIZARD_STEPS.length && currentSection === STEP_SECTIONS[currentStep - 1].length - 1)}
+          />
           
           <WizardActions 
             currentStep={currentStep}
