@@ -55,19 +55,31 @@ export const usePiars = () => {
       }
 
       // Transformar los datos al formato esperado por la UI
-      const formattedData = data.map(item => ({
-        id: item.id,
-        fecha_creacion: new Date(item.created_at).toISOString().split('T')[0],
-        estado: item.estado || 'borrador',
-        estudiante: item.estudiantes ? {
-          // Fix: The estudiantes column might return an array or an object
-          // Let's make sure we're handling it correctly
-          id: Array.isArray(item.estudiantes) ? item.estudiantes[0]?.id : item.estudiantes.id,
-          nombre_estudiante: Array.isArray(item.estudiantes) 
-            ? item.estudiantes[0]?.nombre_estudiante || 'Estudiante sin nombre'
-            : item.estudiantes.nombre_estudiante || 'Estudiante sin nombre'
-        } : undefined
-      }));
+      const formattedData = data.map(item => {
+        // Check the type of estudiantes to handle it correctly
+        let estudianteData;
+        
+        if (item.estudiantes) {
+          if (Array.isArray(item.estudiantes) && item.estudiantes.length > 0) {
+            estudianteData = {
+              id: item.estudiantes[0]?.id,
+              nombre_estudiante: item.estudiantes[0]?.nombre_estudiante || 'Estudiante sin nombre'
+            };
+          } else if (typeof item.estudiantes === 'object') {
+            estudianteData = {
+              id: item.estudiantes.id,
+              nombre_estudiante: item.estudiantes.nombre_estudiante || 'Estudiante sin nombre'
+            };
+          }
+        }
+        
+        return {
+          id: item.id,
+          fecha_creacion: new Date(item.created_at).toISOString().split('T')[0],
+          estado: item.estado || 'borrador',
+          estudiante: estudianteData
+        };
+      });
 
       setPiars(formattedData);
 

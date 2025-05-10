@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Header from '@/components/Header';
 import WizardNav from '@/components/wizard/WizardNav';
 import WizardActions from '@/components/wizard/WizardActions';
@@ -14,6 +15,8 @@ import AnimatedBackground from '@/components/AnimatedBackground';
 import LoadingOverlay from '@/components/LoadingOverlay';
 
 const PiarForm = () => {
+  const { id } = useParams<{ id: string }>();
+  
   const {
     currentStep,
     currentSection,
@@ -26,7 +29,7 @@ const PiarForm = () => {
     handleNextSection,
     handlePrevSection,
     handleDownloadPDF,
-  } = usePiarForm();
+  } = usePiarForm(id);
 
   const [isInitialLoading, setIsInitialLoading] = useState(true);
 
@@ -51,7 +54,7 @@ const PiarForm = () => {
   }, []);
 
   if (isInitialLoading) {
-    return <LoadingOverlay message="Preparando formulario PIAR..." />;
+    return <LoadingOverlay message={id ? "Cargando PIAR existente..." : "Preparando formulario PIAR..."} />;
   }
 
   return (
@@ -64,7 +67,7 @@ const PiarForm = () => {
           <div className="flex items-center justify-between mb-6">
             <div className="flex-1 mr-4">
               <h1 className="text-xl font-bold text-gray-800 mb-2">
-                Plan Individual de Ajustes Razonables
+                {id ? (formData?.estado === 'borrador' ? 'Completar PIAR' : 'Visualizar PIAR') : 'Nuevo Plan Individual de Ajustes Razonables'}
               </h1>
               <div className="w-full">
                 <div className="flex justify-between text-xs text-gray-600 mb-1">

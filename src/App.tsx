@@ -99,6 +99,14 @@ const App = () => {
               } 
             />
             <Route 
+              path="/piar/:id" 
+              element={
+                <ProtectedRoute>
+                  <PiarForm />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
               path="/logout" 
               element={<LogoutHandler />} 
             />

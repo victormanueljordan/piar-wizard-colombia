@@ -5,7 +5,7 @@ import { PiarFormData } from '@/types/piarFormTypes';
 import { supabase } from "@/integrations/supabase/client";
 import { v4 as uuidv4 } from 'uuid';
 
-const usePiarForm = () => {
+const usePiarForm = (piarId?: string) => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [currentSection, setCurrentSection] = useState(0);
@@ -431,12 +431,13 @@ const usePiarForm = () => {
   // Cargar PIAR si está en modo edición
   useEffect(() => {
     const loadPiar = async () => {
-      // Aquí se implementaría la carga de un PIAR existente si se está editando
-      // Por ahora dejamos el formulario vacío para crear uno nuevo
+      if (piarId) {
+        fetchPiarById(piarId);
+      }
     };
     
     loadPiar();
-  }, []);
+  }, [piarId]);
 
   return {
     currentStep,
