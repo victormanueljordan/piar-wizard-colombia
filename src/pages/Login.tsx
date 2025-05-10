@@ -59,23 +59,27 @@ const Login = () => {
           </p>
         </div>
         
-        {/* Demo credentials card - Improved visual style */}
-        <div className="bg-green-50/80 border border-green-200 rounded-md p-5 transition-all duration-300 hover:bg-green-100 shadow-sm">
-          <h3 className="text-center text-green-700 font-medium mb-3 border-b border-green-200 pb-2">
+        {/* Demo credentials card - Enhanced visual style based on screenshot */}
+        <div className="bg-green-50 border border-green-200 rounded-md transition-all duration-300 hover:bg-green-100">
+          <h3 className="text-center text-green-700 font-medium py-3 border-b border-green-200">
             Credenciales de demostración
           </h3>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="flex items-center gap-2">
-              <User className="h-4 w-4 text-green-600" />
-              <span className="font-medium text-gray-600">Usuario:</span>
+          <div className="p-4">
+            <div className="flex items-center justify-between py-2 border-b border-green-100">
+              <div className="flex items-center gap-2">
+                <User className="h-5 w-5 text-green-600" />
+                <span className="text-gray-600">Usuario:</span>
+              </div>
+              <div className="text-green-800 font-medium">docente@piar123.com</div>
             </div>
-            <div className="text-green-800 font-medium">docente@piar123.com</div>
             
-            <div className="flex items-center gap-2">
-              <Lock className="h-4 w-4 text-green-600" />
-              <span className="font-medium text-gray-600">Contraseña:</span>
+            <div className="flex items-center justify-between py-2">
+              <div className="flex items-center gap-2">
+                <Lock className="h-5 w-5 text-green-600" />
+                <span className="text-gray-600">Contraseña:</span>
+              </div>
+              <div className="text-green-800 font-medium">demo123</div>
             </div>
-            <div className="text-green-800 font-medium">demo123</div>
           </div>
         </div>
         
