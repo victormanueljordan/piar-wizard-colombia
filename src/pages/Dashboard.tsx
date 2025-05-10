@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -8,48 +9,26 @@ import { toast } from 'sonner';
 import { FileText, Clock, CheckCircle, PlusCircle, Eye, Edit } from 'lucide-react';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import LoadingOverlay from '@/components/LoadingOverlay';
-
-// Mock data for sample PIARs
-const mockPiars = [
-  { id: 1, estudiante: "Ana María González", estado: "completo", fechaCreacion: "2025-04-28" },
-  { id: 2, estudiante: "Carlos Jiménez Ruiz", estado: "borrador", fechaCreacion: "2025-05-02" },
-  { id: 3, estudiante: "Lucía Martínez Pérez", estado: "borrador", fechaCreacion: "2025-05-07" },
-];
+import { usePiars } from '@/hooks/usePiars';
+import { supabase } from '@/integrations/supabase/client';
 
 const Dashboard = () => {
-  const [loading, setLoading] = useState(true);
   const [userName, setUserName] = useState('docente');
-  const [stats, setStats] = useState({
-    estudiantes: 0,
-    borradores: 0,
-    completados: 0
-  });
-  const [piars, setPiars] = useState<any[]>([]);
+  const { loading, piars, stats, refetch } = usePiars();
 
+  // Obtener el nombre del usuario al cargar el componente
   useEffect(() => {
-    // Simulating data load from API/Supabase
-    const loadData = () => {
-      setTimeout(() => {
-        // Simulate data being loaded
-        setPiars(mockPiars);
-        
-        // Calculate stats from the PIARs
-        const estudiantes = mockPiars.length;
-        const borradores = mockPiars.filter(p => p.estado === 'borrador').length;
-        const completados = mockPiars.filter(p => p.estado === 'completo').length;
-        
-        setStats({
-          estudiantes,
-          borradores,
-          completados
-        });
-        
-        setLoading(false);
-        toast.success("Iniciado sesión exitosamente");
-      }, 1000);
+    const getUserInfo = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (session?.user) {
+        const email = session.user.email;
+        const name = email ? email.split('@')[0] : 'docente';
+        setUserName(name);
+      }
     };
     
-    loadData();
+    getUserInfo();
   }, []);
 
   const StatCard = ({ 
@@ -90,7 +69,7 @@ const Dashboard = () => {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
           <div>
             <h1 className="text-2xl font-bold text-gray-800">Panel de Control</h1>
-            <p className="text-gray-600">Bienvenido(a) docente, gestione los PIARs de sus estudiantes.</p>
+            <p className="text-gray-600">Bienvenido(a) {userName}, gestione los PIARs de sus estudiantes.</p>
           </div>
           <Button 
             className="mt-4 md:mt-0 bg-piar-blue hover:bg-blue-700 transition-all duration-300 hover:scale-[1.03] shadow-md hover:shadow-lg" 
@@ -148,13 +127,19 @@ const Dashboard = () => {
                 <TableBody>
                   {piars.map((piar) => (
                     <TableRow key={piar.id} className="hover:bg-gray-50 transition-colors duration-150">
-                      <TableCell className="font-medium">{piar.estudiante}</TableCell>
+                      <TableCell className="font-medium">
+                        {piar.estudiante?.nombre_estudiante || "Sin información"}
+                      </TableCell>
                       <TableCell>
-                        <span className={`status-badge ${piar.estado === 'borrador' ? 'status-draft' : 'status-complete'}`}>
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          piar.estado === 'borrador' 
+                            ? 'bg-yellow-100 text-yellow-800' 
+                            : 'bg-green-100 text-green-800'
+                        }`}>
                           {piar.estado === 'borrador' ? 'Borrador' : 'Completo'}
                         </span>
                       </TableCell>
-                      <TableCell>{piar.fechaCreacion}</TableCell>
+                      <TableCell>{piar.fecha_creacion}</TableCell>
                       <TableCell className="text-right">
                         <div className="flex items-center justify-end gap-2">
                           <Button
