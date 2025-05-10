@@ -14,7 +14,7 @@ const WizardNav: React.FC<WizardNavProps> = ({ currentStep, steps }) => {
         Plan Individual de Ajustes Razonables (Decreto 1421 de 2017)
       </p>
       
-      <div className="flex flex-col md:flex-row items-center justify-center space-y-2 md:space-y-0 md:space-x-8 lg:space-x-12">
+      <div className="flex flex-row justify-center items-center space-x-4 md:space-x-8 lg:space-x-12">
         {steps.map((step, index) => {
           const stepNumber = index + 1;
           let status = stepNumber === currentStep 
@@ -42,12 +42,12 @@ const WizardNav: React.FC<WizardNavProps> = ({ currentStep, steps }) => {
                 {stepNumber}
               </div>
               <div className="flex items-center mt-2">
-                <span className="text-xs md:text-sm font-medium text-center text-gray-700 max-w-[100px] md:max-w-full">
+                <span className="text-xs md:text-sm font-medium text-center text-gray-700 max-w-[80px] md:max-w-full break-words">
                   {step.name}
                 </span>
               </div>
               {index < steps.length - 1 && (
-                <div className="hidden md:block h-0.5 w-16 lg:w-24 bg-gray-200 absolute translate-x-[80px] lg:translate-x-[120px]"></div>
+                <div className="hidden md:block h-0.5 w-8 md:w-16 lg:w-24 bg-gray-200 absolute translate-x-[70px] md:translate-x-[80px] lg:translate-x-[120px]"></div>
               )}
             </div>
           );
