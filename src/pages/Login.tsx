@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import Logo from '@/components/Logo';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import LoadingOverlay from '@/components/LoadingOverlay';
+import { User, Lock } from 'lucide-react';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -58,14 +59,23 @@ const Login = () => {
           </p>
         </div>
         
-        {/* Demo credentials card */}
-        <div className="bg-green-50 border border-green-100 rounded-md p-4 transition-all duration-300 hover:bg-green-100">
-          <h3 className="text-green-700 font-medium mb-1">Credenciales de demostración</h3>
-          <div className="grid grid-cols-2 gap-2 text-sm">
-            <div className="font-medium text-gray-600">Usuario:</div>
-            <div className="text-green-800">docente@piar123.com</div>
-            <div className="font-medium text-gray-600">Contraseña:</div>
-            <div className="text-green-800">demo123</div>
+        {/* Demo credentials card - Improved visual style */}
+        <div className="bg-green-50/80 border border-green-200 rounded-md p-5 transition-all duration-300 hover:bg-green-100 shadow-sm">
+          <h3 className="text-center text-green-700 font-medium mb-3 border-b border-green-200 pb-2">
+            Credenciales de demostración
+          </h3>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="flex items-center gap-2">
+              <User className="h-4 w-4 text-green-600" />
+              <span className="font-medium text-gray-600">Usuario:</span>
+            </div>
+            <div className="text-green-800 font-medium">docente@piar123.com</div>
+            
+            <div className="flex items-center gap-2">
+              <Lock className="h-4 w-4 text-green-600" />
+              <span className="font-medium text-gray-600">Contraseña:</span>
+            </div>
+            <div className="text-green-800 font-medium">demo123</div>
           </div>
         </div>
         
