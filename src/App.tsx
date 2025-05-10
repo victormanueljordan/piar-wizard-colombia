@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import PiarForm from "./pages/PiarForm";
 import NotFound from "./pages/NotFound";
 import LoadingOverlay from "@/components/LoadingOverlay";
+import AIAssistant from "@/components/ai-assistant/AIAssistant";
 
 const queryClient = new QueryClient();
 
@@ -23,7 +24,12 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     return <Navigate to="/login" replace />;
   }
   
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <AIAssistant />
+    </>
+  );
 };
 
 const App = () => {
