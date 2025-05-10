@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -6,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Header from '@/components/Header';
 import { toast } from 'sonner';
-import { FileText, Clock, CheckCircle, PlusCircle, Eye, Edit, Bot } from 'lucide-react';
+import { FileText, Clock, CheckCircle, PlusCircle, Eye, Edit } from 'lucide-react';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import LoadingOverlay from '@/components/LoadingOverlay';
 
@@ -104,55 +103,28 @@ const Dashboard = () => {
           </Button>
         </div>
         
-        <div className="flex flex-col md:flex-row gap-6 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 flex-1">
-            <StatCard
-              title="Estudiantes Registrados"
-              value={stats.estudiantes}
-              description="Estudiantes con PIAR asignado"
-              icon={<FileText className="h-5 w-5 text-white" />}
-              iconColor="bg-blue-500"
-            />
-            <StatCard
-              title="PIARs en Borrador"
-              value={stats.borradores}
-              description="Pendientes por completar"
-              icon={<Clock className="h-5 w-5 text-white" />}
-              iconColor="bg-yellow-500"
-            />
-            <StatCard
-              title="PIARs Completos"
-              value={stats.completados}
-              description="Finalizados y aprobados"
-              icon={<CheckCircle className="h-5 w-5 text-white" />}
-              iconColor="bg-green-500"
-            />
-          </div>
-          
-          {/* Asistente IA Activo Card */}
-          <Card className="bg-gradient-to-br from-blue-50 to-white border-blue-100 shadow-md hover:shadow-lg transition-all duration-300 w-full md:w-64">
-            <CardHeader className="pb-2">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-blue-700">Asistente IA Activo</CardTitle>
-                <div className="rounded-full p-2 bg-blue-500/10">
-                  <Bot className="h-5 w-5 text-blue-600" />
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
-                <p className="text-sm text-gray-600">Listo para ayudarte</p>
-              </div>
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="mt-3 w-full text-blue-600 border-blue-200 hover:bg-blue-50 transition-all duration-300"
-              >
-                Consultar asistente
-              </Button>
-            </CardContent>
-          </Card>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <StatCard
+            title="Estudiantes Registrados"
+            value={stats.estudiantes}
+            description="Estudiantes con PIAR asignado"
+            icon={<FileText className="h-5 w-5 text-white" />}
+            iconColor="bg-blue-500"
+          />
+          <StatCard
+            title="PIARs en Borrador"
+            value={stats.borradores}
+            description="Pendientes por completar"
+            icon={<Clock className="h-5 w-5 text-white" />}
+            iconColor="bg-yellow-500"
+          />
+          <StatCard
+            title="PIARs Completos"
+            value={stats.completados}
+            description="Finalizados y aprobados"
+            icon={<CheckCircle className="h-5 w-5 text-white" />}
+            iconColor="bg-green-500"
+          />
         </div>
         
         <div className="bg-white/80 backdrop-blur-sm rounded-lg border p-6 mb-6 shadow-sm transition-all duration-300 hover:shadow-md">
