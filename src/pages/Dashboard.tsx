@@ -3,9 +3,17 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Header from '@/components/Header';
 import { toast } from 'sonner';
-import { FileText, Clock, CheckCircle, PlusCircle } from 'lucide-react';
+import { FileText, Clock, CheckCircle, PlusCircle, Eye, Edit } from 'lucide-react';
+
+// Mock data for sample PIARs
+const mockPiars = [
+  { id: 1, estudiante: "Ana María González", estado: "completo", fechaCreacion: "2025-04-28" },
+  { id: 2, estudiante: "Carlos Jiménez Ruiz", estado: "borrador", fechaCreacion: "2025-05-02" },
+  { id: 3, estudiante: "Lucía Martínez Pérez", estado: "borrador", fechaCreacion: "2025-05-07" },
+];
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -15,17 +23,26 @@ const Dashboard = () => {
     borradores: 0,
     completados: 0
   });
+  const [piars, setPiars] = useState<any[]>([]);
 
   useEffect(() => {
     // Simulating data load from API/Supabase
     const loadData = () => {
       setTimeout(() => {
-        // This is placeholder data until Supabase is connected
+        // Simulate data being loaded
+        setPiars(mockPiars);
+        
+        // Calculate stats from the PIARs
+        const estudiantes = mockPiars.length;
+        const borradores = mockPiars.filter(p => p.estado === 'borrador').length;
+        const completados = mockPiars.filter(p => p.estado === 'completo').length;
+        
         setStats({
-          estudiantes: 0,
-          borradores: 0,
-          completados: 0
+          estudiantes,
+          borradores,
+          completados
         });
+        
         setLoading(false);
         toast.success("Iniciado sesión exitosamente");
       }, 1000);
@@ -47,7 +64,7 @@ const Dashboard = () => {
     icon: React.ReactNode; 
     iconColor: string;
   }) => (
-    <Card className="border">
+    <Card className="border hover:shadow-md transition-shadow">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <CardTitle className="text-sm font-medium text-gray-700">{title}</CardTitle>
         <div className={`rounded-full p-2 ${iconColor}`}>{icon}</div>
@@ -101,28 +118,63 @@ const Dashboard = () => {
           />
         </div>
         
-        <div className="bg-white rounded-lg border p-6 mb-6">
+        <div className="bg-white rounded-lg border p-6 mb-6 shadow-sm">
           <h2 className="text-lg font-semibold mb-4">Estudiantes con PIAR</h2>
           {loading ? (
             <div className="flex items-center justify-center h-40">
               <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-piar-blue"></div>
               <span className="ml-3 text-gray-600">Cargando estudiantes...</span>
             </div>
-          ) : stats.estudiantes > 0 ? (
-            <table className="w-full text-sm">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-4 py-2 text-left text-gray-600">Nombre</th>
-                  <th className="px-4 py-2 text-left text-gray-600">Documento</th>
-                  <th className="px-4 py-2 text-left text-gray-600">Grado</th>
-                  <th className="px-4 py-2 text-left text-gray-600">Estado</th>
-                  <th className="px-4 py-2 text-right text-gray-600">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {/* Table rows will be populated here when connected to Supabase */}
-              </tbody>
-            </table>
+          ) : piars.length > 0 ? (
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="bg-gray-50">
+                    <TableHead>Nombre del Estudiante</TableHead>
+                    <TableHead>Estado</TableHead>
+                    <TableHead>Fecha de Creación</TableHead>
+                    <TableHead className="text-right">Acciones</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {piars.map((piar) => (
+                    <TableRow key={piar.id} className="hover:bg-gray-50">
+                      <TableCell className="font-medium">{piar.estudiante}</TableCell>
+                      <TableCell>
+                        <span className={`status-badge ${piar.estado === 'borrador' ? 'status-draft' : 'status-complete'}`}>
+                          {piar.estado === 'borrador' ? 'Borrador' : 'Completo'}
+                        </span>
+                      </TableCell>
+                      <TableCell>{piar.fechaCreacion}</TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="flex items-center gap-1"
+                            asChild
+                          >
+                            <Link to={`/piar/${piar.id}`}>
+                              {piar.estado === 'borrador' ? (
+                                <>
+                                  <Edit className="h-3 w-3" />
+                                  <span>Completar</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Eye className="h-3 w-3" />
+                                  <span>Visualizar</span>
+                                </>
+                              )}
+                            </Link>
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           ) : (
             <div className="text-center py-8">
               <p className="text-gray-500 mb-4">No hay estudiantes con PIAR registrados.</p>

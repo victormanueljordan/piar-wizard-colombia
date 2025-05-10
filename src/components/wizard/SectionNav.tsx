@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 interface SectionNavProps {
@@ -20,33 +21,48 @@ const SectionNav: React.FC<SectionNavProps> = ({
   onPrevSection,
   onNextSection,
 }) => {
+  const progressPercentage = ((currentSection + 1) / totalSections) * 100;
+  
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-2 my-6">
-      <div className="text-sm text-gray-500 mb-2 sm:mb-0">
-        Sección {currentSection + 1} de {totalSections}
+    <div className="space-y-4 my-6">
+      <div className="flex items-center justify-between mb-1">
+        <div className="text-sm font-medium text-gray-700">
+          Progreso de la sección
+        </div>
+        <div className="text-sm text-gray-500">
+          {currentSection + 1} de {totalSections}
+        </div>
       </div>
       
-      <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
-        {showPrev && (
-          <Button
-            variant="outline"
-            onClick={onPrevSection}
-            className="flex-1 sm:flex-none flex items-center gap-1"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Sección anterior</span>
-          </Button>
-        )}
+      <Progress value={progressPercentage} className="h-2" />
+      
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-4">
+        <div className="w-full sm:w-auto order-2 sm:order-1">
+          {showPrev && (
+            <Button
+              variant="outline"
+              onClick={onPrevSection}
+              className="w-full sm:w-auto flex items-center gap-2"
+              size="lg"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Sección anterior</span>
+            </Button>
+          )}
+        </div>
         
-        {showNext && (
-          <Button
-            onClick={onNextSection}
-            className="flex-1 sm:flex-none flex items-center gap-1"
-          >
-            <span>Siguiente sección</span>
-            <ArrowRight className="w-4 h-4" />
-          </Button>
-        )}
+        <div className="w-full sm:w-auto order-1 sm:order-2">
+          {showNext && (
+            <Button
+              onClick={onNextSection}
+              className="w-full sm:w-auto flex items-center gap-2 bg-piar-blue hover:bg-blue-700"
+              size="lg"
+            >
+              <span>Siguiente sección</span>
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );

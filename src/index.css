@@ -102,6 +102,10 @@
     @apply border-border;
   }
 
+  html, body {
+    font-family: 'Inter', sans-serif;
+  }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -114,7 +118,7 @@
 
 @layer components {
   .piar-wizard-step {
-    @apply flex items-center justify-center rounded-full w-8 h-8 text-white font-bold;
+    @apply flex items-center justify-center rounded-full w-10 h-10 text-white font-bold;
   }
   
   .piar-wizard-step.active {
@@ -143,6 +147,10 @@
   
   .piar-wizard-step-3 {
     @apply bg-yellow-500; /* PIAR Yellow for step 3 */
+  }
+
+  .piar-card {
+    @apply bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow;
   }
   
   /* Mobile responsiveness adjustments */
@@ -193,5 +201,18 @@
   
   .animate-enter {
     animation: enter 1s ease;
+  }
+
+  /* Status badges */
+  .status-badge {
+    @apply text-xs px-2 py-0.5 rounded-full font-medium;
+  }
+  
+  .status-draft {
+    @apply bg-yellow-100 text-yellow-800;
+  }
+  
+  .status-complete {
+    @apply bg-green-100 text-green-800;
   }
 }
