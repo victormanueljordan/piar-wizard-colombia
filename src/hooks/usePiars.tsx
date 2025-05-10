@@ -62,13 +62,13 @@ export const usePiars = () => {
         if (item.estudiantes) {
           if (Array.isArray(item.estudiantes) && item.estudiantes.length > 0) {
             estudianteData = {
-              id: item.estudiantes[0]?.id,
+              id: item.estudiantes[0]?.id || '',
               nombre_estudiante: item.estudiantes[0]?.nombre_estudiante || 'Estudiante sin nombre'
             };
           } else if (typeof item.estudiantes === 'object') {
             estudianteData = {
-              id: item.estudiantes.id,
-              nombre_estudiante: item.estudiantes.nombre_estudiante || 'Estudiante sin nombre'
+              id: (item.estudiantes as any).id || '',
+              nombre_estudiante: (item.estudiantes as any).nombre_estudiante || 'Estudiante sin nombre'
             };
           }
         }
