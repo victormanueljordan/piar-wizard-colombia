@@ -18,12 +18,12 @@ const FormSection: React.FC<FormSectionProps> = ({
   
   return (
     <Card className={`mb-6 border shadow-sm ${className}`}>
-      <CardHeader className="bg-gray-50 border-b py-3 md:py-4">
-        <CardTitle className={`${isMobile ? 'text-base' : 'text-lg'} font-medium text-gray-800 flex items-center break-words`}>
+      <CardHeader className="bg-gray-50 border-b py-2 md:py-4">
+        <CardTitle className={`${isMobile ? 'text-sm' : 'text-lg'} font-medium text-gray-800 flex items-center break-words`}>
           {title}
         </CardTitle>
       </CardHeader>
-      <CardContent className={`p-4 md:p-6 bg-white`}>{children}</CardContent>
+      <CardContent className={`p-3 md:p-6 bg-white`}>{children}</CardContent>
     </Card>
   );
 };

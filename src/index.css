@@ -50,6 +50,12 @@
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* PIAR123 logo colors */
+    --piar-green: 142 76% 36%;  /* #22c55e for step 1 */
+    --piar-blue: 217 91% 60%;   /* #3b82f6 for step 2 */
+    --piar-yellow: 43 96% 58%;  /* #eab308 for step 3 */
+    --piar-gray: 215 20% 65%;   /* #94a3b8 for inactive steps */
   }
 
   .dark {
@@ -116,27 +122,27 @@
   }
   
   .piar-wizard-step.complete {
-    @apply bg-piar-green;
+    @apply bg-green-500;
   }
   
   .piar-wizard-step.active {
-    @apply ring-piar-blue;
+    @apply ring-blue-500;
   }
   
   .piar-wizard-step.pending {
-    @apply bg-piar-gray;
+    @apply bg-gray-400;
   }
   
   .piar-wizard-step-1 {
-    @apply bg-piar-blue;
+    @apply bg-green-500; /* PIAR Green for step 1 */
   }
   
   .piar-wizard-step-2 {
-    @apply bg-piar-yellow;
+    @apply bg-blue-500; /* PIAR Blue for step 2 */
   }
   
   .piar-wizard-step-3 {
-    @apply bg-piar-green;
+    @apply bg-yellow-500; /* PIAR Yellow for step 3 */
   }
   
   /* Animation for AI generation buttons */
@@ -153,11 +159,23 @@
   /* Mobile responsiveness adjustments */
   @media (max-width: 640px) {
     .piar-wizard-step {
-      @apply w-7 h-7 text-sm;
+      @apply w-10 h-10 text-base;
     }
     
     .accordion-content-mobile {
       @apply px-2 py-3;
+    }
+    
+    h2 {
+      @apply text-lg;
+    }
+    
+    p {
+      @apply text-xs;
+    }
+    
+    .text-sm {
+      @apply text-xs;
     }
   }
 }
