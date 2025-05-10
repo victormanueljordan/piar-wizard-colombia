@@ -14,9 +14,9 @@ const FormSection: React.FC<FormSectionProps> = ({
   required = false 
 }) => {
   return (
-    <Card className="mb-6 border">
-      <CardHeader className="bg-gray-50 border-b">
-        <CardTitle className="text-base font-medium text-gray-800 flex items-center">
+    <Card className="mb-6 border shadow-sm">
+      <CardHeader className="bg-gray-50 border-b py-4">
+        <CardTitle className="text-lg font-medium text-gray-800 flex items-center">
           {title}
           {required && (
             <span className="ml-2 text-xs text-white bg-red-500 rounded-md px-2 py-1">
@@ -25,7 +25,7 @@ const FormSection: React.FC<FormSectionProps> = ({
           )}
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-6">{children}</CardContent>
+      <CardContent className="p-6 bg-white">{children}</CardContent>
     </Card>
   );
 };
