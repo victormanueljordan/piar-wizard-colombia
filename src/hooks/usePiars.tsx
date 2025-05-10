@@ -60,8 +60,12 @@ export const usePiars = () => {
         fecha_creacion: new Date(item.created_at).toISOString().split('T')[0],
         estado: item.estado || 'borrador',
         estudiante: item.estudiantes ? {
-          id: item.estudiantes.id,
-          nombre_estudiante: item.estudiantes.nombre_estudiante || 'Estudiante sin nombre'
+          // Fix: The estudiantes column might return an array or an object
+          // Let's make sure we're handling it correctly
+          id: Array.isArray(item.estudiantes) ? item.estudiantes[0]?.id : item.estudiantes.id,
+          nombre_estudiante: Array.isArray(item.estudiantes) 
+            ? item.estudiantes[0]?.nombre_estudiante || 'Estudiante sin nombre'
+            : item.estudiantes.nombre_estudiante || 'Estudiante sin nombre'
         } : undefined
       }));
 
