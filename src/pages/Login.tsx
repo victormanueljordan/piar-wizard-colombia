@@ -11,8 +11,8 @@ import LoadingOverlay from '@/components/LoadingOverlay';
 
 const Login = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('docente@piar123.com');
+  const [password, setPassword] = useState('demo123');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -56,6 +56,17 @@ const Login = () => {
           <p className="text-sm text-blue-600">
             Ingresa tus credenciales para acceder al sistema
           </p>
+        </div>
+        
+        {/* Demo credentials card */}
+        <div className="bg-green-50 border border-green-100 rounded-md p-4 transition-all duration-300 hover:bg-green-100">
+          <h3 className="text-green-700 font-medium mb-1">Credenciales de demostración</h3>
+          <div className="grid grid-cols-2 gap-2 text-sm">
+            <div className="font-medium text-gray-600">Usuario:</div>
+            <div className="text-green-800">docente@piar123.com</div>
+            <div className="font-medium text-gray-600">Contraseña:</div>
+            <div className="text-green-800">demo123</div>
+          </div>
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-4">
