@@ -6,6 +6,7 @@ import FormSection from '@/components/wizard/FormSection';
 import FormField from '@/components/wizard/FormField';
 import WizardActions from '@/components/wizard/WizardActions';
 import SectionNav from '@/components/wizard/SectionNav';
+import AjustesRazonables from '@/components/wizard/AjustesRazonables';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { Download } from 'lucide-react';
@@ -176,6 +177,11 @@ const PiarForm = () => {
     firma_acudiente: '',
     firma_docente: '',
     firma_directivo: '',
+    
+    // New fields for ajustes razonables
+    ajustes_trimestre1: [],
+    ajustes_trimestre2: [],
+    ajustes_trimestre3: [],
   });
 
   const handleInputChange = (id: string, value: any) => {
@@ -679,45 +685,10 @@ const PiarForm = () => {
             );
           case 'ajustes':
             return (
-              <FormSection title={section.title}>
-                <div className="grid grid-cols-1 gap-6">
-                  <FormField
-                    id="objetivos_propositos"
-                    label="Objetivos/Propósitos"
-                    type="textarea"
-                    required
-                    value={formData.objetivos_propositos}
-                    onChange={(value) => handleInputChange("objetivos_propositos", value)}
-                  />
-                  
-                  <FormField
-                    id="barreras_evidenciadas"
-                    label="Barreras Evidenciadas"
-                    type="textarea"
-                    required
-                    value={formData.barreras_evidenciadas}
-                    onChange={(value) => handleInputChange("barreras_evidenciadas", value)}
-                  />
-                  
-                  <FormField
-                    id="ajustes_estrategias"
-                    label="Ajustes y Estrategias"
-                    type="textarea"
-                    required
-                    value={formData.ajustes_estrategias}
-                    onChange={(value) => handleInputChange("ajustes_estrategias", value)}
-                  />
-                  
-                  <FormField
-                    id="evaluacion_ajustes"
-                    label="Evaluación de Ajustes"
-                    type="textarea"
-                    required
-                    value={formData.evaluacion_ajustes}
-                    onChange={(value) => handleInputChange("evaluacion_ajustes", value)}
-                  />
-                </div>
-              </FormSection>
+              <AjustesRazonables 
+                formData={formData} 
+                onChange={handleInputChange} 
+              />
             );
           case 'recomendaciones':
             return (
@@ -744,7 +715,6 @@ const PiarForm = () => {
                   <FormField
                     id="nombre_firma"
                     label="Nombre y Firma"
-                    required
                     value={formData.nombre_firma}
                     onChange={(value) => handleInputChange("nombre_firma", value)}
                   />
@@ -752,7 +722,6 @@ const PiarForm = () => {
                   <FormField
                     id="area"
                     label="Área"
-                    required
                     value={formData.area}
                     onChange={(value) => handleInputChange("area", value)}
                   />
