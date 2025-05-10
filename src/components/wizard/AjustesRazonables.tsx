@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import FormSection from '@/components/wizard/FormSection';
 import FormField from '@/components/wizard/FormField';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { PlusCircle } from 'lucide-react';
+import { PlusCircle, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
 
 // Mock data for DBA options - this would come from your database in a real implementation
@@ -70,6 +69,7 @@ const AjustesRazonables: React.FC<AjustesRazonablesProps> = ({ formData, onChang
     trimestre3: [],
   });
   const [loadingAI, setLoadingAI] = useState<{[key: string]: boolean}>({});
+  const [animatingButton, setAnimatingButton] = useState<{[key: string]: boolean}>({});
 
   const handleAddArea = (trimestre: string) => {
     const newArea: AreaAjuste = {
@@ -114,6 +114,7 @@ const AjustesRazonables: React.FC<AjustesRazonablesProps> = ({ formData, onChang
     }
     
     setLoadingAI(prev => ({ ...prev, [loadingKey]: true }));
+    setAnimatingButton(prev => ({ ...prev, [loadingKey]: true }));
     
     try {
       const suggestion = await generateWithAI(field, area.objetivo);
@@ -124,6 +125,10 @@ const AjustesRazonables: React.FC<AjustesRazonablesProps> = ({ formData, onChang
       console.error("Error generating AI suggestion:", error);
     } finally {
       setLoadingAI(prev => ({ ...prev, [loadingKey]: false }));
+      // Let the animation complete before turning it off
+      setTimeout(() => {
+        setAnimatingButton(prev => ({ ...prev, [loadingKey]: false }));
+      }, 1000);
     }
   };
 
@@ -199,7 +204,9 @@ const AjustesRazonables: React.FC<AjustesRazonablesProps> = ({ formData, onChang
                             size="sm" 
                             onClick={() => handleGenerateAI(trimestre, areaIndex, 'barreras')}
                             disabled={loadingAI[`${trimestre}_${areaIndex}_barreras`]}
+                            className={`bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 transition-all ${animatingButton[`${trimestre}_${areaIndex}_barreras`] ? 'animate-enter' : ''}`}
                           >
+                            <Sparkles className="w-4 h-4 mr-2" />
                             {loadingAI[`${trimestre}_${areaIndex}_barreras`] ? 'Generando...' : 'Generar sugerencia con IA'}
                           </Button>
                         </div>
@@ -219,7 +226,9 @@ const AjustesRazonables: React.FC<AjustesRazonablesProps> = ({ formData, onChang
                             size="sm" 
                             onClick={() => handleGenerateAI(trimestre, areaIndex, 'ajustes')}
                             disabled={loadingAI[`${trimestre}_${areaIndex}_ajustes`]}
+                            className={`bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 transition-all ${animatingButton[`${trimestre}_${areaIndex}_ajustes`] ? 'animate-enter' : ''}`}
                           >
+                            <Sparkles className="w-4 h-4 mr-2" />
                             {loadingAI[`${trimestre}_${areaIndex}_ajustes`] ? 'Generando...' : 'Generar sugerencia con IA'}
                           </Button>
                         </div>
@@ -239,7 +248,9 @@ const AjustesRazonables: React.FC<AjustesRazonablesProps> = ({ formData, onChang
                             size="sm" 
                             onClick={() => handleGenerateAI(trimestre, areaIndex, 'evaluacion')}
                             disabled={loadingAI[`${trimestre}_${areaIndex}_evaluacion`]}
+                            className={`bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 transition-all ${animatingButton[`${trimestre}_${areaIndex}_evaluacion`] ? 'animate-enter' : ''}`}
                           >
+                            <Sparkles className="w-4 h-4 mr-2" />
                             {loadingAI[`${trimestre}_${areaIndex}_evaluacion`] ? 'Generando...' : 'Generar sugerencia con IA'}
                           </Button>
                         </div>
