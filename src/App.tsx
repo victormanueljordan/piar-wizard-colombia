@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 import Index from "./pages/Index";
 import Login from "./pages/Login";
@@ -17,8 +18,29 @@ import AIAssistant from "@/components/ai-assistant/AIAssistant";
 const queryClient = new QueryClient();
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  // In a real implementation, this would check with Supabase
-  const isAuthenticated = localStorage.getItem("user") !== null;
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setIsAuthenticated(!!session);
+      setLoading(false);
+    };
+    
+    checkAuth();
+    
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsAuthenticated(!!session);
+      setLoading(false);
+    });
+    
+    return () => subscription.unsubscribe();
+  }, []);
+  
+  if (loading) {
+    return <LoadingOverlay message="Verificando sesión..." />;
+  }
   
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
@@ -36,10 +58,15 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
-    // Simulate checking for authentication
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1200);
+    // Check for initial authentication
+    const checkAuth = async () => {
+      await supabase.auth.getSession();
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1200);
+    };
+    
+    checkAuth();
   }, []);
   
   if (isLoading) {
@@ -83,11 +110,16 @@ const App = () => {
   );
 };
 
-// Simple logout handler component
+// Logout handler component
 const LogoutHandler = () => {
   useEffect(() => {
-    localStorage.removeItem("user");
-    window.location.href = "/login";
+    const logout = async () => {
+      await supabase.auth.signOut();
+      localStorage.removeItem("user");
+      window.location.href = "/login";
+    };
+    
+    logout();
   }, []);
   
   return <LoadingOverlay message="Cerrando sesión..." />;

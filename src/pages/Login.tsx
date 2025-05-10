@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,6 +9,7 @@ import Logo from '@/components/Logo';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import LoadingOverlay from '@/components/LoadingOverlay';
 import { User, Lock } from 'lucide-react';
+import { supabase } from "@/integrations/supabase/client";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,24 +17,69 @@ const Login = () => {
   const [password, setPassword] = useState('demo123');
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    // Check if user is already logged in
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        navigate('/dashboard');
+      }
+    };
+    
+    checkSession();
+  }, [navigate]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     
     try {
-      // This is a placeholder for Supabase integration
-      // In a real implementation, this would connect to Supabase auth
-      console.log("Login credentials:", { email, password });
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
       
-      // Simulate successful login
-      setTimeout(() => {
-        localStorage.setItem('user', JSON.stringify({ email, role: 'docente' }));
+      if (error) {
+        throw error;
+      }
+      
+      if (data.session) {
+        localStorage.setItem('user', JSON.stringify({ 
+          email: data.user.email, 
+          role: 'docente',
+          id: data.user.id
+        }));
         toast.success("Iniciado sesión exitosamente");
         navigate('/dashboard');
-      }, 1000);
-    } catch (error) {
+      }
+    } catch (error: any) {
       console.error("Login error:", error);
-      toast.error("Error al iniciar sesión. Por favor intente de nuevo.");
+      toast.error(error.message || "Error al iniciar sesión. Por favor intente de nuevo.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSignUp = async () => {
+    setLoading(true);
+    
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            role: 'docente'
+          }
+        }
+      });
+      
+      if (error) throw error;
+      
+      toast.success("Registro exitoso. Por favor verifique su correo electrónico.");
+    } catch (error: any) {
+      console.error("Signup error:", error);
+      toast.error(error.message || "Error al registrarse. Por favor intente de nuevo.");
     } finally {
       setLoading(false);
     }
@@ -59,7 +105,7 @@ const Login = () => {
           </p>
         </div>
         
-        {/* Demo credentials card - Enhanced visual style based on screenshot */}
+        {/* Demo credentials card */}
         <div className="bg-green-50 border border-green-200 rounded-md transition-all duration-300 hover:bg-green-100">
           <h3 className="text-center text-green-700 font-medium py-3 border-b border-green-200">
             Credenciales de demostración
@@ -122,7 +168,12 @@ const Login = () => {
         <div className="text-center text-sm">
           <p className="text-gray-600">
             ¿No tienes una cuenta? 
-            <Button variant="link" className="text-piar-blue pl-1 pb-0 transition-all duration-300 hover:text-blue-800">
+            <Button 
+              variant="link" 
+              className="text-piar-blue pl-1 pb-0 transition-all duration-300 hover:text-blue-800"
+              onClick={handleSignUp}
+              disabled={loading}
+            >
               Regístrate
             </Button>
           </p>
