@@ -6,48 +6,45 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 interface SectionNavProps {
   currentSection: number;
   totalSections: number;
-  onNextSection: () => void;
+  showPrev: boolean;
+  showNext: boolean;
   onPrevSection: () => void;
-  showPrev?: boolean;
-  showNext?: boolean;
+  onNextSection: () => void;
 }
 
 const SectionNav: React.FC<SectionNavProps> = ({
   currentSection,
   totalSections,
-  onNextSection,
+  showPrev,
+  showNext,
   onPrevSection,
-  showPrev = true,
-  showNext = true,
+  onNextSection,
 }) => {
   return (
-    <div className="flex items-center justify-between mt-6 pt-4 border-t">
-      <div>
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-2 my-6">
+      <div className="text-sm text-gray-500 mb-2 sm:mb-0">
+        Sección {currentSection + 1} de {totalSections}
+      </div>
+      
+      <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
         {showPrev && (
           <Button
             variant="outline"
             onClick={onPrevSection}
-            disabled={currentSection === 0}
-            className="flex items-center"
+            className="flex-1 sm:flex-none flex items-center gap-1"
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Sección anterior
+            <ArrowLeft className="w-4 h-4" />
+            <span>Sección anterior</span>
           </Button>
         )}
-      </div>
-      <div className="text-sm text-gray-500">
-        Sección {currentSection + 1} de {totalSections}
-      </div>
-      <div>
+        
         {showNext && (
           <Button
-            variant="outline"
             onClick={onNextSection}
-            disabled={currentSection === totalSections - 1}
-            className="flex items-center"
+            className="flex-1 sm:flex-none flex items-center gap-1"
           >
-            Siguiente sección
-            <ArrowRight className="w-4 h-4 ml-2" />
+            <span>Siguiente sección</span>
+            <ArrowRight className="w-4 h-4" />
           </Button>
         )}
       </div>

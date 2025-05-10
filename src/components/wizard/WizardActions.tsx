@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Save, ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 interface WizardActionsProps {
   currentStep: number;
@@ -9,7 +9,7 @@ interface WizardActionsProps {
   onPrevious: () => void;
   onNext: () => void;
   onSaveDraft: () => void;
-  loading?: boolean;
+  loading: boolean;
 }
 
 const WizardActions: React.FC<WizardActionsProps> = ({
@@ -18,51 +18,42 @@ const WizardActions: React.FC<WizardActionsProps> = ({
   onPrevious,
   onNext,
   onSaveDraft,
-  loading = false,
+  loading,
 }) => {
+  const isFirstStep = currentStep === 1;
+  const isLastStep = currentStep === totalSteps;
+
   return (
-    <div className="flex items-center justify-between py-4 px-1 border-t mt-6">
-      <div>
+    <footer className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 mt-6 border-t">
+      <Button
+        variant="outline"
+        onClick={onSaveDraft}
+        disabled={loading}
+        className="w-full sm:w-auto order-3 sm:order-1"
+      >
+        {loading ? 'Guardando...' : 'Guardar borrador'}
+      </Button>
+      
+      <div className="flex items-center gap-3 order-2">
         <Button
           variant="outline"
-          onClick={onSaveDraft}
-          disabled={loading}
-          className="flex items-center"
+          onClick={onPrevious}
+          disabled={isFirstStep}
+          className="flex items-center gap-1"
         >
-          <Save className="w-4 h-4 mr-2" />
-          Guardar borrador
+          <ArrowLeft className="w-4 h-4" />
+          <span className="hidden sm:inline">Anterior</span>
         </Button>
-      </div>
-      
-      <div className="flex items-center space-x-2">
-        {currentStep > 1 && (
-          <Button
-            variant="outline"
-            onClick={onPrevious}
-            disabled={loading}
-            className="flex items-center"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Anterior
-          </Button>
-        )}
         
         <Button
           onClick={onNext}
-          disabled={loading}
-          className="flex items-center bg-piar-blue hover:bg-blue-700"
+          className="flex items-center gap-1"
         >
-          {currentStep < totalSteps ? (
-            <>
-              Siguiente
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </>
-          ) : (
-            'Finalizar'
-          )}
+          <span>{isLastStep ? 'Finalizar' : 'Siguiente'}</span>
+          {!isLastStep && <ArrowRight className="w-4 h-4" />}
         </Button>
       </div>
-    </div>
+    </footer>
   );
 };
 

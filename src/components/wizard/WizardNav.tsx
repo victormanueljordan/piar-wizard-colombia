@@ -14,7 +14,7 @@ const WizardNav: React.FC<WizardNavProps> = ({ currentStep, steps }) => {
         Plan Individual de Ajustes Razonables (Decreto 1421 de 2017)
       </p>
       
-      <div className="flex flex-row justify-center items-center space-x-4 md:space-x-8 lg:space-x-12">
+      <div className="flex flex-row justify-center items-center space-x-8 md:space-x-16 lg:space-x-20">
         {steps.map((step, index) => {
           const stepNumber = index + 1;
           let status = stepNumber === currentStep 
@@ -33,21 +33,23 @@ const WizardNav: React.FC<WizardNavProps> = ({ currentStep, steps }) => {
                 : 'bg-yellow-500';
           
           return (
-            <div key={index} className="flex flex-col items-center">
+            <div key={index} className="flex flex-col items-center relative">
               <div 
-                className={`flex items-center justify-center rounded-full w-10 h-10 text-white font-bold text-lg ${colorClasses} ${
+                className={`flex items-center justify-center rounded-full w-12 h-12 text-white font-bold text-lg ${colorClasses} ${
                   status === 'active' ? 'ring-2 ring-offset-2 ring-offset-white' : ''
                 } ${status === 'active' ? stepNumber === 1 ? 'ring-green-500' : stepNumber === 2 ? 'ring-blue-500' : 'ring-yellow-500' : ''}`}
               >
                 {stepNumber}
               </div>
-              <div className="flex items-center mt-2">
-                <span className="text-xs md:text-sm font-medium text-center text-gray-700 max-w-[80px] md:max-w-full break-words">
+              <div className="mt-2 text-center">
+                <span className="text-xs md:text-sm font-medium text-center text-gray-700 max-w-[80px] md:max-w-[120px] lg:max-w-full break-words">
                   {step.name}
                 </span>
               </div>
+              
+              {/* Connecting line between steps */}
               {index < steps.length - 1 && (
-                <div className="hidden md:block h-0.5 w-8 md:w-16 lg:w-24 bg-gray-200 absolute translate-x-[70px] md:translate-x-[80px] lg:translate-x-[120px]"></div>
+                <div className="hidden sm:block h-0.5 w-12 md:w-16 lg:w-20 bg-gray-200 absolute top-6 left-full"></div>
               )}
             </div>
           );
