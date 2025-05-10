@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface FormFieldProps {
   id: string;
@@ -36,6 +37,8 @@ const FormField: React.FC<FormFieldProps> = ({
   options = [],
   className = '',
 }) => {
+  const isMobile = useIsMobile();
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     onChange(e.target.value);
   };
@@ -52,9 +55,9 @@ const FormField: React.FC<FormFieldProps> = ({
     <div className={`mb-4 ${className}`}>
       <Label 
         htmlFor={id} 
-        className="block text-sm font-medium text-gray-700 mb-1"
+        className={`block ${isMobile ? 'text-sm' : 'text-sm'} font-medium text-gray-700 mb-1 break-words`}
       >
-        {label} {required && <span className="text-red-500">*</span>}
+        {label}
       </Label>
       
       {type === 'textarea' ? (
@@ -64,14 +67,14 @@ const FormField: React.FC<FormFieldProps> = ({
           value={value || ''}
           onChange={handleChange}
           required={required}
-          className="w-full"
+          className="w-full min-h-[80px]"
         />
       ) : type === 'select' ? (
         <Select value={value} onValueChange={handleSelectChange}>
           <SelectTrigger id={id} className="w-full">
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="max-w-[90vw] md:max-w-none">
             {options.map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}
@@ -88,7 +91,7 @@ const FormField: React.FC<FormFieldProps> = ({
           {options.map((option) => (
             <div key={option.value} className="flex items-center space-x-2">
               <RadioGroupItem value={option.value} id={`${id}-${option.value}`} />
-              <Label htmlFor={`${id}-${option.value}`}>{option.label}</Label>
+              <Label htmlFor={`${id}-${option.value}`} className="break-words">{option.label}</Label>
             </div>
           ))}
         </RadioGroup>
@@ -99,7 +102,7 @@ const FormField: React.FC<FormFieldProps> = ({
             checked={value === true}
             onCheckedChange={handleCheckboxChange}
           />
-          <Label htmlFor={id}>{placeholder}</Label>
+          <Label htmlFor={id} className="break-words">{placeholder}</Label>
         </div>
       ) : (
         <Input

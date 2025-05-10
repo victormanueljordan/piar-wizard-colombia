@@ -99,6 +99,11 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Responsive text sizing */
+  h1, h2, h3, .text-lg, .text-xl, .text-2xl {
+    @apply break-words;
+  }
 }
 
 @layer components {
@@ -132,5 +137,27 @@
   
   .piar-wizard-step-3 {
     @apply bg-piar-green;
+  }
+  
+  /* Animation for AI generation buttons */
+  @keyframes enter {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); box-shadow: 0 0 10px rgba(124, 58, 237, 0.5); }
+    100% { transform: scale(1); }
+  }
+  
+  .animate-enter {
+    animation: enter 1s ease;
+  }
+  
+  /* Mobile responsiveness adjustments */
+  @media (max-width: 640px) {
+    .piar-wizard-step {
+      @apply w-7 h-7 text-sm;
+    }
+    
+    .accordion-content-mobile {
+      @apply px-2 py-3;
+    }
   }
 }

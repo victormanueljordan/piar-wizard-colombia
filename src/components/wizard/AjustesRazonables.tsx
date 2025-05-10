@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { PlusCircle, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Mock data for DBA options - this would come from your database in a real implementation
 const DBA_OPTIONS = [
@@ -70,6 +71,7 @@ const AjustesRazonables: React.FC<AjustesRazonablesProps> = ({ formData, onChang
   });
   const [loadingAI, setLoadingAI] = useState<{[key: string]: boolean}>({});
   const [animatingButton, setAnimatingButton] = useState<{[key: string]: boolean}>({});
+  const isMobile = useIsMobile();
 
   const handleAddArea = (trimestre: string) => {
     const newArea: AreaAjuste = {
@@ -135,7 +137,7 @@ const AjustesRazonables: React.FC<AjustesRazonablesProps> = ({ formData, onChang
   return (
     <FormSection title="Ajustes Razonables">
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid grid-cols-3 mb-6">
+        <TabsList className={`grid grid-cols-3 mb-6 ${isMobile ? 'text-xs' : ''}`}>
           <TabsTrigger value="trimestre1">Trimestre 1</TabsTrigger>
           <TabsTrigger value="trimestre2">Trimestre 2</TabsTrigger>
           <TabsTrigger value="trimestre3">Trimestre 3</TabsTrigger>
@@ -143,8 +145,8 @@ const AjustesRazonables: React.FC<AjustesRazonablesProps> = ({ formData, onChang
         
         {['trimestre1', 'trimestre2', 'trimestre3'].map((trimestre) => (
           <TabsContent key={trimestre} value={trimestre}>
-            <div className="mb-4 flex justify-between items-center">
-              <h3 className="text-lg font-medium">
+            <div className="mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+              <h3 className={`${isMobile ? 'text-base' : 'text-lg'} font-medium`}>
                 {trimestre === 'trimestre1' ? 'Primer trimestre' : 
                  trimestre === 'trimestre2' ? 'Segundo trimestre' : 'Tercer trimestre'}
               </h3>
@@ -152,8 +154,9 @@ const AjustesRazonables: React.FC<AjustesRazonablesProps> = ({ formData, onChang
                 onClick={() => handleAddArea(trimestre)}
                 variant="outline"
                 className="flex items-center"
+                size={isMobile ? "sm" : "default"}
               >
-                <PlusCircle className="w-4 h-4 mr-2" />
+                <PlusCircle className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} mr-2`} />
                 Agregar Área
               </Button>
             </div>
@@ -167,10 +170,10 @@ const AjustesRazonables: React.FC<AjustesRazonablesProps> = ({ formData, onChang
             <Accordion type="single" collapsible className="w-full">
               {trimestreData[trimestre as keyof typeof trimestreData].map((area, areaIndex) => (
                 <AccordionItem key={area.id} value={area.id}>
-                  <AccordionTrigger className="font-medium">
+                  <AccordionTrigger className={`font-medium ${isMobile ? 'text-sm py-2' : ''}`}>
                     {area.area ? AREAS_OPTIONS.find(opt => opt.value === area.area)?.label || area.area : "Nueva Área"}
                   </AccordionTrigger>
-                  <AccordionContent>
+                  <AccordionContent className={isMobile ? "accordion-content-mobile" : ""}>
                     <div className="space-y-4 py-2">
                       <FormField
                         id={`area_${area.id}`}
@@ -190,7 +193,7 @@ const AjustesRazonables: React.FC<AjustesRazonablesProps> = ({ formData, onChang
                         onChange={(value) => handleAreaChange(trimestre, areaIndex, 'objetivo', value)}
                       />
 
-                      <div className="border p-4 rounded-md bg-gray-50">
+                      <div className="border p-2 sm:p-4 rounded-md bg-gray-50">
                         <FormField
                           id={`barreras_${area.id}`}
                           label="Barreras Evidenciadas"
@@ -201,18 +204,19 @@ const AjustesRazonables: React.FC<AjustesRazonablesProps> = ({ formData, onChang
                         <div className="flex justify-end mt-2">
                           <Button 
                             variant="outline" 
-                            size="sm" 
+                            size={isMobile ? "sm" : "sm"}
                             onClick={() => handleGenerateAI(trimestre, areaIndex, 'barreras')}
                             disabled={loadingAI[`${trimestre}_${areaIndex}_barreras`]}
-                            className={`bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 transition-all ${animatingButton[`${trimestre}_${areaIndex}_barreras`] ? 'animate-enter' : ''}`}
+                            className={`bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 transition-all ${animatingButton[`${trimestre}_${areaIndex}_barreras`] ? 'animate-enter' : ''} ${isMobile ? 'text-xs px-2 py-1' : ''}`}
                           >
-                            <Sparkles className="w-4 h-4 mr-2" />
-                            {loadingAI[`${trimestre}_${areaIndex}_barreras`] ? 'Generando...' : 'Generar sugerencia con IA'}
+                            <Sparkles className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} mr-1 sm:mr-2`} />
+                            {loadingAI[`${trimestre}_${areaIndex}_barreras`] ? 'Generando...' : 
+                             isMobile ? 'Sugerencia IA' : 'Generar sugerencia con IA'}
                           </Button>
                         </div>
                       </div>
 
-                      <div className="border p-4 rounded-md bg-gray-50">
+                      <div className="border p-2 sm:p-4 rounded-md bg-gray-50">
                         <FormField
                           id={`ajustes_${area.id}`}
                           label="Ajustes Razonables"
@@ -223,18 +227,19 @@ const AjustesRazonables: React.FC<AjustesRazonablesProps> = ({ formData, onChang
                         <div className="flex justify-end mt-2">
                           <Button 
                             variant="outline" 
-                            size="sm" 
+                            size={isMobile ? "sm" : "sm"}
                             onClick={() => handleGenerateAI(trimestre, areaIndex, 'ajustes')}
                             disabled={loadingAI[`${trimestre}_${areaIndex}_ajustes`]}
-                            className={`bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 transition-all ${animatingButton[`${trimestre}_${areaIndex}_ajustes`] ? 'animate-enter' : ''}`}
+                            className={`bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 transition-all ${animatingButton[`${trimestre}_${areaIndex}_ajustes`] ? 'animate-enter' : ''} ${isMobile ? 'text-xs px-2 py-1' : ''}`}
                           >
-                            <Sparkles className="w-4 h-4 mr-2" />
-                            {loadingAI[`${trimestre}_${areaIndex}_ajustes`] ? 'Generando...' : 'Generar sugerencia con IA'}
+                            <Sparkles className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} mr-1 sm:mr-2`} />
+                            {loadingAI[`${trimestre}_${areaIndex}_ajustes`] ? 'Generando...' : 
+                             isMobile ? 'Sugerencia IA' : 'Generar sugerencia con IA'}
                           </Button>
                         </div>
                       </div>
 
-                      <div className="border p-4 rounded-md bg-gray-50">
+                      <div className="border p-2 sm:p-4 rounded-md bg-gray-50">
                         <FormField
                           id={`evaluacion_${area.id}`}
                           label="Evaluación de Ajustes"
@@ -245,13 +250,14 @@ const AjustesRazonables: React.FC<AjustesRazonablesProps> = ({ formData, onChang
                         <div className="flex justify-end mt-2">
                           <Button 
                             variant="outline" 
-                            size="sm" 
+                            size={isMobile ? "sm" : "sm"}
                             onClick={() => handleGenerateAI(trimestre, areaIndex, 'evaluacion')}
                             disabled={loadingAI[`${trimestre}_${areaIndex}_evaluacion`]}
-                            className={`bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 transition-all ${animatingButton[`${trimestre}_${areaIndex}_evaluacion`] ? 'animate-enter' : ''}`}
+                            className={`bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 transition-all ${animatingButton[`${trimestre}_${areaIndex}_evaluacion`] ? 'animate-enter' : ''} ${isMobile ? 'text-xs px-2 py-1' : ''}`}
                           >
-                            <Sparkles className="w-4 h-4 mr-2" />
-                            {loadingAI[`${trimestre}_${areaIndex}_evaluacion`] ? 'Generando...' : 'Generar sugerencia con IA'}
+                            <Sparkles className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} mr-1 sm:mr-2`} />
+                            {loadingAI[`${trimestre}_${areaIndex}_evaluacion`] ? 'Generando...' : 
+                             isMobile ? 'Sugerencia IA' : 'Generar sugerencia con IA'}
                           </Button>
                         </div>
                       </div>
