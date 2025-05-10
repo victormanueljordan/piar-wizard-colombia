@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import Logo from '@/components/Logo';
+import AnimatedBackground from '@/components/AnimatedBackground';
+import LoadingOverlay from '@/components/LoadingOverlay';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -37,16 +39,19 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center p-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6 space-y-6">
-        <div className="flex flex-col items-center space-y-2">
-          <Logo className="mb-4" />
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center p-4 relative overflow-hidden">
+      <AnimatedBackground type="particles" intensity="low" />
+      {loading && <LoadingOverlay />}
+      
+      <div className="w-full max-w-md bg-white/90 backdrop-blur-sm rounded-lg shadow-lg p-6 space-y-6 transition-all duration-300 hover:shadow-xl">
+        <div className="flex flex-col items-center space-y-2 animate-fade-in">
+          <Logo className="mb-4 animate-scale-in" />
           <h1 className="text-xl font-medium text-gray-800">
             Sistema de gestión de Planes Individuales de Ajustes Razonables
           </h1>
         </div>
         
-        <div className="bg-blue-50 rounded-md p-4">
+        <div className="bg-blue-50 rounded-md p-4 transition-all duration-300 hover:bg-blue-100">
           <h2 className="text-blue-700 font-medium mb-1">Inicia sesión con tu cuenta</h2>
           <p className="text-sm text-blue-600">
             Ingresa tus credenciales para acceder al sistema
@@ -62,6 +67,7 @@ const Login = () => {
               placeholder="docente@piar123.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -74,13 +80,14 @@ const Login = () => {
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
           
           <Button 
             type="submit" 
-            className="w-full bg-piar-blue hover:bg-blue-700" 
+            className="w-full bg-piar-blue hover:bg-blue-700 transition-all duration-300 hover:scale-[1.02]" 
             disabled={loading}
           >
             {loading ? "Iniciando sesión..." : "Iniciar sesión"}
@@ -90,7 +97,7 @@ const Login = () => {
         <div className="text-center text-sm">
           <p className="text-gray-600">
             ¿No tienes una cuenta? 
-            <Button variant="link" className="text-piar-blue pl-1 pb-0">
+            <Button variant="link" className="text-piar-blue pl-1 pb-0 transition-all duration-300 hover:text-blue-800">
               Regístrate
             </Button>
           </p>

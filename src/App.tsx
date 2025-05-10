@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import PiarForm from "./pages/PiarForm";
 import NotFound from "./pages/NotFound";
+import LoadingOverlay from "@/components/LoadingOverlay";
 
 const queryClient = new QueryClient();
 
@@ -32,15 +33,11 @@ const App = () => {
     // Simulate checking for authentication
     setTimeout(() => {
       setIsLoading(false);
-    }, 500);
+    }, 1200);
   }, []);
   
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-piar-blue"></div>
-      </div>
-    );
+    return <LoadingOverlay message="Iniciando PIAR123..." />;
   }
 
   return (
@@ -87,12 +84,7 @@ const LogoutHandler = () => {
     window.location.href = "/login";
   }, []);
   
-  return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-piar-blue"></div>
-      <span className="ml-3">Cerrando sesión...</span>
-    </div>
-  );
+  return <LoadingOverlay message="Cerrando sesión..." />;
 };
 
 export default App;

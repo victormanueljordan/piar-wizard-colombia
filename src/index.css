@@ -118,11 +118,11 @@
 
 @layer components {
   .piar-wizard-step {
-    @apply flex items-center justify-center rounded-full w-10 h-10 text-white font-bold;
+    @apply flex items-center justify-center rounded-full w-10 h-10 text-white font-bold transition-all duration-300;
   }
   
   .piar-wizard-step.active {
-    @apply ring-2 ring-offset-2;
+    @apply ring-2 ring-offset-2 transform scale-110;
   }
   
   .piar-wizard-step.complete {
@@ -150,7 +150,7 @@
   }
 
   .piar-card {
-    @apply bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow;
+    @apply bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300;
   }
   
   /* Mobile responsiveness adjustments */
@@ -192,17 +192,6 @@
     }
   }
   
-  /* Animation for AI generation buttons */
-  @keyframes enter {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); box-shadow: 0 0 10px rgba(124, 58, 237, 0.5); }
-    100% { transform: scale(1); }
-  }
-  
-  .animate-enter {
-    animation: enter 1s ease;
-  }
-
   /* Status badges */
   .status-badge {
     @apply text-xs px-2 py-0.5 rounded-full font-medium;
@@ -214,5 +203,47 @@
   
   .status-complete {
     @apply bg-green-100 text-green-800;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes scaleIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  
+  @keyframes slideInRight {
+    from { transform: translateX(20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  
+  /* Animation Classes */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out forwards;
+  }
+  
+  .animate-pulse {
+    animation: pulse 2s infinite;
+  }
+  
+  .animate-enter {
+    animation: scaleIn 0.3s ease-out;
+  }
+  
+  .animate-slide-in {
+    animation: slideInRight 0.4s ease-out;
   }
 }

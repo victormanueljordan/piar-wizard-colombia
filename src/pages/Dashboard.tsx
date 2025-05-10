@@ -6,7 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Header from '@/components/Header';
 import { toast } from 'sonner';
-import { FileText, Clock, CheckCircle, PlusCircle, Eye, Edit } from 'lucide-react';
+import { FileText, Clock, CheckCircle, PlusCircle, Eye, Edit, Bot } from 'lucide-react';
+import AnimatedBackground from '@/components/AnimatedBackground';
+import LoadingOverlay from '@/components/LoadingOverlay';
 
 // Mock data for sample PIARs
 const mockPiars = [
@@ -64,7 +66,7 @@ const Dashboard = () => {
     icon: React.ReactNode; 
     iconColor: string;
   }) => (
-    <Card className="border hover:shadow-md transition-shadow">
+    <Card className="border hover:shadow-md transition-all duration-300 hover:translate-y-[-2px]">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <CardTitle className="text-sm font-medium text-gray-700">{title}</CardTitle>
         <div className={`rounded-full p-2 ${iconColor}`}>{icon}</div>
@@ -76,8 +78,13 @@ const Dashboard = () => {
     </Card>
   );
 
+  if (loading) {
+    return <LoadingOverlay message="Cargando dashboard..." />;
+  }
+
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 flex flex-col relative">
+      <AnimatedBackground type="gradient" intensity="low" />
       <Header userName={userName} />
       
       <main className="flex-1 container max-w-screen-xl mx-auto px-4 py-6">
@@ -86,39 +93,69 @@ const Dashboard = () => {
             <h1 className="text-2xl font-bold text-gray-800">Panel de Control</h1>
             <p className="text-gray-600">Bienvenido(a) docente, gestione los PIARs de sus estudiantes.</p>
           </div>
-          <Button className="mt-4 md:mt-0 bg-piar-blue hover:bg-blue-700" asChild>
+          <Button 
+            className="mt-4 md:mt-0 bg-piar-blue hover:bg-blue-700 transition-all duration-300 hover:scale-[1.03] shadow-md hover:shadow-lg" 
+            asChild
+          >
             <Link to="/crear-piar">
-              <PlusCircle className="h-4 w-4 mr-2" />
+              <PlusCircle className="h-4 w-4 mr-2 animate-enter" />
               Crear nuevo PIAR
             </Link>
           </Button>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <StatCard
-            title="Estudiantes Registrados"
-            value={stats.estudiantes}
-            description="Estudiantes con PIAR asignado"
-            icon={<FileText className="h-5 w-5 text-white" />}
-            iconColor="bg-blue-500"
-          />
-          <StatCard
-            title="PIARs en Borrador"
-            value={stats.borradores}
-            description="Pendientes por completar"
-            icon={<Clock className="h-5 w-5 text-white" />}
-            iconColor="bg-yellow-500"
-          />
-          <StatCard
-            title="PIARs Completos"
-            value={stats.completados}
-            description="Finalizados y aprobados"
-            icon={<CheckCircle className="h-5 w-5 text-white" />}
-            iconColor="bg-green-500"
-          />
+        <div className="flex flex-col md:flex-row gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 flex-1">
+            <StatCard
+              title="Estudiantes Registrados"
+              value={stats.estudiantes}
+              description="Estudiantes con PIAR asignado"
+              icon={<FileText className="h-5 w-5 text-white" />}
+              iconColor="bg-blue-500"
+            />
+            <StatCard
+              title="PIARs en Borrador"
+              value={stats.borradores}
+              description="Pendientes por completar"
+              icon={<Clock className="h-5 w-5 text-white" />}
+              iconColor="bg-yellow-500"
+            />
+            <StatCard
+              title="PIARs Completos"
+              value={stats.completados}
+              description="Finalizados y aprobados"
+              icon={<CheckCircle className="h-5 w-5 text-white" />}
+              iconColor="bg-green-500"
+            />
+          </div>
+          
+          {/* Asistente IA Activo Card */}
+          <Card className="bg-gradient-to-br from-blue-50 to-white border-blue-100 shadow-md hover:shadow-lg transition-all duration-300 w-full md:w-64">
+            <CardHeader className="pb-2">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-sm font-medium text-blue-700">Asistente IA Activo</CardTitle>
+                <div className="rounded-full p-2 bg-blue-500/10">
+                  <Bot className="h-5 w-5 text-blue-600" />
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+                <p className="text-sm text-gray-600">Listo para ayudarte</p>
+              </div>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="mt-3 w-full text-blue-600 border-blue-200 hover:bg-blue-50 transition-all duration-300"
+              >
+                Consultar asistente
+              </Button>
+            </CardContent>
+          </Card>
         </div>
         
-        <div className="bg-white rounded-lg border p-6 mb-6 shadow-sm">
+        <div className="bg-white/80 backdrop-blur-sm rounded-lg border p-6 mb-6 shadow-sm transition-all duration-300 hover:shadow-md">
           <h2 className="text-lg font-semibold mb-4">Estudiantes con PIAR</h2>
           {loading ? (
             <div className="flex items-center justify-center h-40">
@@ -138,7 +175,7 @@ const Dashboard = () => {
                 </TableHeader>
                 <TableBody>
                   {piars.map((piar) => (
-                    <TableRow key={piar.id} className="hover:bg-gray-50">
+                    <TableRow key={piar.id} className="hover:bg-gray-50 transition-colors duration-150">
                       <TableCell className="font-medium">{piar.estudiante}</TableCell>
                       <TableCell>
                         <span className={`status-badge ${piar.estado === 'borrador' ? 'status-draft' : 'status-complete'}`}>
@@ -151,7 +188,7 @@ const Dashboard = () => {
                           <Button
                             variant="outline"
                             size="sm"
-                            className="flex items-center gap-1"
+                            className="flex items-center gap-1 transition-all duration-200 hover:scale-[1.03]"
                             asChild
                           >
                             <Link to={`/piar/${piar.id}`}>
@@ -178,7 +215,10 @@ const Dashboard = () => {
           ) : (
             <div className="text-center py-8">
               <p className="text-gray-500 mb-4">No hay estudiantes con PIAR registrados.</p>
-              <Button asChild>
+              <Button 
+                asChild
+                className="transition-all duration-300 hover:scale-[1.02]"
+              >
                 <Link to="/crear-piar">
                   <PlusCircle className="h-4 w-4 mr-2" />
                   Crear primer PIAR
