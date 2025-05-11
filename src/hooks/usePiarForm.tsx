@@ -6,12 +6,12 @@ import { PiarFormData } from '@/types/piarFormTypes';
 import { supabase } from "@/integrations/supabase/client";
 import { v4 as uuidv4 } from 'uuid';
 
-const usePiarForm = (idParam?: string) => {
+const usePiarForm = (idProp?: string) => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [currentSection, setCurrentSection] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [piarId, setPiarId] = useState<string>(idParam || '');
+  const [piarId, setPiarId] = useState<string>(idProp || '');
   const [estudianteId, setEstudianteId] = useState<string>('');
   
   // Initialize all form fields with empty values
@@ -119,7 +119,7 @@ const usePiarForm = (idParam?: string) => {
     }));
   };
 
-  // Function to fetch PIAR by ID - implement the missing function
+  // Function to fetch PIAR by ID
   const fetchPiarById = async (id: string) => {
     setLoading(true);
     try {
@@ -203,6 +203,17 @@ const usePiarForm = (idParam?: string) => {
         .eq('piar_id', id)
         .eq('trimestre', 3)
         .maybeSingle();
+      
+      // Ensure ajustes are always arrays
+      const ensureArray = (value: any): any[] => {
+        if (Array.isArray(value)) {
+          return value;
+        } else if (value === null || value === undefined) {
+          return [];
+        } else {
+          return [value];
+        }
+      };
       
       // Update form data with all fetched data
       setFormData({
@@ -293,10 +304,10 @@ const usePiarForm = (idParam?: string) => {
         firma_docente: participantesData?.firma_docente || '',
         firma_directivo: participantesData?.firma_directivo || '',
         
-        // Ajustes por trimestre
-        ajustes_trimestre1: ajustesTrimestre1?.ajustes || [],
-        ajustes_trimestre2: ajustesTrimestre2?.ajustes || [],
-        ajustes_trimestre3: ajustesTrimestre3?.ajustes || [],
+        // Ajustes por trimestre - Fix type conversion issues here
+        ajustes_trimestre1: ensureArray(ajustesTrimestre1?.ajustes || []),
+        ajustes_trimestre2: ensureArray(ajustesTrimestre2?.ajustes || []),
+        ajustes_trimestre3: ensureArray(ajustesTrimestre3?.ajustes || []),
         
         // Estado del PIAR
         estado: piarData.estado || 'borrador'
@@ -627,14 +638,14 @@ const usePiarForm = (idParam?: string) => {
   // Cargar PIAR si está en modo edición
   useEffect(() => {
     const loadPiar = async () => {
-      if (idParam) {
-        setPiarId(idParam);
-        await fetchPiarById(idParam);
+      if (idProp) {
+        setPiarId(idProp);
+        await fetchPiarById(idProp);
       }
     };
     
     loadPiar();
-  }, [idParam]);
+  }, [idProp]);
 
   return {
     currentStep,

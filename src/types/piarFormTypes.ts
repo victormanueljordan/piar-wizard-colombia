@@ -93,7 +93,7 @@ export interface PiarFormData {
   ajustes_trimestre3: any[];
   
   // State of the PIAR
-  estado?: string;
+  estado: string;
 }
 
 export interface SectionProps {
