@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Logo from './Logo';
-import { LogOut } from 'lucide-react';
+import { LogOut, PhoneCall } from 'lucide-react';
 
 interface HeaderProps {
   userName?: string;
@@ -19,9 +19,17 @@ const Header: React.FC<HeaderProps> = ({ userName }) => {
         <span className="ml-2 px-3 py-1 bg-blue-100 text-piar-blue text-sm font-medium rounded-full">
           Docentes
         </span>
+        <div className="hidden md:flex items-center ml-4 text-piar-blue">
+          <PhoneCall className="h-4 w-4 mr-1" />
+          <span className="text-sm font-medium">+1 (215) 398 1983</span>
+        </div>
       </div>
       {userName && (
         <div className="flex items-center gap-2 md:gap-4">
+          <div className="md:hidden flex items-center text-piar-blue mr-2">
+            <PhoneCall className="h-4 w-4 mr-1" />
+            <span className="text-xs font-medium">+1 (215) 398 1983</span>
+          </div>
           <div className="hidden sm:flex items-center gap-2">
             <div className="h-8 w-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-medium text-sm">
               {userName.charAt(0).toUpperCase()}
