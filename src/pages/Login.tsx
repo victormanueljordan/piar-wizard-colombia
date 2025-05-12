@@ -13,8 +13,8 @@ import { supabase } from "@/integrations/supabase/client";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('docente@piar123.com');
-  const [password, setPassword] = useState('demo123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -105,37 +105,13 @@ const Login = () => {
           </p>
         </div>
         
-        {/* Demo credentials card */}
-        <div className="bg-green-50 border border-green-200 rounded-md transition-all duration-300 hover:bg-green-100">
-          <h3 className="text-center text-green-700 font-medium py-3 border-b border-green-200">
-            Credenciales de demostración
-          </h3>
-          <div className="p-4">
-            <div className="flex items-center justify-between py-2 border-b border-green-100">
-              <div className="flex items-center gap-2">
-                <User className="h-5 w-5 text-green-600" />
-                <span className="text-gray-600">Usuario:</span>
-              </div>
-              <div className="text-green-800 font-medium">docente@piar123.com</div>
-            </div>
-            
-            <div className="flex items-center justify-between py-2">
-              <div className="flex items-center gap-2">
-                <Lock className="h-5 w-5 text-green-600" />
-                <span className="text-gray-600">Contraseña:</span>
-              </div>
-              <div className="text-green-800 font-medium">demo123</div>
-            </div>
-          </div>
-        </div>
-        
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="email">Correo electrónico</Label>
             <Input
               id="email"
               type="email"
-              placeholder="docente@piar123.com"
+              placeholder="correo@ejemplo.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
