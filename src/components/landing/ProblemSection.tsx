@@ -18,21 +18,21 @@ const ProblemSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             {
-              text: "Docentes sin acompañamiento para construir los PIAR",
+              text: "Docentes con acompañamiento continuo para construir los PIAR",
               image: "/placeholder.svg",
-              alt: "Docente trabajando solo",
+              alt: "Docente trabajando con apoyo",
               delay: 0
             },
             {
-              text: "Exceso de carga administrativa y poco tiempo",
+              text: "Optimización de tiempo y reducción de carga administrativa",
               image: "/placeholder.svg",
-              alt: "Docente con muchos papeles",
+              alt: "Docente con tiempo óptimo",
               delay: 200
             },
             {
-              text: "Dificultad para cumplir con el Decreto 1421 de 2017",
+              text: "Facilidad para cumplir con el Decreto 1421 de 2017",
               image: "/placeholder.svg",
-              alt: "Documento de regulación",
+              alt: "Documento de regulación simplificado",
               delay: 400
             }
           ].map((item, index) => (
