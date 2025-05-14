@@ -10,6 +10,7 @@ import CallToAction from '@/components/landing/CallToAction';
 import LoginSection from '@/components/landing/LoginSection';
 import FooterSection from '@/components/landing/FooterSection';
 import CoFoundersSection from '@/components/landing/CoFoundersSection';
+import AnimatedBackground from '@/components/AnimatedBackground';
 
 const Landing = () => {
   // Refs for smooth scrolling
@@ -24,8 +25,11 @@ const Landing = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden bg-gradient-to-br from-blue-50 via-white to-green-50">
-      {/* Header with contact number */}
+    <div className="min-h-screen flex flex-col overflow-x-hidden relative">
+      {/* Animated background */}
+      <AnimatedBackground type="particles" intensity="medium" />
+      
+      {/* Header with WhatsApp number */}
       <HeaderSection />
 
       {/* Hero Section */}
