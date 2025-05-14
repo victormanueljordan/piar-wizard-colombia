@@ -1,7 +1,6 @@
 
 import { Button } from '@/components/ui/button';
 import { ArrowDown, Play } from 'lucide-react';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 interface HeroSectionProps {
   scrollToLogin: () => void;
@@ -20,19 +19,21 @@ const HeroSection = ({ scrollToLogin, scrollToProblem, scrollToVideo }: HeroSect
         <div className="absolute bottom-1/3 left-1/4 w-60 h-60 bg-yellow-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse delay-500"></div>
       </div>
       
-      <div className="container mx-auto grid grid-cols-1 lg:grid-cols-5 items-center gap-8 px-4 z-10">
-        <div className="lg:col-span-3 space-y-6 animate-fade-in">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight">
-            Transformamos la inclusión educativa con tecnología
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-600 max-w-2xl">
-            PIAR123 es la plataforma inteligente que facilita la creación de Planes Individuales de Ajustes Razonables (PIAR) para docentes, instituciones y familias.
-          </p>
+      <div className="container mx-auto px-4 z-10">
+        <div className="max-w-4xl mx-auto bg-white/80 backdrop-blur-sm p-8 rounded-xl shadow-lg">
+          <div className="text-center space-y-6 mb-10">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">
+              Transformamos la inclusión educativa con tecnología
+            </h1>
+            <p className="text-xl text-gray-600 mx-auto max-w-2xl">
+              PIAR123 es la plataforma inteligente que facilita la creación de Planes Individuales de Ajustes Razonables (PIAR) para docentes, instituciones y familias.
+            </p>
+          </div>
           
-          <div className="flex flex-col sm:flex-row gap-4 pt-4">
+          <div className="flex flex-col gap-4 max-w-md mx-auto">
             <Button 
               size="lg"
-              className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-medium text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center gap-2"
+              className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-medium text-lg py-6 transition-all duration-300"
               onClick={scrollToLogin}
             >
               Ingresar al sistema
@@ -41,24 +42,12 @@ const HeroSection = ({ scrollToLogin, scrollToProblem, scrollToVideo }: HeroSect
             <Button 
               size="lg"
               variant="outline" 
-              className="border-blue-500 text-blue-600 hover:bg-blue-50 font-medium text-lg transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
+              className="border-blue-500 text-blue-600 hover:bg-blue-50 font-medium text-lg py-6 transition-all duration-300"
               onClick={scrollToVideo}
             >
               Ver nuestro pitch
               <Play className="h-4 w-4" />
             </Button>
-          </div>
-        </div>
-        
-        <div className="lg:col-span-2 animate-scale-in">
-          <div className="bg-gradient-to-br from-purple-100 to-blue-100 p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
-            <AspectRatio ratio={4/3} className="bg-white rounded-lg overflow-hidden">
-              <img 
-                src="/lovable-uploads/00c8b7b7-970c-4d79-98ef-20808abb6313.png" 
-                alt="Aplicación PIAR123 en acción"
-                className="w-full h-full object-cover"
-              />
-            </AspectRatio>
           </div>
         </div>
       </div>
