@@ -7,7 +7,7 @@ interface CallToActionProps {
 
 const CallToAction = ({ scrollToLogin }: CallToActionProps) => {
   return (
-    <section className="py-12 px-4 bg-gradient-to-r from-piar-blue to-blue-700 text-white text-center relative overflow-hidden">
+    <section className="py-12 px-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white text-center relative overflow-hidden">
       {/* Animated elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full">
@@ -25,7 +25,7 @@ const CallToAction = ({ scrollToLogin }: CallToActionProps) => {
         <Button 
           onClick={scrollToLogin}
           size="lg" 
-          className="bg-white text-piar-blue hover:bg-gray-100 font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+          className="bg-white text-blue-600 hover:bg-gray-100 font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
         >
           Inicia sesión en PIAR123
         </Button>
