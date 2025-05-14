@@ -27,7 +27,7 @@ const Landing = () => {
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden relative">
       {/* Animated background */}
-      <AnimatedBackground type="particles" intensity="medium" />
+      <AnimatedBackground type="particles" intensity="high" />
       
       {/* Header with WhatsApp number */}
       <HeaderSection />
@@ -40,12 +40,15 @@ const Landing = () => {
       />
 
       {/* Problem Section */}
-      <div ref={problemaRef}>
+      <div ref={problemaRef} className="relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 opacity-70 -z-10"></div>
         <ProblemSection />
       </div>
 
       {/* Features Section */}
-      <FeaturesSection />
+      <div className="relative">
+        <FeaturesSection />
+      </div>
 
       {/* Co-founders Section */}
       <CoFoundersSection />
@@ -62,7 +65,8 @@ const Landing = () => {
       <CallToAction scrollToLogin={() => scrollToRef(loginRef)} />
 
       {/* Login Section */}
-      <div ref={loginRef}>
+      <div ref={loginRef} className="relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-50 to-white opacity-50 -z-10"></div>
         <LoginSection />
       </div>
 

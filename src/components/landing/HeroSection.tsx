@@ -19,43 +19,44 @@ const HeroSection = ({ scrollToLogin, scrollToProblem, scrollToVideo }: HeroSect
       </div>
       
       <div className="container mx-auto px-4 z-10">
-        <div className="max-w-4xl mx-auto backdrop-blur-sm p-8 rounded-xl shadow-lg transform hover:scale-[1.01] transition-all duration-500">
-          <div className="text-center space-y-6 mb-8 animate-fade-in">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-500 to-piar-green animate-pulse">
+        <div className="max-w-4xl mx-auto backdrop-blur-sm bg-white/30 p-8 rounded-xl shadow-lg border border-white/20">
+          <div className="text-center space-y-6 mb-8">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-500 to-piar-green">
               Transformamos la inclusión educativa con tecnología
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 mx-auto max-w-3xl animate-fade-in">
+            <p className="text-xl md:text-2xl text-gray-600 mx-auto max-w-3xl">
               PIAR123 es la plataforma inteligente que facilita la creación de Planes Individuales de Ajustes Razonables (PIAR) para docentes, instituciones y familias.
             </p>
           </div>
           
-          <div className="flex flex-col md:flex-row gap-4 max-w-md mx-auto justify-center animate-scale-in">
+          <div className="flex flex-col md:flex-row gap-4 max-w-md mx-auto justify-center">
             <Button 
               size="lg"
-              className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-medium text-lg py-6 transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+              className="relative bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-medium text-lg py-6 transition-all duration-300 hover:shadow-xl overflow-hidden group"
               onClick={scrollToLogin}
             >
-              Ingresar al sistema
-              <ArrowDown className="h-4 w-4 ml-1 animate-bounce" />
+              <span className="relative z-10">Ingresar al sistema</span>
+              <ArrowDown className="h-4 w-4 ml-1 relative z-10 animate-bounce" />
+              <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-purple-700 to-blue-700 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
             </Button>
             <Button 
               size="lg"
               variant="outline" 
-              className="border-blue-500 text-blue-600 hover:bg-blue-50 font-medium text-lg py-6 transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+              className="border-blue-500 text-blue-600 hover:bg-blue-50 font-medium text-lg py-6 transition-all duration-300 hover:shadow-xl group"
               onClick={scrollToVideo}
             >
-              Ver nuestro pitch
-              <Play className="h-4 w-4 ml-1" />
+              <span>Ver nuestro pitch</span>
+              <Play className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
         </div>
       </div>
       
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10">
         <Button 
           variant="ghost" 
           size="icon" 
-          className="rounded-full bg-white shadow-md hover:shadow-lg h-12 w-12"
+          className="rounded-full bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg h-12 w-12"
           onClick={scrollToProblem}
         >
           <ArrowDown className="text-blue-600 h-5 w-5" />

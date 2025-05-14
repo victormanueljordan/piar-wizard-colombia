@@ -17,18 +17,20 @@ const RecognitionSection = () => {
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
               PIAR123 fue el proyecto ganador entre más de 800 participantes en la Hackathon de Inteligencia Artificial realizada en Latinoamérica. Nuestro enfoque innovador en la educación inclusiva utilizando tecnología de vanguardia nos destacó entre los participantes.
             </p>
-            <div className="bg-gradient-to-r from-piar-yellow/20 to-piar-blue/20 p-5 rounded-xl shadow-md border-l-4 border-piar-yellow transform hover:scale-[1.01] hover:shadow-lg transition-all duration-300">
-              <p className="italic text-gray-700 leading-relaxed">
+            <div className="bg-gradient-to-r from-piar-yellow/10 to-piar-blue/10 p-5 rounded-xl shadow-md border-l-4 border-piar-yellow hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+              <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-piar-yellow/10 rounded-full blur-xl"></div>
+              <p className="italic text-gray-700 leading-relaxed relative z-10">
                 "PIAR123 representa una innovación educativa significativa que tiene el potencial de transformar la forma en que se implementan los planes de inclusión en toda Latinoamérica."
               </p>
-              <p className="mt-3 font-medium text-right text-gray-800">- Jurado de la Hackathon LATAM de IA</p>
+              <p className="mt-3 font-medium text-right text-gray-800 relative z-10">- Jurado de la Hackathon LATAM de IA</p>
             </div>
           </div>
           <div className="flex-1 flex justify-center items-center order-1 md:order-2">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-piar-yellow/30 to-piar-blue/30 rounded-full blur-3xl -z-10"></div>
-              <div className="relative z-10 transform hover:scale-105 transition-all duration-500">
-                <Award className="h-40 w-40 text-piar-yellow drop-shadow-[0_0_15px_rgba(243,199,28,0.6)] animate-pulse" />
+              <div className="relative z-10">
+                <div className="absolute inset-0 rounded-full bg-white/30 blur-xl"></div>
+                <Award className="h-40 w-40 text-piar-yellow drop-shadow-[0_0_15px_rgba(243,199,28,0.6)] relative z-10" />
               </div>
             </div>
           </div>
