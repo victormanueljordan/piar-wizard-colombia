@@ -18,10 +18,10 @@ const CoFoundersSection = () => {
               <AvatarImage src="/placeholder.svg" alt="Martha Gómez" />
               <AvatarFallback className="bg-piar-blue text-white text-xl">MG</AvatarFallback>
             </Avatar>
-            <h3 className="text-xl font-bold text-gray-800 mb-1">Martha Gómez</h3>
-            <p className="text-gray-500 mb-3">Co-fundadora</p>
+            <h3 className="text-xl font-bold text-gray-800 mb-1">Martha Liliana Gómez Gaviria</h3>
+            <p className="text-gray-500 mb-3">Cofundadora</p>
             <p className="text-center text-gray-600 mb-4">
-              Liderando la transformación educativa con experiencia en inclusión y tecnologías para el aprendizaje.
+              Licenciada en Ciencias Naturales con amplia experiencia docente, comprometida con la inclusión y la innovación educativa.
             </p>
             <a 
               href="https://www.linkedin.com/in/martha-liliana-g%C3%B3mez-gaviria-1b33a389" 
@@ -40,10 +40,10 @@ const CoFoundersSection = () => {
               <AvatarImage src="/placeholder.svg" alt="Victor Jordan" />
               <AvatarFallback className="bg-piar-green text-white text-xl">VJ</AvatarFallback>
             </Avatar>
-            <h3 className="text-xl font-bold text-gray-800 mb-1">Victor Jordan</h3>
-            <p className="text-gray-500 mb-3">Co-fundador</p>
+            <h3 className="text-xl font-bold text-gray-800 mb-1">Víctor Manuel Jordán Beghelli</h3>
+            <p className="text-gray-500 mb-3">Cofundador y líder tecnológico</p>
             <p className="text-center text-gray-600 mb-4">
-              Innovador en tecnología educativa con enfoque en soluciones inclusivas para cada estudiante.
+              Ingeniero experto en soluciones de información para la industria, con enfoque en inteligencia artificial y automatización educativa.
             </p>
             <a 
               href="https://www.linkedin.com/in/victor-manuel-jordan-beghelli" 
