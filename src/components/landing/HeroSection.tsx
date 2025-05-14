@@ -11,7 +11,7 @@ interface HeroSectionProps {
 
 const HeroSection = ({ scrollToLogin, scrollToProblem, scrollToVideo }: HeroSectionProps) => {
   return (
-    <section className="min-h-[92vh] flex flex-col justify-center relative overflow-hidden">
+    <section className="min-h-[85vh] flex flex-col justify-center relative overflow-hidden py-8">
       {/* Animated background elements */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-20 left-20 w-64 h-64 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
@@ -19,8 +19,8 @@ const HeroSection = ({ scrollToLogin, scrollToProblem, scrollToVideo }: HeroSect
         <div className="absolute top-1/3 right-1/3 w-60 h-60 bg-yellow-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse delay-1000"></div>
       </div>
       
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-12 py-16 px-4">
-        <div className="flex-1 space-y-6 animate-fade-in z-10">
+      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-8 py-12 px-4">
+        <div className="flex-1 space-y-5 animate-fade-in z-10">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight">
             Transformamos la inclusión educativa con tecnología
           </h1>
@@ -65,7 +65,7 @@ const HeroSection = ({ scrollToLogin, scrollToProblem, scrollToVideo }: HeroSect
           </div>
         </div>
       </div>
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
         <Button 
           variant="ghost" 
           size="icon" 

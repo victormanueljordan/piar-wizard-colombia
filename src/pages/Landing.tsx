@@ -9,6 +9,7 @@ import RecognitionSection from '@/components/landing/RecognitionSection';
 import CallToAction from '@/components/landing/CallToAction';
 import LoginSection from '@/components/landing/LoginSection';
 import FooterSection from '@/components/landing/FooterSection';
+import CoFoundersSection from '@/components/landing/CoFoundersSection';
 
 const Landing = () => {
   // Refs for smooth scrolling
@@ -41,6 +42,9 @@ const Landing = () => {
 
       {/* Features Section */}
       <FeaturesSection />
+
+      {/* Co-founders Section */}
+      <CoFoundersSection />
 
       {/* Video Section */}
       <div ref={videoRef}>

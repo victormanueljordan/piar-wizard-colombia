@@ -7,7 +7,7 @@ interface CallToActionProps {
 
 const CallToAction = ({ scrollToLogin }: CallToActionProps) => {
   return (
-    <section className="py-16 px-4 bg-gradient-to-r from-piar-blue to-blue-700 text-white text-center relative overflow-hidden">
+    <section className="py-12 px-4 bg-gradient-to-r from-piar-blue to-blue-700 text-white text-center relative overflow-hidden">
       {/* Animated elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full">
@@ -17,7 +17,7 @@ const CallToAction = ({ scrollToLogin }: CallToActionProps) => {
         </div>
       </div>
       
-      <div className="container mx-auto space-y-8 relative z-10">
+      <div className="container mx-auto space-y-6 relative z-10">
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">¿Eres docente o parte de una institución educativa?</h2>
         <p className="text-xl max-w-2xl mx-auto">
           Únete a los educadores que ya están transformando la inclusión educativa con PIAR123
