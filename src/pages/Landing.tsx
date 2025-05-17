@@ -27,7 +27,7 @@ const Landing = () => {
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden relative">
       {/* Animated background */}
-      <AnimatedBackground type="particles" intensity="high" />
+      <AnimatedBackground type="subtle-gradient" intensity="medium" />
       
       {/* Header with WhatsApp number */}
       <HeaderSection />

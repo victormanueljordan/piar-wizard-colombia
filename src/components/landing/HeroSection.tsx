@@ -11,18 +11,26 @@ interface HeroSectionProps {
 const HeroSection = ({ scrollToLogin, scrollToProblem, scrollToVideo }: HeroSectionProps) => {
   return (
     <section className="relative min-h-[85vh] py-12 flex items-center overflow-hidden">
-      {/* Animated dots background */}
+      {/* Subtle light effects in background */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 left-20 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
-        <div className="absolute bottom-10 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse delay-700"></div>
-        <div className="absolute top-1/3 right-1/4 w-60 h-60 bg-green-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse delay-1000"></div>
+        <div className="absolute top-20 left-20 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+        <div className="absolute bottom-10 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-15"></div>
+        <div className="absolute top-1/3 right-1/4 w-60 h-60 bg-green-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
       </div>
       
       <div className="container mx-auto px-4 z-10">
         <div className="max-w-4xl mx-auto backdrop-blur-sm bg-white/30 p-8 rounded-xl shadow-lg border border-white/20">
           <div className="text-center space-y-6 mb-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-500 to-piar-green">
-              Transformamos la inclusión educativa con tecnología
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight relative">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-500 to-piar-green inline-block">
+                Transformamos la inclusión educativa con tecnología
+              </span>
+              <div className="h-1 w-0 bg-gradient-to-r from-blue-600 via-purple-500 to-piar-green mt-2 mx-auto" 
+                style={{ 
+                  animation: "expand 1.5s forwards",
+                  animationTimingFunction: "ease-out",
+                  animationDelay: "0.5s" 
+              }}></div>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 mx-auto max-w-3xl">
               PIAR123 es la plataforma inteligente que facilita la creación de Planes Individuales de Ajustes Razonables (PIAR) para docentes, instituciones y familias.
@@ -36,7 +44,7 @@ const HeroSection = ({ scrollToLogin, scrollToProblem, scrollToVideo }: HeroSect
               onClick={scrollToLogin}
             >
               <span className="relative z-10">Ingresar al sistema</span>
-              <ArrowDown className="h-4 w-4 ml-1 relative z-10 animate-bounce" />
+              <ArrowDown className="h-4 w-4 ml-1 relative z-10" />
               <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-purple-700 to-blue-700 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
             </Button>
             <Button 
@@ -62,6 +70,14 @@ const HeroSection = ({ scrollToLogin, scrollToProblem, scrollToVideo }: HeroSect
           <ArrowDown className="text-blue-600 h-5 w-5" />
         </Button>
       </div>
+
+      {/* Add CSS animation for the underline effect */}
+      <style jsx global>{`
+        @keyframes expand {
+          from { width: 0; }
+          to { width: 100%; }
+        }
+      `}</style>
     </section>
   );
 };

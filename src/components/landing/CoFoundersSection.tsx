@@ -23,11 +23,11 @@ const CoFoundersSection = () => {
             <div className="relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-piar-green rounded-full opacity-75 blur-sm"></div>
               <Avatar className="h-32 w-32 border-4 border-white shadow-lg mb-6 relative z-10">
-                <AvatarImage src="/placeholder.svg" alt="Martha Gómez" />
+                <AvatarImage src="/lovable-uploads/479f3d34-d04f-4ed0-a5f9-a28acb545208.png" alt="Martha Gómez" />
                 <AvatarFallback className="bg-piar-blue text-white text-2xl">MG</AvatarFallback>
               </Avatar>
             </div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-1 text-center">Martha Liliana Gómez Gaviria</h3>
+            <h3 className="text-2xl font-bold text-gray-800 mb-1">Martha Liliana Gómez Gaviria</h3>
             <p className="text-piar-blue font-medium mb-4 text-center">Cofundadora</p>
             <p className="text-center text-gray-600 mb-6">
               Licenciada en Ciencias Naturales con amplia experiencia docente, comprometida con la inclusión y la innovación educativa.
@@ -48,11 +48,11 @@ const CoFoundersSection = () => {
             <div className="relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-piar-blue to-piar-green rounded-full opacity-75 blur-sm"></div>
               <Avatar className="h-32 w-32 border-4 border-white shadow-lg mb-6 relative z-10">
-                <AvatarImage src="/placeholder.svg" alt="Victor Jordan" />
+                <AvatarImage src="/lovable-uploads/0387a12f-c093-4e6a-9e2b-18defa8eeb90.png" alt="Victor Jordan" />
                 <AvatarFallback className="bg-piar-green text-white text-2xl">VJ</AvatarFallback>
               </Avatar>
             </div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-1 text-center">Víctor Manuel Jordán Beghelli</h3>
+            <h3 className="text-2xl font-bold text-gray-800 mb-1">Víctor Manuel Jordán Beghelli</h3>
             <p className="text-piar-green font-medium mb-4 text-center">Cofundador y líder tecnológico</p>
             <p className="text-center text-gray-600 mb-6">
               Ingeniero experto en soluciones de información para la industria, con enfoque en inteligencia artificial y automatización educativa.
