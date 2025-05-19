@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -23,6 +22,13 @@ export default {
       }
     },
     extend: {
+      fontFamily: {
+        sans: ['Outfit', 'sans-serif'],
+        heading: ['Poppins', 'sans-serif'],
+      },
+      scale: {
+        '102': '1.02',
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -129,6 +135,14 @@ export default {
         'bounce': {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' }
+        },
+        'float': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' }
+        },
+        'scroll-down': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(10px)' }
         }
       },
       animation: {
@@ -137,7 +151,9 @@ export default {
         'fade-in': 'fade-in 0.5s ease-out',
         'scale-in': 'scale-in 0.4s ease-out',
         'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'bounce': 'bounce 2s infinite'
+        'bounce': 'bounce 2s infinite',
+        'float': 'float 3s ease-in-out infinite',
+        'scroll-down': 'scroll-down 1.5s ease-in-out infinite'
       },
       transitionProperty: {
         'height': 'height',

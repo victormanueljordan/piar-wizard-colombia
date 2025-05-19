@@ -1,5 +1,5 @@
 
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import HeaderSection from '@/components/landing/HeaderSection';
 import HeroSection from '@/components/landing/HeroSection';
 import ProblemSection from '@/components/landing/ProblemSection';
@@ -10,6 +10,8 @@ import CallToAction from '@/components/landing/CallToAction';
 import LoginSection from '@/components/landing/LoginSection';
 import FooterSection from '@/components/landing/FooterSection';
 import CoFoundersSection from '@/components/landing/CoFoundersSection';
+import TestimonialsSection from '@/components/landing/TestimonialsSection';
+import StickyCTA from '@/components/landing/StickyCTA';
 import AnimatedBackground from '@/components/AnimatedBackground';
 
 const Landing = () => {
@@ -24,10 +26,32 @@ const Landing = () => {
     }
   };
 
+  // Handle scroll animations
+  useEffect(() => {
+    const handleScroll = () => {
+      const reveals = document.querySelectorAll('.reveal');
+      
+      reveals.forEach((element) => {
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < windowHeight - elementVisible) {
+          element.classList.add('reveal-visible');
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Trigger once on load
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden relative">
-      {/* Animated background */}
-      <AnimatedBackground type="subtle-gradient" intensity="medium" />
+      {/* Subtle animated background */}
+      <AnimatedBackground type="subtle-gradient" intensity="low" />
       
       {/* Header with WhatsApp number */}
       <HeaderSection />
@@ -40,15 +64,15 @@ const Landing = () => {
       />
 
       {/* Problem Section */}
-      <div ref={problemaRef} className="relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 opacity-70 -z-10"></div>
+      <div ref={problemaRef}>
         <ProblemSection />
       </div>
 
       {/* Features Section */}
-      <div className="relative">
-        <FeaturesSection />
-      </div>
+      <FeaturesSection />
+      
+      {/* Testimonials Section */}
+      <TestimonialsSection />
 
       {/* Co-founders Section */}
       <CoFoundersSection />
@@ -65,13 +89,15 @@ const Landing = () => {
       <CallToAction scrollToLogin={() => scrollToRef(loginRef)} />
 
       {/* Login Section */}
-      <div ref={loginRef} className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-50 to-white opacity-50 -z-10"></div>
+      <div ref={loginRef} id="login">
         <LoginSection />
       </div>
 
       {/* Footer */}
       <FooterSection />
+      
+      {/* Sticky CTA Button */}
+      <StickyCTA scrollToLogin={() => scrollToRef(loginRef)} />
     </div>
   );
 };

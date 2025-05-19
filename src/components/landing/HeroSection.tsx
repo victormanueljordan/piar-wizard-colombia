@@ -1,5 +1,8 @@
+
+import React, { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, Play } from 'lucide-react';
+import ScrollReveal from '@/components/ScrollReveal';
 
 interface HeroSectionProps {
   scrollToLogin: () => void;
@@ -9,52 +12,64 @@ interface HeroSectionProps {
 
 const HeroSection = ({ scrollToLogin, scrollToProblem, scrollToVideo }: HeroSectionProps) => {
   return (
-    <section className="relative min-h-[85vh] py-12 flex items-center overflow-hidden">
-      {/* Subtle light effects in background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 left-20 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
-        <div className="absolute bottom-10 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-15"></div>
-        <div className="absolute top-1/3 right-1/4 w-60 h-60 bg-green-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+    <section className="relative min-h-[90vh] py-12 flex items-center overflow-hidden">
+      {/* Modern abstract shapes in background */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-20 left-20 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-float"></div>
+        <div className="absolute bottom-10 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-float delay-700"></div>
+        <div className="absolute top-1/3 right-1/4 w-60 h-60 bg-green-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-float delay-500"></div>
+        
+        {/* Add subtle pattern overlay */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+CjxyZWN0IHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgZmlsbD0iI2ZmZiI+PC9yZWN0Pgo8cGF0aCBkPSJNMzYgNDRjMCAxIDEgMiAyIDJoMmMxIDAgMi0xIDItMnYtMmMwLTEtMS0yLTItMmgtMmMtMSAwLTIgMS0yIDJ2MnptMC0yMGMwIDEgMSAyIDIgMmgyYzEgMCAyLTEgMi0ydi0yYzAtMS0xLTItMi0yaC0yYy0xIDAtMiAxLTIgMnYyem0tMTAgMGMwIDEgMSAyIDIgMmgyYzEgMCAyLTEgMi0ydi0yYzAtMS0xLTItMi0yaC0yYy0xIDAtMiAxLTIgMnYyem0tMTAgMjBjMCAxIDEgMiAyIDJoMmMxIDAgMi0xIDItMnYtMmMwLTEtMS0yLTItMmgtMmMtMSAwLTIgMS0yIDJ2MnptMC0xMGMwIDEgMSAyIDIgMmgyYzEgMCAyLTEgMi0ydi0yYzAtMS0xLTItMi0yaC0yYy0xIDAtMiAxLTIgMnYyem0wLTEwYzAgMSAxIDIgMiAyaDJjMSAwIDItMSAyLTJ2LTJjMC0xLTEtMi0yLTJoLTJjLTEgMC0yIDEtMiAydjJ6bS0xMCAxMGMwIDEgMSAyIDIgMmgyYzEgMCAyLTEgMi0ydi0yYzAtMS0xLTItMi0yaC0yYy0xIDAtMiAxLTIgMnYyem0wLTEwYzAgMSAxIDIgMiAyaDJjMSAwIDItMSAyLTJ2LTJjMC0xLTEtMi0yLTJoLTJjLTEgMC0yIDEtMiAydjJ6bTMwIDBjMCAxIDEgMiAyIDJoMmMxIDAgMi0xIDItMnYtMmMwLTEtMS0yLTItMmgtMmMtMSAwLTIgMS0yIDJ2MnptLTEwIDEwYzAgMSAxIDIgMiAyaDJjMSAwIDItMSAyLTJ2LTJjMC0xLTEtMi0yLTJoLTJjLTEgMC0yIDEtMiAydjJ6Ii8+Cjwvc3ZnPg==')] opacity-5"></div>
       </div>
       
       <div className="container mx-auto px-4 z-10">
-        <div className="max-w-4xl mx-auto backdrop-blur-sm bg-white/30 p-8 rounded-xl shadow-lg border border-white/20">
-          <div className="text-center space-y-6 mb-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight relative">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-500 to-piar-green inline-block">
-                Transformamos la inclusión educativa con tecnología
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="order-2 lg:order-1">
+            <ScrollReveal>
+              <span className="inline-block px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-6">
+                Ganador Hackathon LATAM de IA
               </span>
-              <div className="h-1 w-0 bg-gradient-to-r from-blue-600 via-purple-500 to-piar-green mt-2 mx-auto" 
-                style={{ 
-                  animation: "expand 1.5s forwards",
-                  animationTimingFunction: "ease-out",
-                  animationDelay: "0.5s" 
-              }}></div>
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-600 mx-auto max-w-3xl">
-              PIAR123 es la plataforma inteligente que facilita la creación de Planes Individuales de Ajustes Razonables (PIAR) para docentes, instituciones y familias.
-            </p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight mb-6 font-heading">
+                <span className="gradient-text">
+                  Transformamos la inclusión educativa con tecnología
+                </span>
+              </h1>
+              <p className="text-xl text-gray-600 mb-8 max-w-lg">
+                PIAR123 es la plataforma inteligente que facilita la creación de Planes Individuales de Ajustes Razonables (PIAR) para docentes, instituciones y familias.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button 
+                  size="lg"
+                  className="relative bg-gradient-to-r from-piar-blue to-blue-700 text-white font-medium text-lg py-6 px-8 transition-all duration-300 hover:shadow-xl rounded-md group"
+                  onClick={scrollToLogin}
+                >
+                  <span className="relative z-10">Ingresar al sistema</span>
+                  <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-700 to-piar-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md"></div>
+                </Button>
+                <Button 
+                  size="lg"
+                  variant="outline" 
+                  className="border-2 border-blue-500 text-blue-600 hover:bg-blue-50 font-medium text-lg py-6 transition-all duration-300 hover:shadow-lg group rounded-md"
+                  onClick={scrollToVideo}
+                >
+                  <span>Ver nuestro pitch</span>
+                  <Play className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </div>
+            </ScrollReveal>
           </div>
           
-          <div className="flex flex-col md:flex-row gap-4 max-w-md mx-auto justify-center">
-            <Button 
-              size="lg"
-              className="relative bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-medium text-lg py-6 transition-all duration-300 hover:shadow-xl overflow-hidden group"
-              onClick={scrollToLogin}
-            >
-              <span className="relative z-10">Ingresar al sistema</span>
-              <ArrowDown className="h-4 w-4 ml-1 relative z-10" />
-              <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-purple-700 to-blue-700 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-            </Button>
-            <Button 
-              size="lg"
-              variant="outline" 
-              className="border-blue-500 text-blue-600 hover:bg-blue-50 font-medium text-lg py-6 transition-all duration-300 hover:shadow-xl group"
-              onClick={scrollToVideo}
-            >
-              <span>Ver nuestro pitch</span>
-              <Play className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
-            </Button>
+          <div className="order-1 lg:order-2 flex justify-center">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-piar-blue/20 to-piar-green/20 rounded-full blur-3xl"></div>
+              <img 
+                src="/lovable-uploads/hero-illustration.svg" 
+                alt="PIAR123 - Inclusión Educativa" 
+                className="relative z-10 max-w-md w-full h-auto animate-float"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -63,22 +78,12 @@ const HeroSection = ({ scrollToLogin, scrollToProblem, scrollToVideo }: HeroSect
         <Button 
           variant="ghost" 
           size="icon" 
-          className="rounded-full bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg h-12 w-12"
+          className="rounded-full bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg h-12 w-12 animate-scroll-down"
           onClick={scrollToProblem}
         >
           <ArrowDown className="text-blue-600 h-5 w-5" />
         </Button>
       </div>
-
-      {/* Add CSS animation for the underline effect */}
-      <style>
-        {`
-          @keyframes expand {
-            from { width: 0; }
-            to { width: 100%; }
-          }
-        `}
-      </style>
     </section>
   );
 };

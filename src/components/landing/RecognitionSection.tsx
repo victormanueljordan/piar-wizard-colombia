@@ -1,15 +1,25 @@
 
+import React from 'react';
 import { Award } from 'lucide-react';
+import ScrollReveal from '@/components/ScrollReveal';
 
 const RecognitionSection = () => {
   return (
-    <section className="py-16 px-4 bg-white relative overflow-hidden">
+    <section className="section bg-white relative overflow-hidden">
       <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-br from-piar-yellow/10 to-piar-blue/10 rounded-full filter blur-3xl"></div>
       
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center gap-10">
-          <div className="flex-1 order-2 md:order-1">
-            <h2 className="text-3xl md:text-4xl font-bold mb-5 text-gray-800">
+          <ScrollReveal className="flex-1 order-2 md:order-1">
+            <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-1 rounded-lg mb-6 hidden md:block">
+              <img 
+                src="/lovable-uploads/hackathon-award.svg" 
+                alt="Premio Hackathon LATAM de IA" 
+                className="w-full h-auto rounded"
+              />
+            </div>
+            
+            <h2 className="text-3xl md:text-4xl font-bold mb-5 text-gray-800 font-heading">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-piar-yellow to-piar-blue">
                 Ganador Hackathon LATAM de IA
               </span>
@@ -17,23 +27,25 @@ const RecognitionSection = () => {
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
               PIAR123 fue el proyecto ganador entre más de 800 participantes en la Hackathon de Inteligencia Artificial realizada en Latinoamérica. Nuestro enfoque innovador en la educación inclusiva utilizando tecnología de vanguardia nos destacó entre los participantes.
             </p>
-            <div className="bg-gradient-to-r from-piar-yellow/10 to-piar-blue/10 p-5 rounded-xl shadow-md border-l-4 border-piar-yellow hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+            <div className="bg-gradient-to-r from-piar-yellow/10 to-piar-blue/10 p-6 rounded-xl shadow-md border-l-4 border-piar-yellow hover:shadow-lg transition-all duration-300 relative overflow-hidden">
               <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-piar-yellow/10 rounded-full blur-xl"></div>
               <p className="italic text-gray-700 leading-relaxed relative z-10">
                 "PIAR123 representa una innovación educativa significativa que tiene el potencial de transformar la forma en que se implementan los planes de inclusión en toda Latinoamérica."
               </p>
               <p className="mt-3 font-medium text-right text-gray-800 relative z-10">- Jurado de la Hackathon LATAM de IA</p>
             </div>
-          </div>
-          <div className="flex-1 flex justify-center items-center order-1 md:order-2">
+          </ScrollReveal>
+          
+          <ScrollReveal className="flex-1 flex justify-center items-center order-1 md:order-2 delay-300">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-piar-yellow/30 to-piar-blue/30 rounded-full blur-3xl -z-10"></div>
-              <div className="relative z-10">
+              <div className="relative z-10 flex items-center justify-center">
                 <div className="absolute inset-0 rounded-full bg-white/30 blur-xl"></div>
                 <Award className="h-40 w-40 text-piar-yellow drop-shadow-[0_0_15px_rgba(243,199,28,0.6)] relative z-10" />
               </div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 rounded-full border-4 border-dashed border-yellow-200 animate-spin-slow"></div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>
