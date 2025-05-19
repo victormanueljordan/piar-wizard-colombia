@@ -8,6 +8,7 @@ import { Progress } from '@/components/ui/progress';
 import { Download } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from '@/hooks/use-toast';
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import PiarChatSimulator from '@/components/simulator/PiarChatSimulator';
 import PiarPreview from '@/components/simulator/PiarPreview';
 import { PiarSimulatorProvider } from '@/hooks/usePiarSimulator';
@@ -16,6 +17,7 @@ const PiarSimulator = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [studentData, setStudentData] = useState<any>(null);
+  const [showIncompleteAlert, setShowIncompleteAlert] = useState(false);
   const [progress, setProgress] = useState({
     overall: 10,
     anexo1: 15,
@@ -40,17 +42,19 @@ const PiarSimulator = () => {
 
   const handleGeneratePDF = () => {
     if (progress.overall < 100) {
+      setShowIncompleteAlert(true);
       toast({
         title: "PIAR incompleto",
         description: "Este PIAR aún no está completo. Puedes continuar más adelante o descargar lo que llevas hasta ahora.",
-        variant: "warning",
+        // Remove the invalid "warning" variant
+      });
+    } else {
+      // PDF generation logic would go here in a real implementation
+      toast({
+        title: "Generando PDF",
+        description: "Tu PIAR se está generando y pronto estará listo para descargar.",
       });
     }
-    // PDF generation logic would go here in a real implementation
-    toast({
-      title: "Generando PDF",
-      description: "Tu PIAR se está generando y pronto estará listo para descargar.",
-    });
   };
 
   if (!studentData) return null;
@@ -76,6 +80,15 @@ const PiarSimulator = () => {
               Generar PDF del PIAR
             </Button>
           </div>
+          
+          {showIncompleteAlert && (
+            <Alert className="mb-6">
+              <AlertTitle>PIAR incompleto</AlertTitle>
+              <AlertDescription>
+                Este PIAR aún no está completo. Puedes continuar más adelante o descargar lo que llevas hasta ahora.
+              </AlertDescription>
+            </Alert>
+          )}
           
           <div className="mb-6">
             <div className="flex justify-between text-sm text-gray-600 mb-1">
