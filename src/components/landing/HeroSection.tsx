@@ -1,18 +1,18 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, Play } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
-
 interface HeroSectionProps {
   scrollToLogin: () => void;
   scrollToProblem: () => void;
   scrollToVideo: () => void;
 }
-
-const HeroSection = ({ scrollToLogin, scrollToProblem, scrollToVideo }: HeroSectionProps) => {
-  return (
-    <section className="relative min-h-[90vh] py-12 flex items-center overflow-hidden">
+const HeroSection = ({
+  scrollToLogin,
+  scrollToProblem,
+  scrollToVideo
+}: HeroSectionProps) => {
+  return <section className="relative min-h-[90vh] py-12 flex items-center overflow-hidden">
       {/* Modern abstract shapes in background */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute top-20 left-20 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-float"></div>
@@ -40,20 +40,11 @@ const HeroSection = ({ scrollToLogin, scrollToProblem, scrollToVideo }: HeroSect
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  size="lg"
-                  className="relative bg-gradient-to-r from-piar-blue to-blue-700 text-white font-medium text-lg py-6 px-8 transition-all duration-300 hover:shadow-xl rounded-md group"
-                  onClick={scrollToLogin}
-                >
+                <Button size="lg" className="relative bg-gradient-to-r from-piar-blue to-blue-700 text-white font-medium text-lg py-6 px-8 transition-all duration-300 hover:shadow-xl rounded-md group" onClick={scrollToLogin}>
                   <span className="relative z-10">Ingresar al sistema</span>
                   <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-700 to-piar-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md"></div>
                 </Button>
-                <Button 
-                  size="lg"
-                  variant="outline" 
-                  className="border-2 border-blue-500 text-blue-600 hover:bg-blue-50 font-medium text-lg py-6 transition-all duration-300 hover:shadow-lg group rounded-md"
-                  onClick={scrollToVideo}
-                >
+                <Button size="lg" variant="outline" className="border-2 border-blue-500 text-blue-600 hover:bg-blue-50 font-medium text-lg py-6 transition-all duration-300 hover:shadow-lg group rounded-md" onClick={scrollToVideo}>
                   <span>Ver nuestro pitch</span>
                   <Play className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
                 </Button>
@@ -64,28 +55,17 @@ const HeroSection = ({ scrollToLogin, scrollToProblem, scrollToVideo }: HeroSect
           <div className="order-1 lg:order-2 flex justify-center">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-piar-blue/20 to-piar-green/20 rounded-full blur-3xl"></div>
-              <img 
-                src="/lovable-uploads/hero-illustration.svg" 
-                alt="PIAR123 - Inclusión Educativa" 
-                className="relative z-10 max-w-md w-full h-auto animate-float"
-              />
+              <img alt="PIAR123 - Inclusión Educativa" className="relative z-10 max-w-md w-full h-auto animate-float" src="/lovable-uploads/a6989286-b41f-4a2f-ac2e-03c81642f1f7.jpg" />
             </div>
           </div>
         </div>
       </div>
       
       <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10">
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          className="rounded-full bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg h-12 w-12 animate-scroll-down"
-          onClick={scrollToProblem}
-        >
+        <Button variant="ghost" size="icon" className="rounded-full bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg h-12 w-12 animate-scroll-down" onClick={scrollToProblem}>
           <ArrowDown className="text-blue-600 h-5 w-5" />
         </Button>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HeroSection;
