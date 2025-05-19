@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from 'react';
 import HeaderSection from '@/components/landing/HeaderSection';
 import HeroSection from '@/components/landing/HeroSection';
@@ -12,6 +13,7 @@ import CoFoundersSection from '@/components/landing/CoFoundersSection';
 import StickyCTA from '@/components/landing/StickyCTA';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import PiarVideosSection from '@/components/landing/PiarVideosSection';
+import ResourceLinksSection from '@/components/landing/ResourceLinksSection';
 
 const Landing = () => {
   // Refs for smooth scrolling
@@ -72,6 +74,9 @@ const Landing = () => {
       
       {/* PIAR Videos Section */}
       <PiarVideosSection />
+      
+      {/* Resource Links Section */}
+      <ResourceLinksSection />
       
       {/* Co-founders Section */}
       <CoFoundersSection />
