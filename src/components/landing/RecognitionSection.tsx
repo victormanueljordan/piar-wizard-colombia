@@ -19,7 +19,7 @@ const RecognitionSection = () => {
                   height="415"
                   width="100%"
                   frameBorder="0"
-                  allowFullScreen=""
+                  allowFullScreen={true}
                   title="Hackathon Achievement Video"
                   className="w-full h-full"
                 ></iframe>
