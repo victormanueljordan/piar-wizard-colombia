@@ -55,7 +55,7 @@ const HeroSection = ({
           <div className="order-1 lg:order-2 flex justify-center">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-piar-blue/20 to-piar-green/20 rounded-full blur-3xl"></div>
-              <img alt="PIAR123 - Inclusión Educativa" src="/lovable-uploads/9da9be40-8f7c-4a6b-9468-e6fb086039dd.png" className="relative z-10 max-w-md w-full h-auto animate-float" />
+              <img alt="PIAR123 - Inclusión Educativa" className="relative z-10 max-w-md w-full h-auto animate-float" src="/lovable-uploads/65a2543b-efe4-40bd-8b61-20b846960ce4.png" />
             </div>
           </div>
         </div>
