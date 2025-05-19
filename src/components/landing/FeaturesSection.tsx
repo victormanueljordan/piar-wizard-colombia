@@ -10,28 +10,44 @@ const FeaturesSection = () => {
       description: "Sugerencias automáticas con IA que facilitarán la creación de planes personalizados",
       icon: <BrainCircuit className="h-10 w-10 text-white" />,
       color: "from-blue-500 to-indigo-600",
-      delay: 0
+      delay: 0,
+      benefits: [
+        "Diseñada para reducir significativamente el tiempo que los docentes dedican a crear PIAR",
+        "Genera contenido personalizado basado en las características únicas de cada estudiante"
+      ]
     },
     {
       title: "Gestión Centralizada",
       description: "Gestión centralizada por institución y docente que mejorará la coordinación",
       icon: <Users className="h-10 w-10 text-white" />,
       color: "from-green-500 to-emerald-600",
-      delay: 200
+      delay: 200,
+      benefits: [
+        "Facilita la colaboración entre todos los miembros del equipo docente",
+        "Seguimiento eficiente del progreso de cada estudiante en un solo lugar"
+      ]
     },
     {
       title: "Exportación a PDF",
       description: "Exportación de PIAR en PDF listos para presentar en cualquier momento",
       icon: <FileType className="h-10 w-10 text-white" />,
       color: "from-yellow-400 to-amber-500",
-      delay: 400
+      delay: 400,
+      benefits: [
+        "Documentos profesionales listos para entregar a coordinadores y directivos",
+        "Formatos estandarizados que cumplen con los requisitos normativos"
+      ]
     },
     {
       title: "Seguridad Garantizada",
       description: "Plataforma segura y fácil de usar que protegerá la información sensible",
       icon: <ShieldCheck className="h-10 w-10 text-white" />,
       color: "from-red-500 to-rose-600",
-      delay: 600
+      delay: 600,
+      benefits: [
+        "Protección de datos sensibles de los estudiantes con estándares de seguridad avanzados",
+        "Control de acceso granular para administrar quién puede ver la información"
+      ]
     }
   ];
 
@@ -59,15 +75,12 @@ const FeaturesSection = () => {
                 <p className="text-gray-600">{feature.description}</p>
                 
                 <ul className="mt-4 space-y-2">
-                  {[1, 2].map((item) => (
-                    <li key={item} className="flex items-center">
+                  {feature.benefits.map((benefit, i) => (
+                    <li key={i} className="flex items-center">
                       <span className="inline-flex items-center justify-center h-5 w-5 rounded-full bg-green-100 mr-2">
                         <Check className="h-3 w-3 text-green-600" />
                       </span>
-                      <span className="text-sm text-gray-600">
-                        {index === 0 && item === 1 ? "Diseñada para reducir significativamente el tiempo que los docentes dedican a crear PIAR" : 
-                         `Beneficio ${index + 1}.${item}`}
-                      </span>
+                      <span className="text-sm text-gray-600">{benefit}</span>
                     </li>
                   ))}
                 </ul>

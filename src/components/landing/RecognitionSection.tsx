@@ -12,11 +12,18 @@ const RecognitionSection = () => {
         <div className="flex flex-col md:flex-row items-center gap-10">
           <ScrollReveal className="flex-1 order-2 md:order-1">
             <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-1 rounded-lg mb-6 hidden md:block">
-              <img 
-                src="/lovable-uploads/hackathon-award.svg" 
-                alt="Premio Hackathon LATAM de IA" 
-                className="w-full h-auto rounded"
-              />
+              {/* Video about the hackathon achievement */}
+              <div className="aspect-video rounded-lg overflow-hidden">
+                <iframe
+                  src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7328400341597655040"
+                  height="415"
+                  width="100%"
+                  frameBorder="0"
+                  allowFullScreen=""
+                  title="Hackathon Achievement Video"
+                  className="w-full h-full"
+                ></iframe>
+              </div>
             </div>
             
             <h2 className="text-3xl md:text-4xl font-bold mb-5 text-gray-800 font-heading">
@@ -54,8 +61,12 @@ const RecognitionSection = () => {
               </p>
               
               <div className="flex items-center mt-6 relative z-10">
-                <div className="bg-white/80 p-2 rounded-full mr-4 shadow">
-                  <User className="h-10 w-10 text-gray-700" />
+                <div className="bg-white/80 p-2 rounded-full mr-4 shadow overflow-hidden">
+                  <img 
+                    src="https://media.licdn.com/dms/image/v2/D4E03AQE_2fo2s6sgzw/profile-displayphoto-shrink_200_200/B4EZRQpZOzHsAg-/0/1736519816768?e=1753315200&v=beta&t=t09anQBg0es-W_RH7G2tJqL8qPJ-jQRjH3MLGiPd0Zo" 
+                    alt="Tomás Calle" 
+                    className="h-10 w-10 object-cover rounded-full"
+                  />
                 </div>
                 <div>
                   <p className="font-medium text-gray-800">Tomás Calle</p>

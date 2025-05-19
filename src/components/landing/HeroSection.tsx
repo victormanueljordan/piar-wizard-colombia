@@ -1,12 +1,15 @@
-import React, { useEffect, useRef } from 'react';
+
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, Play } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
+
 interface HeroSectionProps {
   scrollToLogin: () => void;
   scrollToProblem: () => void;
   scrollToVideo: () => void;
 }
+
 const HeroSection = ({
   scrollToLogin,
   scrollToProblem,
@@ -36,7 +39,7 @@ const HeroSection = ({
                 </span>
               </h1>
               <p className="text-xl text-gray-600 mb-8 max-w-lg">
-                PIAR123 es la plataforma inteligente que facilita la creación de Planes Individuales de Ajustes Razonables (PIAR) para docentes, instituciones y familias.
+                PIAR123 será la plataforma inteligente que facilitará la creación de Planes Individuales de Ajustes Razonables (PIAR) para docentes, instituciones y familias.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
@@ -68,4 +71,5 @@ const HeroSection = ({
       </div>
     </section>;
 };
+
 export default HeroSection;
