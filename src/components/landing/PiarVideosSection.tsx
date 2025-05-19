@@ -18,23 +18,19 @@ type VideoInfo = {
 const videos: VideoInfo[] = [
   {
     id: 'ZoY834PpynY',
-    title: '¿Qué es el PIAR?'
+    title: 'TE INVITAMOS A ENTENDER LOS PIAR'
   },
   {
     id: 'q-z6j9iCxw0',
-    title: 'Elementos del PIAR'
+    title: 'ELEMENTOS DEL PLAN INDIVIDUAL DE AJUSTES RAZONABLES'
   },
   {
     id: 'aJu5J6ujxRE',
-    title: 'Implementación del PIAR'
+    title: 'IMPLEMENTACIÓN DEL PIAR'
   },
   {
     id: 'jNWflL8YIKU',
-    title: 'PIAR y aprendizaje inclusivo'
-  },
-  {
-    id: '4muiBuyfFT8',
-    title: 'Ajustes razonables'
+    title: 'LA EDUCACIÓN INCLUSIVA Y EL PIAR'
   }
 ];
 
