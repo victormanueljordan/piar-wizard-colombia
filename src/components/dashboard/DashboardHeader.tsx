@@ -19,7 +19,7 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({ userName }) => {
         className="mt-4 md:mt-0 bg-piar-blue hover:bg-blue-700 transition-all duration-300 hover:scale-[1.03] shadow-md hover:shadow-lg" 
         asChild
       >
-        <Link to="/crear-piar">
+        <Link to="/estudiante-inicial">
           <PlusCircle className="h-4 w-4 mr-2 animate-enter" />
           Crear nuevo PIAR
         </Link>

@@ -11,6 +11,8 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import PiarForm from "./pages/PiarForm";
+import StudentInitialForm from "./pages/StudentInitialForm";
+import PiarSimulator from "./pages/PiarSimulator";
 import NotFound from "./pages/NotFound";
 import LoadingOverlay from "@/components/LoadingOverlay";
 import AIAssistant from "@/components/ai-assistant/AIAssistant";
@@ -95,6 +97,22 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <PiarForm />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/estudiante-inicial" 
+              element={
+                <ProtectedRoute>
+                  <StudentInitialForm />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/simulador-piar" 
+              element={
+                <ProtectedRoute>
+                  <PiarSimulator />
                 </ProtectedRoute>
               } 
             />
