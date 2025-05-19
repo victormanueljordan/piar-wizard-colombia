@@ -18,6 +18,7 @@ const PiarSimulator = () => {
   const { toast } = useToast();
   const [studentData, setStudentData] = useState<any>(null);
   const [showIncompleteAlert, setShowIncompleteAlert] = useState(false);
+  const [loadingFields, setLoadingFields] = useState<Record<string, boolean>>({});
   const [progress, setProgress] = useState({
     overall: 10,
     anexo1: 15,
@@ -54,6 +55,14 @@ const PiarSimulator = () => {
         description: "Tu PIAR se está generando y pronto estará listo para descargar.",
       });
     }
+  };
+
+  // Function to be passed to context for handling AI field generation
+  const setFieldLoading = (fieldName: string, isLoading: boolean) => {
+    setLoadingFields(prev => ({
+      ...prev,
+      [fieldName]: isLoading
+    }));
   };
 
   if (!studentData) return null;
@@ -116,14 +125,14 @@ const PiarSimulator = () => {
               </div>
               <div>
                 <div className="flex justify-between text-xs text-gray-600 mb-1">
-                  <span>Anexo 2: Ajustes Razonables</span>
+                  <span>Anexo 2: Valoración Pedagógica</span>
                   <span>{progress.anexo2}%</span>
                 </div>
                 <Progress value={progress.anexo2} className="h-1.5 bg-gray-200" />
               </div>
               <div>
                 <div className="flex justify-between text-xs text-gray-600 mb-1">
-                  <span>Anexo 3: Seguimiento</span>
+                  <span>Anexo 3: Compromisos en el Aula</span>
                   <span>{progress.anexo3}%</span>
                 </div>
                 <Progress value={progress.anexo3} className="h-1.5 bg-gray-200" />
@@ -142,17 +151,17 @@ const PiarSimulator = () => {
               <Tabs defaultValue="anexo1">
                 <TabsList className="w-full">
                   <TabsTrigger value="anexo1" className="flex-1">Anexo 1: Información General</TabsTrigger>
-                  <TabsTrigger value="anexo2" className="flex-1">Anexo 2: Ajustes Razonables</TabsTrigger>
-                  <TabsTrigger value="anexo3" className="flex-1">Anexo 3: Seguimiento</TabsTrigger>
+                  <TabsTrigger value="anexo2" className="flex-1">Anexo 2: Valoración Pedagógica</TabsTrigger>
+                  <TabsTrigger value="anexo3" className="flex-1">Anexo 3: Compromisos en el Aula</TabsTrigger>
                 </TabsList>
                 <TabsContent value="anexo1">
-                  <PiarPreview section="anexo1" />
+                  <PiarPreview section="anexo1" loading={loadingFields} />
                 </TabsContent>
                 <TabsContent value="anexo2">
-                  <PiarPreview section="anexo2" />
+                  <PiarPreview section="anexo2" loading={loadingFields} />
                 </TabsContent>
                 <TabsContent value="anexo3">
-                  <PiarPreview section="anexo3" />
+                  <PiarPreview section="anexo3" loading={loadingFields} />
                 </TabsContent>
               </Tabs>
             </div>

@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Send } from 'lucide-react';
+import { MessageSquare, Send } from 'lucide-react';
 import { usePiarSimulator } from '@/hooks/usePiarSimulator';
 
 interface Message {
@@ -20,14 +20,109 @@ interface PiarChatSimulatorProps {
 const PiarChatSimulator: React.FC<PiarChatSimulatorProps> = ({ studentName }) => {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
+  const [currentStep, setCurrentStep] = useState(0);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { updatePiarData } = usePiarSimulator();
   
+  // Questions sequence - in a real app this would be more dynamic based on previous answers
+  const conversationFlow = [
+    {
+      question: `Hola, soy el asistente de creación del PIAR para ${studentName}. Voy a ayudarte a completar el documento paso a paso. ¿Comenzamos con la información de la institución educativa?`,
+      field: null,
+      section: null
+    },
+    {
+      question: "¿Cuál es el nombre de la institución educativa donde estudia el alumno?",
+      field: "institucion_educativa",
+      section: "anexo1"
+    },
+    {
+      question: "¿En qué sede y jornada está estudiando?",
+      field: "sede",
+      section: "anexo1"
+    },
+    {
+      question: "¿Cuál es la fecha de nacimiento del estudiante?",
+      field: "fecha_nacimiento",
+      section: "anexo1"
+    },
+    {
+      question: "¿Cuál es la dirección de residencia del estudiante?",
+      field: "direccion",
+      section: "anexo1"
+    },
+    {
+      question: "¿Cuenta el estudiante con algún diagnóstico médico relevante para su proceso educativo?",
+      field: "diagnostico_medico",
+      section: "anexo1"
+    },
+    {
+      question: "¿Requiere el estudiante productos de apoyo específicos?",
+      field: "productos_apoyo",
+      section: "anexo1"
+    },
+    {
+      question: "¿Recibe el estudiante terapias actualmente? ¿Cuáles?",
+      field: "terapias",
+      section: "anexo1"
+    },
+    {
+      question: "¿Puedes compartir información relevante sobre el contexto familiar del estudiante?",
+      field: "info_familia",
+      section: "anexo1"
+    },
+    {
+      question: "¿Cuál ha sido la trayectoria educativa del estudiante hasta el momento?",
+      field: "trayectoria_educativa",
+      section: "anexo1"
+    },
+    {
+      question: "Ahora pasaremos al Anexo 2. ¿Quiénes son los docentes responsables de implementar el PIAR?",
+      field: "docentes_responsables",
+      section: "anexo2"
+    },
+    {
+      question: "¿Podrías describir brevemente al estudiante en términos de su personalidad y forma de relacionarse?",
+      field: "descripcion_estudiante",
+      section: "anexo2"
+    },
+    {
+      question: "¿Cuáles son las habilidades actuales más destacadas del estudiante?",
+      field: "habilidades_actuales",
+      section: "anexo2"
+    },
+    {
+      question: "¿Qué barreras ha identificado para el aprendizaje del estudiante?",
+      field: "barreras_aprendizaje",
+      section: "anexo2"
+    },
+    {
+      question: "¿Participa el estudiante en actividades extracurriculares? ¿Cuáles?",
+      field: "participacion_extracurricular",
+      section: "anexo2"
+    },
+    {
+      question: "¿Qué estilo de aprendizaje has observado en el estudiante? (visual, auditivo, kinestésico, etc.)",
+      field: "estilo_aprendizaje",
+      section: "anexo2"
+    },
+    {
+      question: "Ahora vamos con el Anexo 3. ¿En qué asignaturas se enfocarán principalmente los ajustes?",
+      field: "asignaturas_focales",
+      section: "anexo3"
+    },
+    {
+      question: "¡Perfecto! Hemos recopilado información valiosa para el PIAR. Ahora puedes revisar cada anexo en el panel derecho. Para los campos que requieren mayor elaboración, puedes usar el botón 'Llenar con IA' disponible en algunos de ellos.",
+      field: null,
+      section: null
+    }
+  ];
+
   // Initial bot message
   useEffect(() => {
     setTimeout(() => {
-      handleBotResponse(`Hola, soy el asistente de creación del PIAR para ${studentName}. Voy a ayudarte a completar el documento paso a paso. ¿Empezamos con la información de la institución educativa?`);
+      handleBotResponse(conversationFlow[0].question);
     }, 1000);
   }, [studentName]);
 
@@ -59,10 +154,33 @@ const PiarChatSimulator: React.FC<PiarChatSimulatorProps> = ({ studentName }) =>
       if (inputRef.current) inputRef.current.focus();
     }, 100);
     
-    // Simulate bot response after delay
-    setTimeout(() => {
-      generateBotResponse(input);
-    }, 1000 + Math.random() * 500);
+    // Process the current conversation step
+    processUserResponse(input);
+  };
+
+  const processUserResponse = (userMessage: string) => {
+    // Get current step data
+    const currentStepData = conversationFlow[currentStep];
+    
+    // If this step has a field to update, save the user's response
+    if (currentStepData && currentStepData.field && currentStepData.section) {
+      updatePiarData(currentStepData.section, currentStepData.field, userMessage);
+    }
+    
+    // Move to the next step
+    const nextStep = currentStep + 1;
+    if (nextStep < conversationFlow.length) {
+      setCurrentStep(nextStep);
+      // Show next question after a short delay
+      setTimeout(() => {
+        handleBotResponse(conversationFlow[nextStep].question);
+      }, 1000);
+    } else {
+      // End of conversation flow
+      setTimeout(() => {
+        handleBotResponse("Has completado el proceso guiado. Puedes continuar editando el PIAR en cualquier momento o generar el documento PDF.");
+      }, 1000);
+    }
   };
 
   const handleBotResponse = (content: string) => {
@@ -74,70 +192,6 @@ const PiarChatSimulator: React.FC<PiarChatSimulatorProps> = ({ studentName }) =>
     };
     
     setMessages(prev => [...prev, newMessage]);
-  };
-
-  const generateBotResponse = (userMessage: string) => {
-    // Predefined responses based on keywords
-    // In a real implementation this would connect to n8n or another LLM service
-    const responses: Record<string, { response: string, data?: Record<string, any> }> = {
-      "institución": { 
-        response: "Perfecto. ¿Cuál es el nombre de la institución educativa?",
-        data: { section: "anexo1", field: "prompt_institucion", value: true }
-      },
-      "colegio": {
-        response: "¡Gracias! ¿En qué sede y jornada está estudiando?",
-        data: { section: "anexo1", field: "institucion_educativa", value: userMessage }
-      },
-      "sede": {
-        response: "Excelente. Ahora, ¿quiénes son los docentes responsables de implementar el PIAR?",
-        data: { section: "anexo1", field: "sede", value: userMessage }
-      },
-      "docente": {
-        response: "Gracias por esa información. Ahora cuéntame, ¿qué apoyos específicos necesita el estudiante?",
-        data: { section: "anexo2", field: "docentes_responsables", value: userMessage }
-      },
-      "apoy": {
-        response: "Comprendo las necesidades. ¿Podrías describir brevemente las habilidades destacadas del estudiante?",
-        data: { section: "anexo2", field: "apoyos", value: userMessage }
-      },
-      "habilidad": {
-        response: "Es importante reconocer esas fortalezas. ¿Qué participación tiene la familia en el proceso educativo?",
-        data: { section: "anexo2", field: "habilidades", value: userMessage }
-      },
-      "familia": {
-        response: "La participación familiar es clave. ¿Hay necesidades de accesibilidad o ajustes físicos que debamos considerar?",
-        data: { section: "anexo3", field: "participacion_familiar", value: userMessage }
-      },
-      "accesibilidad": {
-        response: "Anotado. Finalmente, ¿cuál es el contexto social/comunitario del estudiante?",
-        data: { section: "anexo3", field: "accesibilidad", value: userMessage }
-      },
-      "contexto": {
-        response: "¡Perfecto! Hemos recopilado información valiosa para el PIAR. Puedes revisar la información en cada anexo en el panel derecho y hacer ajustes si es necesario.",
-        data: { section: "anexo3", field: "contexto", value: userMessage }
-      }
-    };
-    
-    // Find matching response
-    let matchedKey = '';
-    for (const key of Object.keys(responses)) {
-      if (userMessage.toLowerCase().includes(key.toLowerCase())) {
-        matchedKey = key;
-        break;
-      }
-    }
-    
-    if (!matchedKey) {
-      handleBotResponse("Gracias por esa información. ¿Hay algo más específico sobre el estudiante que quieras compartir?");
-    } else {
-      const { response, data } = responses[matchedKey];
-      handleBotResponse(response);
-      
-      // Update PIAR data if applicable
-      if (data) {
-        updatePiarData(data.section, data.field, data.value);
-      }
-    }
   };
 
   return (
