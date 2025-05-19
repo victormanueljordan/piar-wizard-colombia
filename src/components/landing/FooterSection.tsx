@@ -1,10 +1,8 @@
-
 import React from 'react';
 import Logo from '@/components/Logo';
 import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
 import PartnersSection from './PartnersSection';
-
 const FooterSection = () => {
   return <footer>
       <PartnersSection />
@@ -90,7 +88,7 @@ const FooterSection = () => {
                       Bogotá, Colombia
                     </span>
                   </div>
-                  <img src="/lovable-uploads/hackathon-badge.svg" alt="Hackathon LATAM Winner" className="h-16 w-auto mt-4" />
+                  
                 </div>
               </ScrollReveal>
             </div>
