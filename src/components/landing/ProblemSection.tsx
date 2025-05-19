@@ -7,20 +7,20 @@ const ProblemSection = () => {
   const solutions = [
     {
       text: "Docentes con acompañamiento continuo para construir los PIAR",
-      image: "/lovable-uploads/ff12f31e-e940-4147-ba6c-fd7e4866fda4.png",
-      alt: "Docente trabajando con PIAR123",
+      image: "/lovable-uploads/93250796-1e57-46d9-8e58-42b3d7237b6a.png",
+      alt: "Docente trabajando con materiales educativos y en computadora",
       delay: 0
     },
     {
       text: "Optimización de tiempo y reducción de carga administrativa",
-      image: "/lovable-uploads/da672c1f-6a82-4590-b794-20f131253d35.png",
-      alt: "Docente gestionando horarios eficientemente",
+      image: "/lovable-uploads/81fb6b68-75c9-4c10-bbdd-799c03895bec.png",
+      alt: "Calendario y reloj indicando optimización de tiempo administrativo",
       delay: 200
     },
     {
       text: "Facilidad para cumplir con el Decreto 1421 de 2017",
-      image: "/lovable-uploads/53b9eb2f-0e3b-47f7-84ce-dd4f6715f818.png",
-      alt: "Docente completando documentación oficial",
+      image: "/lovable-uploads/4906ba1e-ed60-4c22-ac71-c5932d14f55f.png",
+      alt: "Documentos oficiales y certificación de cumplimiento legal",
       delay: 400
     }
   ];
@@ -51,7 +51,7 @@ const ProblemSection = () => {
                   <img 
                     src={item.image} 
                     alt={item.alt} 
-                    className="w-full h-full object-cover rounded-lg" 
+                    className="w-full h-full object-contain rounded-lg" 
                   />
                 </div>
                 <div className="flex items-start gap-3">
