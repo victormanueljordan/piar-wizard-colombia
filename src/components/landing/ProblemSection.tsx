@@ -39,7 +39,7 @@ const ProblemSection = () => {
             </span>
           </h2>
           <p className="text-xl text-gray-600 text-center mb-16 max-w-3xl mx-auto">
-            Transforma la manera en que creas e implementas los Planes Individuales de Ajustes Razonables con nuestra plataforma intuitiva y eficiente.
+            Transformaremos la manera en que se crean e implementan los Planes Individuales de Ajustes Razonables con nuestra plataforma intuitiva y eficiente.
           </p>
         </ScrollReveal>
         
@@ -64,7 +64,7 @@ const ProblemSection = () => {
         <ScrollReveal delay={300}>
           <div className="mt-16 bg-gradient-to-r from-piar-blue/10 to-piar-green/10 p-8 rounded-xl shadow-md max-w-2xl mx-auto transform hover:scale-[1.01] hover:shadow-lg transition-all duration-500">
             <p className="text-xl md:text-2xl font-medium text-gray-700 italic text-center">
-              "Con PIAR123, cada estudiante recibe lo que necesita, y cada docente recupera su tiempo."
+              "Con PIAR123 cada estudiante podrá recibir lo que necesita, y los docentes contarán con herramientas que alivian su carga."
             </p>
           </div>
         </ScrollReveal>

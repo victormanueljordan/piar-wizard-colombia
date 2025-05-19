@@ -1,50 +1,49 @@
 
 import React from 'react';
 import ScrollReveal from '@/components/ScrollReveal';
-
-const partners = [
-  {
-    name: "Ministerio de Educación",
-    logo: "/lovable-uploads/partner-1.svg"
-  },
-  {
-    name: "Hackathon LATAM de IA",
-    logo: "/lovable-uploads/partner-2.svg"
-  },
-  {
-    name: "Google for Education",
-    logo: "/lovable-uploads/partner-3.svg"
-  },
-  {
-    name: "Microsoft Education",
-    logo: "/lovable-uploads/partner-4.svg"
-  },
-  {
-    name: "UNESCO",
-    logo: "/lovable-uploads/partner-5.svg"
-  }
-];
+import { Building, School, Landmark } from 'lucide-react';
 
 const PartnersSection = () => {
   return (
     <section className="section bg-white py-12">
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4">
         <ScrollReveal>
-          <h3 className="text-xl font-semibold text-center mb-8 text-gray-700">Respaldado por instituciones de confianza</h3>
+          <h3 className="text-xl font-semibold text-center mb-6 text-gray-700">Alianzas estratégicas</h3>
         </ScrollReveal>
         
-        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
-          {partners.map((partner, index) => (
-            <ScrollReveal key={index} delay={index * 100} className="grayscale hover:grayscale-0 transition-all duration-500">
-              <div className="h-12 flex items-center justify-center">
-                <img 
-                  src={partner.logo} 
-                  alt={`Logo de ${partner.name}`}
-                  className="max-h-12 max-w-[120px] md:max-w-[180px]"
-                />
+        <ScrollReveal delay={200}>
+          <p className="text-center max-w-2xl mx-auto text-gray-600 mb-8">
+            Nos proyectamos como aliados estratégicos de instituciones comprometidas con la equidad educativa.
+          </p>
+        </ScrollReveal>
+        
+        <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16">
+          <ScrollReveal delay={100} className="text-center">
+            <div className="flex flex-col items-center">
+              <div className="bg-blue-50 p-4 rounded-full mb-3">
+                <School className="h-8 w-8 text-blue-600" />
               </div>
-            </ScrollReveal>
-          ))}
+              <p className="text-sm text-gray-600">Instituciones Educativas</p>
+            </div>
+          </ScrollReveal>
+          
+          <ScrollReveal delay={200} className="text-center">
+            <div className="flex flex-col items-center">
+              <div className="bg-green-50 p-4 rounded-full mb-3">
+                <Building className="h-8 w-8 text-green-600" />
+              </div>
+              <p className="text-sm text-gray-600">Organizaciones Educativas</p>
+            </div>
+          </ScrollReveal>
+          
+          <ScrollReveal delay={300} className="text-center">
+            <div className="flex flex-col items-center">
+              <div className="bg-amber-50 p-4 rounded-full mb-3">
+                <Landmark className="h-8 w-8 text-amber-600" />
+              </div>
+              <p className="text-sm text-gray-600">Entidades Gubernamentales</p>
+            </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

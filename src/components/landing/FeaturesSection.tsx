@@ -7,14 +7,14 @@ const FeaturesSection = () => {
   const features = [
     {
       title: "IA Asistente",
-      description: "Sugerencias automáticas con IA que facilitan la creación de planes personalizados",
+      description: "Sugerencias automáticas con IA que facilitarán la creación de planes personalizados",
       icon: <BrainCircuit className="h-10 w-10 text-white" />,
       color: "from-blue-500 to-indigo-600",
       delay: 0
     },
     {
       title: "Gestión Centralizada",
-      description: "Gestión centralizada por institución y docente que mejora la coordinación",
+      description: "Gestión centralizada por institución y docente que mejorará la coordinación",
       icon: <Users className="h-10 w-10 text-white" />,
       color: "from-green-500 to-emerald-600",
       delay: 200
@@ -28,7 +28,7 @@ const FeaturesSection = () => {
     },
     {
       title: "Seguridad Garantizada",
-      description: "Plataforma segura y fácil de usar que protege la información sensible",
+      description: "Plataforma segura y fácil de usar que protegerá la información sensible",
       icon: <ShieldCheck className="h-10 w-10 text-white" />,
       color: "from-red-500 to-rose-600",
       delay: 600
@@ -44,7 +44,7 @@ const FeaturesSection = () => {
             Una herramienta inteligente, simple y efectiva
           </h2>
           <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
-            Diseñada por docentes para docentes, nuestra plataforma simplifica la creación de PIAR mientras optimiza tu tiempo y recursos.
+            Diseñada por docentes para docentes, nuestra plataforma simplificará la creación de PIAR mientras optimiza tu tiempo y recursos.
           </p>
         </ScrollReveal>
         
@@ -64,7 +64,10 @@ const FeaturesSection = () => {
                       <span className="inline-flex items-center justify-center h-5 w-5 rounded-full bg-green-100 mr-2">
                         <Check className="h-3 w-3 text-green-600" />
                       </span>
-                      <span className="text-sm text-gray-600">Beneficio {index + 1}.{item}</span>
+                      <span className="text-sm text-gray-600">
+                        {index === 0 && item === 1 ? "Diseñada para reducir significativamente el tiempo que los docentes dedican a crear PIAR" : 
+                         `Beneficio ${index + 1}.${item}`}
+                      </span>
                     </li>
                   ))}
                 </ul>

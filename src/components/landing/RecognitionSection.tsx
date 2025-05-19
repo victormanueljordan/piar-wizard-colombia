@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Award } from 'lucide-react';
+import { Award, User } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
 
 const RecognitionSection = () => {
@@ -25,15 +25,8 @@ const RecognitionSection = () => {
               </span>
             </h2>
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              PIAR123 fue el proyecto ganador entre más de 800 participantes en la Hackathon de Inteligencia Artificial realizada en Latinoamérica. Nuestro enfoque innovador en la educación inclusiva utilizando tecnología de vanguardia nos destacó entre los participantes.
+              PIAR123 fue reconocido como prototipo ganador en la Hackathon de Inteligencia Artificial realizada en Latinoamérica por su enfoque disruptivo en inclusión educativa. Nuestro proyecto destacó entre más de 800 participantes por su uso innovador de tecnología.
             </p>
-            <div className="bg-gradient-to-r from-piar-yellow/10 to-piar-blue/10 p-6 rounded-xl shadow-md border-l-4 border-piar-yellow hover:shadow-lg transition-all duration-300 relative overflow-hidden">
-              <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-piar-yellow/10 rounded-full blur-xl"></div>
-              <p className="italic text-gray-700 leading-relaxed relative z-10">
-                "PIAR123 representa una innovación educativa significativa que tiene el potencial de transformar la forma en que se implementan los planes de inclusión en toda Latinoamérica."
-              </p>
-              <p className="mt-3 font-medium text-right text-gray-800 relative z-10">- Jurado de la Hackathon LATAM de IA</p>
-            </div>
           </ScrollReveal>
           
           <ScrollReveal className="flex-1 flex justify-center items-center order-1 md:order-2 delay-300">
@@ -47,6 +40,39 @@ const RecognitionSection = () => {
             </div>
           </ScrollReveal>
         </div>
+      
+        {/* Lo que dicen los expertos */}
+        <ScrollReveal delay={400}>
+          <div className="mt-20">
+            <h3 className="text-2xl md:text-3xl font-bold text-center mb-10 font-heading">Lo que dicen los expertos</h3>
+            
+            <div className="bg-gradient-to-r from-piar-blue/10 to-piar-yellow/10 p-6 md:p-8 rounded-xl shadow-md border-l-4 border-piar-yellow hover:shadow-lg transition-all duration-300 relative overflow-hidden max-w-3xl mx-auto">
+              <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-piar-yellow/10 rounded-full blur-xl"></div>
+              
+              <p className="italic text-gray-700 leading-relaxed relative z-10 text-lg">
+                "PIAR123 es una herramienta que pueden usar los profesores que tienen mucha carga, para llegar de una mejor manera a los estudiantes que tienen necesidades especiales."
+              </p>
+              
+              <div className="flex items-center mt-6 relative z-10">
+                <div className="bg-white/80 p-2 rounded-full mr-4 shadow">
+                  <User className="h-10 w-10 text-gray-700" />
+                </div>
+                <div>
+                  <p className="font-medium text-gray-800">Tomás Calle</p>
+                  <p className="text-sm text-gray-600">Fundador de Croma y cofundador de Nilho</p>
+                  <a 
+                    href="https://www.linkedin.com/in/tomas-calle/" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-xs text-blue-600 hover:underline"
+                  >
+                    Ver perfil en LinkedIn
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

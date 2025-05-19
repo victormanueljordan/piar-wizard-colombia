@@ -26,20 +26,16 @@ const CallToAction = ({ scrollToLogin }: CallToActionProps) => {
           ¿Eres docente o parte de una institución educativa?
         </h2>
         <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">
-          Únete a los educadores que ya están transformando la inclusión educativa con PIAR123
+          Estamos construyendo la herramienta que transformará la manera en que las instituciones educativas abordan la inclusión
         </p>
         <Button 
           onClick={scrollToLogin}
           size="lg" 
           className="bg-white text-blue-600 hover:bg-blue-50 font-bold text-lg transition-all duration-300 hover:shadow-xl px-8 py-7 rounded-md"
         >
-          <span>Comienza ahora con PIAR123</span>
+          <span>Sé el primero en probar PIAR123</span>
           <ArrowRight className="ml-2 h-5 w-5" />
         </Button>
-        
-        <p className="text-blue-100 mt-6">
-          Más de 200 instituciones ya confían en nuestra plataforma
-        </p>
       </div>
     </section>
   );

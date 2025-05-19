@@ -1,8 +1,10 @@
+
 import React from 'react';
 import Logo from '@/components/Logo';
 import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
 import PartnersSection from './PartnersSection';
+
 const FooterSection = () => {
   return <footer>
       <PartnersSection />
@@ -39,7 +41,7 @@ const FooterSection = () => {
                 <div>
                   <h3 className="text-lg font-semibold mb-4 text-white">Acerca de PIAR123</h3>
                   <p className="text-sm text-gray-400 mb-4">
-                    PIAR123 es una plataforma inteligente que facilita la creación de Planes Individuales de Ajustes Razonables para docentes, instituciones y familias.
+                    PIAR123 será una plataforma inteligente que facilitará la creación de Planes Individuales de Ajustes Razonables para docentes, instituciones y familias.
                   </p>
                   <div className="flex gap-4">
                     <a href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -84,7 +86,7 @@ const FooterSection = () => {
                   <div className="flex items-start gap-2 mb-3">
                     <MapPin size={18} className="text-gray-400 mt-1 flex-shrink-0" />
                     <span className="text-sm text-gray-400">
-                      Calle 90 # 12-28, Oficina 204<br />
+                      Cra 12 # 90-20, Oficina 204<br />
                       Bogotá, Colombia
                     </span>
                   </div>
