@@ -4,6 +4,7 @@ import Logo from '@/components/Logo';
 import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
 import PartnersSection from './PartnersSection';
+
 const FooterSection = () => {
   return <footer>
       <PartnersSection />
@@ -102,4 +103,5 @@ const FooterSection = () => {
       </div>
     </footer>;
 };
+
 export default FooterSection;
