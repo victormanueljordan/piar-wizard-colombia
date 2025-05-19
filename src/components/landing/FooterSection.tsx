@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Logo from '@/components/Logo';
 import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
@@ -84,8 +85,8 @@ const FooterSection = () => {
                   <div className="flex items-start gap-2 mb-3">
                     <MapPin size={18} className="text-gray-400 mt-1 flex-shrink-0" />
                     <span className="text-sm text-gray-400">
-                      Cra 12 # 90-20, Oficina 204<br />
-                      Bogotá, Colombia
+                      Calle 1C # 66A-35<br />
+                      Cali, Colombia
                     </span>
                   </div>
                   
