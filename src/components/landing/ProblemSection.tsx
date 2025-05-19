@@ -7,20 +7,20 @@ const ProblemSection = () => {
   const solutions = [
     {
       text: "Docentes con acompañamiento continuo para construir los PIAR",
-      image: "/lovable-uploads/solution-1.svg",
-      alt: "Docente trabajando con apoyo",
+      image: "/lovable-uploads/ff12f31e-e940-4147-ba6c-fd7e4866fda4.png",
+      alt: "Docente trabajando con PIAR123",
       delay: 0
     },
     {
       text: "Optimización de tiempo y reducción de carga administrativa",
-      image: "/lovable-uploads/solution-2.svg",
-      alt: "Docente con tiempo óptimo",
+      image: "/lovable-uploads/e3abab4c-dd32-4ad7-94e0-b2ba99ec8ae0.png",
+      alt: "Docente gestionando horarios eficientemente",
       delay: 200
     },
     {
       text: "Facilidad para cumplir con el Decreto 1421 de 2017",
-      image: "/lovable-uploads/solution-3.svg",
-      alt: "Documento de regulación simplificado",
+      image: "/lovable-uploads/53b9eb2f-0e3b-47f7-84ce-dd4f6715f818.png",
+      alt: "Docente completando documentación oficial",
       delay: 400
     }
   ];
@@ -47,8 +47,12 @@ const ProblemSection = () => {
           {solutions.map((item, index) => (
             <ScrollReveal key={index} delay={item.delay}>
               <div className="hover-card p-6 h-full flex flex-col">
-                <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl mb-6 flex justify-center items-center">
-                  <img src={item.image} alt={item.alt} className="h-40 w-auto object-contain" />
+                <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl mb-6 flex justify-center items-center overflow-hidden">
+                  <img 
+                    src={item.image} 
+                    alt={item.alt} 
+                    className="w-full h-auto object-cover rounded-lg" 
+                  />
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="bg-gradient-to-br from-piar-blue to-piar-green p-2 rounded-full flex-shrink-0 mt-1">
