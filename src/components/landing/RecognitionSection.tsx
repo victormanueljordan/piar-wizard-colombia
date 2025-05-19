@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Award, User } from 'lucide-react';
+import { Award } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
 
 const RecognitionSection = () => {
@@ -12,7 +12,7 @@ const RecognitionSection = () => {
         <div className="flex flex-col md:flex-row items-center gap-10">
           <ScrollReveal className="flex-1 order-1 md:order-1">
             <h2 className="text-3xl md:text-4xl font-bold mb-5 text-gray-800 font-heading flex items-center gap-3">
-              <Award className="h-8 w-8 text-piar-yellow drop-shadow-[0_0_5px_rgba(243,199,28,0.6)]" />
+              <Award className="h-10 w-10 text-piar-yellow drop-shadow-[0_0_5px_rgba(243,199,28,0.6)]" />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-piar-yellow to-piar-blue">
                 Ganador Hackathon LATAM de IA
               </span>

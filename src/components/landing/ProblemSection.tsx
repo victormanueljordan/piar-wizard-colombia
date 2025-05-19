@@ -13,7 +13,7 @@ const ProblemSection = () => {
     },
     {
       text: "Optimización de tiempo y reducción de carga administrativa",
-      image: "/lovable-uploads/e3abab4c-dd32-4ad7-94e0-b2ba99ec8ae0.png",
+      image: "/lovable-uploads/da672c1f-6a82-4590-b794-20f131253d35.png",
       alt: "Docente gestionando horarios eficientemente",
       delay: 200
     },
@@ -47,11 +47,11 @@ const ProblemSection = () => {
           {solutions.map((item, index) => (
             <ScrollReveal key={index} delay={item.delay}>
               <div className="hover-card p-6 h-full flex flex-col">
-                <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl mb-6 flex justify-center items-center overflow-hidden">
+                <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl mb-6 flex justify-center items-center overflow-hidden" style={{height: "220px"}}>
                   <img 
                     src={item.image} 
                     alt={item.alt} 
-                    className="w-full h-auto object-cover rounded-lg" 
+                    className="w-full h-full object-cover rounded-lg" 
                   />
                 </div>
                 <div className="flex items-start gap-3">
