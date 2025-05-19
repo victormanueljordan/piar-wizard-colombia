@@ -1,15 +1,12 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, Play } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
-
 interface HeroSectionProps {
   scrollToLogin: () => void;
   scrollToProblem: () => void;
   scrollToVideo: () => void;
 }
-
 const HeroSection = ({
   scrollToLogin,
   scrollToProblem,
@@ -58,7 +55,7 @@ const HeroSection = ({
           <div className="order-1 lg:order-2 flex justify-center">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-piar-blue/20 to-piar-green/20 rounded-full blur-3xl"></div>
-              <img alt="PIAR123 - Inclusión Educativa" className="relative z-10 max-w-md w-full h-auto animate-float" src="/lovable-uploads/a6989286-b41f-4a2f-ac2e-03c81642f1f7.jpg" />
+              <img alt="PIAR123 - Inclusión Educativa" src="/lovable-uploads/9da9be40-8f7c-4a6b-9468-e6fb086039dd.png" className="relative z-10 max-w-md w-full h-auto animate-float" />
             </div>
           </div>
         </div>
@@ -71,5 +68,4 @@ const HeroSection = ({
       </div>
     </section>;
 };
-
 export default HeroSection;
