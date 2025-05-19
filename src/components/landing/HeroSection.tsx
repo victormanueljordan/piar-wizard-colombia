@@ -72,12 +72,14 @@ const HeroSection = ({ scrollToLogin, scrollToProblem, scrollToVideo }: HeroSect
       </div>
 
       {/* Add CSS animation for the underline effect */}
-      <style jsx global>{`
-        @keyframes expand {
-          from { width: 0; }
-          to { width: 100%; }
-        }
-      `}</style>
+      <style>
+        {`
+          @keyframes expand {
+            from { width: 0; }
+            to { width: 100%; }
+          }
+        `}
+      </style>
     </section>
   );
 };
