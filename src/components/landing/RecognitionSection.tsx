@@ -10,9 +10,20 @@ const RecognitionSection = () => {
       
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center gap-10">
-          <ScrollReveal className="flex-1 order-2 md:order-1">
-            <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-1 rounded-lg mb-6 hidden md:block">
-              {/* Video about the hackathon achievement */}
+          <ScrollReveal className="flex-1 order-1 md:order-1">
+            <h2 className="text-3xl md:text-4xl font-bold mb-5 text-gray-800 font-heading flex items-center gap-3">
+              <Award className="h-8 w-8 text-piar-yellow drop-shadow-[0_0_5px_rgba(243,199,28,0.6)]" />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-piar-yellow to-piar-blue">
+                Ganador Hackathon LATAM de IA
+              </span>
+            </h2>
+            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+              PIAR123 fue reconocido como prototipo ganador en la Hackathon de Inteligencia Artificial realizada en Latinoamérica por su enfoque disruptivo en inclusión educativa. Nuestro proyecto destacó entre más de 800 participantes por su uso innovador de tecnología.
+            </p>
+          </ScrollReveal>
+          
+          <ScrollReveal className="flex-1 flex justify-center items-center order-2 md:order-2 delay-300">
+            <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-1 rounded-lg overflow-hidden w-full">
               <div className="aspect-video rounded-lg overflow-hidden">
                 <iframe
                   src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7328400341597655040"
@@ -24,26 +35,6 @@ const RecognitionSection = () => {
                   className="w-full h-full"
                 ></iframe>
               </div>
-            </div>
-            
-            <h2 className="text-3xl md:text-4xl font-bold mb-5 text-gray-800 font-heading">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-piar-yellow to-piar-blue">
-                Ganador Hackathon LATAM de IA
-              </span>
-            </h2>
-            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              PIAR123 fue reconocido como prototipo ganador en la Hackathon de Inteligencia Artificial realizada en Latinoamérica por su enfoque disruptivo en inclusión educativa. Nuestro proyecto destacó entre más de 800 participantes por su uso innovador de tecnología.
-            </p>
-          </ScrollReveal>
-          
-          <ScrollReveal className="flex-1 flex justify-center items-center order-1 md:order-2 delay-300">
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-piar-yellow/30 to-piar-blue/30 rounded-full blur-3xl -z-10"></div>
-              <div className="relative z-10 flex items-center justify-center">
-                <div className="absolute inset-0 rounded-full bg-white/30 blur-xl"></div>
-                <Award className="h-40 w-40 text-piar-yellow drop-shadow-[0_0_15px_rgba(243,199,28,0.6)] relative z-10" />
-              </div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 rounded-full border-4 border-dashed border-yellow-200 animate-spin-slow"></div>
             </div>
           </ScrollReveal>
         </div>
