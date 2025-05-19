@@ -8,8 +8,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, InfoIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const StudentInitialForm = () => {
   const navigate = useNavigate();
@@ -67,6 +68,15 @@ const StudentInitialForm = () => {
           </CardHeader>
           
           <CardContent>
+            <Alert className="mb-6 bg-blue-50 border-blue-200">
+              <InfoIcon className="h-4 w-4 text-blue-500 mr-2" />
+              <AlertDescription className="text-blue-700">
+                <strong>Modo demostración:</strong> Esta es una versión de demostración. Por favor utilice datos ficticios. 
+                El PIAR generado será solo una muestra con fines ilustrativos y no puede ser utilizado como 
+                documento oficial. El formato generado incluirá una marca de agua.
+              </AlertDescription>
+            </Alert>
+            
             <form onSubmit={handleSubmit} className="space-y-6 py-4">
               <div className="space-y-4">
                 <div className="grid gap-2">

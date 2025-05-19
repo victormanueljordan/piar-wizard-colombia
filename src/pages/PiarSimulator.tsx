@@ -1,11 +1,11 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { Download } from 'lucide-react';
+import { Download, InfoIcon } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from '@/hooks/use-toast';
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
@@ -46,7 +46,6 @@ const PiarSimulator = () => {
       toast({
         title: "PIAR incompleto",
         description: "Este PIAR aún no está completo. Puedes continuar más adelante o descargar lo que llevas hasta ahora.",
-        // Remove the invalid "warning" variant
       });
     } else {
       // PDF generation logic would go here in a real implementation
@@ -66,6 +65,16 @@ const PiarSimulator = () => {
         <Header userName="docente" />
         
         <main className="flex-1 container max-w-screen-xl mx-auto px-4 py-6">
+          <Alert className="mb-6 bg-blue-50 border-blue-200">
+            <InfoIcon className="h-4 w-4 text-blue-500 mr-2" />
+            <AlertDescription className="text-blue-700">
+              <strong>Modo demostración:</strong> Este simulador permite crear campos específicos de los anexos del PIAR 
+              con el objetivo de presentar la funcionalidad de la herramienta. El PIAR generado es únicamente una muestra 
+              y no debe utilizarse como documento oficial en instituciones educativas. Cualquier documento descargado 
+              incluirá una marca de agua para prevenir su uso inadecuado.
+            </AlertDescription>
+          </Alert>
+          
           <div className="flex justify-between items-center mb-6">
             <div>
               <h1 className="text-2xl font-bold text-gray-800">Creación Asistida del PIAR</h1>
