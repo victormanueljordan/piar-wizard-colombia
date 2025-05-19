@@ -10,7 +10,6 @@ import CallToAction from '@/components/landing/CallToAction';
 import LoginSection from '@/components/landing/LoginSection';
 import FooterSection from '@/components/landing/FooterSection';
 import CoFoundersSection from '@/components/landing/CoFoundersSection';
-import TestimonialsSection from '@/components/landing/TestimonialsSection';
 import StickyCTA from '@/components/landing/StickyCTA';
 import AnimatedBackground from '@/components/AnimatedBackground';
 
@@ -71,9 +70,6 @@ const Landing = () => {
       {/* Features Section */}
       <FeaturesSection />
       
-      {/* Testimonials Section */}
-      <TestimonialsSection />
-
       {/* Co-founders Section */}
       <CoFoundersSection />
 
