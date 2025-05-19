@@ -1,13 +1,10 @@
-
 import React from 'react';
 import Logo from '@/components/Logo';
 import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
 import PartnersSection from './PartnersSection';
-
 const FooterSection = () => {
-  return (
-    <footer>
+  return <footer>
       <PartnersSection />
       
       <div className="py-16 px-4 bg-gray-900 text-gray-300">
@@ -20,15 +17,15 @@ const FooterSection = () => {
               <ScrollReveal delay={100}>
                 <div className="flex items-center gap-2">
                   <div className="bg-white/10 p-2 rounded-full">
-                    <Phone size={18} className="text-white"/>
+                    <Phone size={18} className="text-white" />
                   </div>
-                  <span className="text-sm md:text-base">+1 (215) 398 1983</span>
+                  <span className="text-sm md:text-base">+573186229344</span>
                 </div>
               </ScrollReveal>
               <ScrollReveal delay={200}>
                 <div className="flex items-center gap-2">
                   <div className="bg-white/10 p-2 rounded-full">
-                    <Mail size={18} className="text-white"/>
+                    <Mail size={18} className="text-white" />
                   </div>
                   <span className="text-sm md:text-base">contacto@piar123.com</span>
                 </div>
@@ -91,11 +88,7 @@ const FooterSection = () => {
                       Bogotá, Colombia
                     </span>
                   </div>
-                  <img 
-                    src="/lovable-uploads/hackathon-badge.svg" 
-                    alt="Hackathon LATAM Winner" 
-                    className="h-16 w-auto mt-4"
-                  />
+                  <img src="/lovable-uploads/hackathon-badge.svg" alt="Hackathon LATAM Winner" className="h-16 w-auto mt-4" />
                 </div>
               </ScrollReveal>
             </div>
@@ -106,8 +99,6 @@ const FooterSection = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default FooterSection;
