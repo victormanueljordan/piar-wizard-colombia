@@ -21,7 +21,7 @@ const CallToAction = ({ scrollToLogin }: CallToActionProps) => {
         <div className="absolute -right-20 top-1/4 w-40 h-[200%] bg-white/10 -rotate-45 blur-xl"></div>
       </div>
       
-      <div className="container mx-auto space-y-8 relative z-10 px-4">
+      <div className="container mx-auto max-w-4xl space-y-8 relative z-10 px-4 sm:px-6">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading mb-6">
           ¿Eres docente o parte de una institución educativa?
         </h2>
@@ -31,7 +31,7 @@ const CallToAction = ({ scrollToLogin }: CallToActionProps) => {
         <Button 
           onClick={scrollToLogin}
           size="lg" 
-          className="bg-white text-blue-600 hover:bg-blue-50 font-bold text-lg transition-all duration-300 hover:shadow-xl px-8 py-7 rounded-md"
+          className="bg-white text-blue-600 hover:bg-blue-50 font-bold text-lg transition-all duration-300 hover:shadow-xl px-8 py-7 rounded-md w-full sm:w-auto"
         >
           <span>Sé el primero en probar PIAR123</span>
           <ArrowRight className="ml-2 h-5 w-5" />

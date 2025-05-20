@@ -9,6 +9,8 @@ import {
 } from '@/components/ui/carousel';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import ScrollReveal from '@/components/ScrollReveal';
+import { ChevronDown } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 type VideoInfo = {
   id: string;
@@ -35,6 +37,8 @@ const videos: VideoInfo[] = [
 ];
 
 const PiarVideosSection = () => {
+  const isMobile = useIsMobile();
+  
   return (
     <section className="section bg-gradient-to-b from-gray-50 to-white py-16 px-4">
       <div className="container mx-auto">
@@ -47,11 +51,12 @@ const PiarVideosSection = () => {
           </p>
         </ScrollReveal>
 
-        <div className="relative px-4 md:px-12">
+        <div className="relative px-2 md:px-12">
           <Carousel 
             opts={{
               align: 'start',
               loop: true,
+              dragFree: isMobile,
             }}
             className="w-full"
           >
@@ -88,8 +93,14 @@ const PiarVideosSection = () => {
           </Carousel>
 
           <div className="mt-8 text-center">
-            <p className="text-sm text-gray-500 hidden md:block">Usa las flechas para navegar</p>
-            <p className="text-sm text-gray-500 block md:hidden">Desliza para ver más videos</p>
+            {isMobile ? (
+              <div className="flex flex-col items-center animate-bounce">
+                <p className="text-sm text-gray-500 mb-1">Desliza para ver más videos</p>
+                <ChevronDown size={16} className="text-gray-500" />
+              </div>
+            ) : (
+              <p className="text-sm text-gray-500">Usa las flechas para navegar</p>
+            )}
           </div>
         </div>
       </div>
