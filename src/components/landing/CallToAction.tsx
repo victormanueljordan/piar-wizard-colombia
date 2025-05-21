@@ -21,8 +21,9 @@ const CallToAction = ({ scrollToLogin }: CallToActionProps) => {
         <div className="absolute -right-20 top-1/4 w-40 h-[200%] bg-white/10 -rotate-45 blur-xl"></div>
       </div>
       
-      <div className="container mx-auto max-w-4xl space-y-8 relative z-10 px-4 sm:px-6">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading mb-6">
+      {/* Content container - adjusted for better centering */}
+      <div className="container mx-auto max-w-4xl space-y-8 relative z-10 px-4 sm:px-6 flex flex-col items-center">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading mb-6 max-w-3xl">
           ¿Eres docente o parte de una institución educativa?
         </h2>
         <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">

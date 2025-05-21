@@ -51,12 +51,12 @@ const PiarVideosSection = () => {
           </p>
         </ScrollReveal>
 
-        <div className="relative px-2 md:px-12">
+        <div className="relative px-0 sm:px-4 md:px-12">
           <Carousel 
             opts={{
               align: 'start',
               loop: true,
-              dragFree: isMobile,
+              dragFree: true, // Enable drag-free for all devices for better mobile experience
             }}
             className="w-full"
           >
@@ -92,9 +92,10 @@ const PiarVideosSection = () => {
             </div>
           </Carousel>
 
-          <div className="mt-8 text-center">
+          {/* Improved mobile swipe indicator with animation */}
+          <div className="mt-6 text-center">
             {isMobile ? (
-              <div className="flex flex-col items-center animate-bounce">
+              <div className="flex flex-col items-center animate-bounce py-2">
                 <p className="text-sm text-gray-500 mb-1">Desliza para ver más videos</p>
                 <ChevronDown size={16} className="text-gray-500" />
               </div>
