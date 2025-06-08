@@ -1,8 +1,11 @@
+
 import React from 'react';
 import { Award } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
+
 const RecognitionSection = () => {
-  return <section className="section bg-white relative overflow-hidden">
+  return (
+    <section className="section bg-white relative overflow-hidden">
       <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-br from-piar-yellow/10 to-piar-blue/10 rounded-full filter blur-3xl"></div>
       
       <div className="container mx-auto px-4">
@@ -22,7 +25,15 @@ const RecognitionSection = () => {
           <ScrollReveal className="flex-1 flex justify-center items-center order-2 md:order-2 delay-300">
             <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-1 rounded-lg overflow-hidden w-full">
               <div className="aspect-video rounded-lg overflow-hidden">
-                <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7328400341597655040" height="415" width="100%" frameBorder="0" allowFullScreen={true} title="Hackathon Achievement Video" className="w-full h-full"></iframe>
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src="https://www.youtube.com/embed/wQWlMbVKNDc"
+                  title="Hackathon LATAM de IA - PIAR123 Ganador"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                ></iframe>
               </div>
             </div>
           </ScrollReveal>
@@ -56,6 +67,8 @@ const RecognitionSection = () => {
           </div>
         </ScrollReveal>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default RecognitionSection;
