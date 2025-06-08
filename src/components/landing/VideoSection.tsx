@@ -63,7 +63,7 @@ const VideoSection = () => {
               
               <div className="aspect-video rounded-lg overflow-hidden border border-white/20 group-hover:border-purple-300/30 transition-colors duration-300">
                 <iframe
-                  src="https://www.youtube.com/embed/8UVhvfzC0bI"
+                  src="https://www.youtube.com/embed/wQWlMbVKNDc"
                   title="PIAR123 Award Ceremony"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
